@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{padding: 0;margin: 0}
+    body{padding: 200px 400px;}
+    #addFile{width: 100px;height: 100px;}
+    #imgs{overflow: hidden;padding: 20px}
+    #imgs div{width: 100px;height: 100px;border: 1px dashed #ccc;margin-right: 20px;float: left;border-radius: 6px;text-align: center;overflow: hidden;position: relative;}
+    #imgs img {width: auto;max-height: 100%;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);}
+  </style>
+</head>
+<body>
+  <div id="addFile"><input type="file" id="upload"></div>
+  <div id="imgs"></div>
+  <script>
+    let oUpload = document.getElementById('upload');
+    let oImgs = document.getElementById('imgs');
+    oUpload.onchange = function (e) {
+      let files = e.target.files || e.dataTransfer.files
+
+      fr = new FileReader();
+
+      fr.readAsDataURL(files[0])
+      
+      fr.onload = function (e) {
+        console.log('onload');
+        var img = new Image();
+        img.src = e.target.result; // 显示图片的地方
+        let odiv = document.createElement('div');
+        oImgs.appendChild(odiv);
+        odiv.appendChild(img);
+      }
+
+      fr.onloadend = function (e) {
+        console.log('onloadend');
+      }
+    }
+  </script>
+</body>
+</html>
