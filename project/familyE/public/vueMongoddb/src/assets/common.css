@@ -1,0 +1,13 @@
+*{
+  padding: 0px;
+  margin: 0px
+}
+.pull_right{
+  float: right;
+}
+.pull_left{
+  float: left;
+}
+.text_center{
+  text-align: center
+}
