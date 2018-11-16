@@ -1,17 +1,20 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const city = require('./City');
 // 年级 schema
 var gradeSchema = new Schema({
   //所在城市
-  cityId: {
-    type: ObjectId,
-    ref: 'city'
+  cityCode: {
+    type: String,
   },
   // 年级名称
   gradeName: {
     type: String,
     required: true
+  },
+  createTime: {
+    type: Date,
+    default: Date.now
   }
 })
 

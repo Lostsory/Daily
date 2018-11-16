@@ -1,22 +1,25 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const city = require('./city')
 
 // 科目 schema
 var subjectSchema = new Schema({
-  //所在城市
-  cityId: {
-    type: ObjectId,
-    ref: 'city'
+  cityCode: {
+    type: String,
+    required: true
   },
   // 科目名称
   subjectName: {
     type: String,
     required: true
   },
+  // 年级id
   gradeId: {
-    type: ObjectId,
-    ref: 'grade'
+    type: String,
+    required: true
+  },
+  createTime: {
+    type: Date,
+    default: Date.now
   }
 })
 

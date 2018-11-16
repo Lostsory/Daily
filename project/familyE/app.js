@@ -27,8 +27,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// DB config
+const db = require('./config/keys').mongodbUrl;
+
+// connect to mongodb
+const mongo = require('mongoose');
+mongo.connect(db).then(() => {
+  console.log('mongodb connected');
+}).catch((err) => {
+  console.log(err);
+})
+
 // 设置跨域访问
-app.use(function (req, res, next) {
+/* app.use(function (req, res, next) {
   res.header("Cache-Control", "no-cache, no-store");
   res.header("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST,GET,PUT,OPTIONS,DELETE")
@@ -36,7 +47,9 @@ app.use(function (req, res, next) {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type,XFILENAME,XFILECATEGORY,XFILESIZE,x-access-token"); // 如有特别需要可开启此项
   // res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next()
-})
+}) */
+
+/* 
 
 // token验证
 app.all('*', function(req, res, next) {
@@ -81,12 +94,26 @@ app.all('*', function(req, res, next) {
 })
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/users', usersRouter); */
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+/* app.use(function(req, res, next) {
+  console.log(111111111111111111111111111);
   next(createError(404));
-});
+}); */
+var cityRouter = require('./routes/api/city');
+var gradeRouter = require('./routes/api/grade');
+var subjectRouter = require('./routes/api/subject');
+var studentRouter = require('./routes/api/student');
+var responsiblePersonRouter = require('./routes/api/responsiblePerson');
+/* 
+var subjectRouter = require('./routes/api/subject');
+var subjectRouter = require('./routes/api/subject'); */
+app.use('/api/city', cityRouter)
+app.use('/api/grade', gradeRouter)
+app.use('/api/subject', subjectRouter)
+app.use('/api/student', studentRouter)
+app.use('/api/responsiblePerson', responsiblePersonRouter)
 
 // error handler
 app.use(function(err, req, res, next) {

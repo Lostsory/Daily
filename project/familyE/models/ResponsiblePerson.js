@@ -3,23 +3,29 @@ const Schema = mongoose.Schema;
 
 // 负责人 schema
 var responsiblePersonSchema = new Schema({
-  cityId: {
-    type: ObjectId,
-    ref: 'city'
+  cityCode: {
+    type: String,
+    required: true
   },
   // 负责人姓名
   responsibleName: {
     type: String,
     required: true
   },
-  // 负责人手机号码
+  // 负责人手机号码 || 账号
   responsiblePhone: {
     type: String,
     required: true
   },
-  // 负责人身份
+  // 密码
+  pwd: {
+    type: String,
+    required: true
+  },
+  // 负责人身份 0：平台超级管理员，1: 超级管理员，2:普通管理员,
   identity: {
-
+    type: String,
+    required: true
   }
 })
 

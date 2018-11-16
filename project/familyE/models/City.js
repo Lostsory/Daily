@@ -6,6 +6,10 @@ var citySchema = new Schema({
   cityName: {
     type: String,
     required: true
+  },
+  code: {
+    type: String,
+    required: true
   }
 })
 

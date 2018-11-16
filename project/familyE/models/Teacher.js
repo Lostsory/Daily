@@ -4,27 +4,17 @@ const Schema = mongoose.Schema;
 // 教员 schema
 var teacherSchema = new Schema({
   //所在城市
-  cityId: {
-    type: ObjectId,
-    ref: 'city'
-  },
-  // 详细地址
-  address: {
+  cityCode: {
     type: String,
-    required: false
+    required: true
   },
   //姓名
   teacherName: {
     type: String,
     required: true
   },
-  //性别 0：未知，1：:男，2：女
-  sex: {
-    type: String,
-    required: true
-  },
   //身份类型
-  cityId: {
+  typeId: {
     type: String,
     required: true
   },
@@ -37,6 +27,21 @@ var teacherSchema = new Schema({
   pwd: {
     type: String,
     required: true
+  },
+  //性别 0：未知，1：:男，2：女
+  sex: {
+    type: String,
+    required: false
+  },
+  // 详细地址
+  address: {
+    type: String,
+    required: false
+  },
+  // 备注
+  remark: {
+    type: String,
+    required: false
   },
   // 创建时间
   createTime: {

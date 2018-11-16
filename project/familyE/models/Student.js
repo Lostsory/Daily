@@ -4,27 +4,12 @@ const Schema = mongoose.Schema;
 // 学员 schema
 var studentSchema = new Schema({
   //所在城市
-  cityId: {
-    type: ObjectId,
-    ref: 'city'
-  },
-  // 详细地址
-  address: {
+  cityCode: {
     type: String,
-    required: false
+    required: true
   },
-  //姓名
+  //家长姓名
   studentName: {
-    type: String,
-    required: true
-  },
-  //性别 0：未知，1：:男，2：女
-  sex: {
-    type: String,
-    required: true
-  },
-  //子女年级
-  gradeId: {
     type: String,
     required: true
   },
@@ -37,6 +22,31 @@ var studentSchema = new Schema({
   pwd: {
     type: String,
     required: true
+  },
+  // 详细地址
+  address: {
+    type: String,
+    required: false
+  },
+  //性别 0：未知，1：:男，2：女
+  sex: {
+    type: String,
+    required: false
+  },
+  //子女年级
+  gradeId: {
+    type: String,
+    required: false
+  },
+  // 所在学校
+  school: {
+    type: String,
+    required: false
+  },
+  // 备注
+  remark: {
+    type: String,
+    required: false
   },
   // 创建时间
   createTime: {
