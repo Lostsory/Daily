@@ -26,11 +26,11 @@ var teacherSchema = new Schema({
   //密码
   pwd: {
     type: String,
-    required: true
+    default: '123456'
   },
   //性别 0：未知，1：:男，2：女
   sex: {
-    type: String,
+    type: Number,
     required: false
   },
   // 详细地址

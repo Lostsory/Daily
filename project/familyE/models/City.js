@@ -10,6 +10,24 @@ var citySchema = new Schema({
   code: {
     type: String,
     required: true
+  },
+  // 负责人姓名
+  responsibleName: {
+    type: String,
+    required: true
+  },
+  // 负责人手机号码 || 账号
+  responsiblePhone: {
+    type: String,
+    required: true
+  },
+  remark: {
+    type: String,
+    required: false
+  },
+  createTime: {
+    type: Date,
+    default: Date.now
   }
 })
 

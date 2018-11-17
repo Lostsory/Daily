@@ -21,7 +21,7 @@ var studentSchema = new Schema({
   //密码
   pwd: {
     type: String,
-    required: true
+    default: '123456'
   },
   // 详细地址
   address: {
@@ -35,6 +35,10 @@ var studentSchema = new Schema({
   },
   //子女年级
   gradeId: {
+    type: String,
+    required: false
+  },
+  gradeName: {
     type: String,
     required: false
   },

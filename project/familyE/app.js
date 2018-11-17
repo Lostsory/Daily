@@ -4,17 +4,10 @@ process.on('uncaughtException', function (err) {
   //打印出错误的调用栈方便调试
   console.log(err.stack);
 });
-var createError = require('http-errors');
+// var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
-
-// token设置
-const jwt = require('jsonwebtoken');
-const config = require('./config');
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -39,81 +32,34 @@ mongo.connect(db).then(() => {
 })
 
 // 设置跨域访问
-/* app.use(function (req, res, next) {
+app.use(function (req, res, next) {
   res.header("Cache-Control", "no-cache, no-store");
   res.header("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST,GET,PUT,OPTIONS,DELETE")
   res.setHeader('Content-Type', 'application/json;charset=UTF-8')
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type,XFILENAME,XFILECATEGORY,XFILESIZE,x-access-token"); // 如有特别需要可开启此项
-  // res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next()
-}) */
-
-/* 
-
-// token验证
-app.all('*', function(req, res, next) {
-  if (req.method != 'OPTIONS') {
-    var token = req.headers['x-access-token'];
-    var noToken = {
-      msg: '身份验证失败，请重新登录',
-      httpCode: '401'
-    };
-    if (token) {   // token存在的话执行
-      if (req.url == '/users/login') {
-        return next()
-      }
-      jwt.verify(token, config.secret, function (err, decoded) {
-        if (err) {
-          return res.send(noToken)
-        } else {
-          req.user_id = decoded
-          next()
-        }
-      })
-    } else {
-      return res.send(noToken)
-    }
-  } else {
-    next()
-  }
-})
-
-// 处理接收到的_id
-var ObjectId = require('mongodb').ObjectId;
-app.all('*', function(req, res, next) {
-  var reqMethod = req.method
-  if (reqMethod == 'POST' || reqMethod == 'PUT') {
-    req.body._id = ObjectId(req.body._id)
-  } else {
-    if (req.query.hasOwnProperty('_id')) {
-      req.query._id = ObjectId(req.query._id)
-    }
-  }
+  // res.setHeader("Access-Control-Allow-Headers", "Content-Type,XFILENAME,XFILECATEGORY,XFILESIZE,x-access-token"); // 如有特别需要可开启此项
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
   next()
 })
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter); */
-
-// catch 404 and forward to error handler
-/* app.use(function(req, res, next) {
-  console.log(111111111111111111111111111);
-  next(createError(404));
-}); */
 var cityRouter = require('./routes/api/city');
 var gradeRouter = require('./routes/api/grade');
 var subjectRouter = require('./routes/api/subject');
 var studentRouter = require('./routes/api/student');
 var responsiblePersonRouter = require('./routes/api/responsiblePerson');
-/* 
-var subjectRouter = require('./routes/api/subject');
-var subjectRouter = require('./routes/api/subject'); */
+var teacherRouter = require('./routes/api/teacher');
+
 app.use('/api/city', cityRouter)
 app.use('/api/grade', gradeRouter)
 app.use('/api/subject', subjectRouter)
 app.use('/api/student', studentRouter)
 app.use('/api/responsiblePerson', responsiblePersonRouter)
+app.use('/api/teacher', teacherRouter)
+
+// catch 404 and forward to error handler
+/* app.use(function(req, res, next) {
+  next(createError(404));
+}); */
 
 // error handler
 app.use(function(err, req, res, next) {

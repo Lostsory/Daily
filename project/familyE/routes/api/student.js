@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Student = require('../../models/Student');
+const Grade = require('../../models/Grade');
 
 /**
 * @api api/student/add
@@ -11,17 +12,19 @@ router.post('/add', (req, res) => {
   // 查询是否存在
   Student.findOne({ phone: req.body.phone }).then((student) => {
     if (student) {
-      return res.status(400).json({
+      return res.send({
         msg: '该手机号码已存在'
       })
     } else {
-      const newStudent = new Student({
-        ...req.body
-      })
-      newStudent.save().then(() => {
-        res.send({
-          httpCode: '200',
-          msg: '添加成功'
+      Grade.findById(req.body.gradeId).then((grade) => {
+        const newStudent = new Student({
+          ...req.body, gradeName: grade.gradeName
+        })
+        newStudent.save().then(() => {
+          res.send({
+            httpCode: '200',
+            msg: '添加成功'
+          })
         })
       })
     }
@@ -49,12 +52,17 @@ router.delete('/delete', (req, res) => {
 * @public
 */
 router.get('/list', (req, res) => {
-  const {cityCode} = req.query;
-  Student.find({cityCode}).then((student) => {
-    res.send({
-      data: student,
-      httpCode: '200',
-      msg: '请求成功'
+  let {cityCode, pageSize, pageNum} = req.query;
+  pageNum = parseInt(pageNum)
+  pageSize = parseInt(pageSize)
+  Student.find({cityCode}).sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((student) => {
+    Student.count().then((total) => {
+      res.send({
+        data: student,
+        total,
+        httpCode: '200',
+        msg: '请求成功'
+      })
     })
   })
 })

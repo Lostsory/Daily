@@ -13,7 +13,7 @@ router.post('/add', (req, res) => {
   // 查询是否存在
   Grade.findOne({ gradeName, cityCode }).then((grade) => {
     if (grade) {
-      return res.status(400).json({
+      return res.send({
         msg: '已存在此年级'
       })
     } else {
@@ -52,7 +52,7 @@ router.delete('/delete', (req, res) => {
 */
 router.get('/list', (req, res) => {
   const {cityCode} = req.query;
-  Grade.find({cityCode}).then((grade) => {
+  Grade.find({cityCode}).sort({'createTime': -1}).then((grade) => {
     res.send({
       data: grade,
       httpCode: '200',

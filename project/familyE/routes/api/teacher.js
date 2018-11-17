@@ -11,7 +11,7 @@ router.post('/add', (req, res) => {
   // 查询是否存在
   Teacher.findOne({ phone: req.body.phone }).then((teacher) => {
     if (teacher) {
-      return res.status(400).json({
+      return res.send({
         msg: '该手机号码已存在'
       })
     } else {
@@ -43,20 +43,23 @@ router.delete('/delete', (req, res) => {
   })
 })
 
-
-
 /**
 * @api api/teacher/list
 * @description 老师查询接口
 * @public
 */
 router.get('/list', (req, res) => {
-  const {cityCode} = req.query;
-  Teacher.find({cityCode}).then((teacher) => {
-    res.send({
-      data: teacher,
-      httpCode: '200',
-      msg: '请求成功'
+  let {cityCode, pageSize, pageNum} = req.query;
+  pageNum = parseInt(pageNum)
+  pageSize = parseInt(pageSize)
+  Teacher.find({cityCode}).sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((teacher) => {
+    Teacher.count().then((total) => {
+      res.send({
+        data: teacher,
+        total,
+        httpCode: '200',
+        msg: '请求成功'
+      })
     })
   })
 })

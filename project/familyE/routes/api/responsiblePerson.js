@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const ResponsiblePerson = require('../../models/ResponsiblePerson');
+const City = require('../../models/City');
 
 /**
 * @api api/responsiblePerson/add
@@ -9,19 +10,21 @@ const ResponsiblePerson = require('../../models/ResponsiblePerson');
 */
 router.post('/add', (req, res) => {
   // 查询是否存在
-  ResponsiblePerson.findOne({ responsiblePhone: req.body.responsiblePhone }).then((responsiblePerson) => {
+  ResponsiblePerson.findOne({ responsiblePhone: req.body.responsiblePhone, cityCode: req.body.cityCode }).then((responsiblePerson) => {
     if (responsiblePerson) {
-      return res.status(400).json({
+      return res.send({
         msg: '该手机号码已存在'
       })
     } else {
-      const newResponsiblePerson = new ResponsiblePerson({
-        ...req.body
-      })
-      newResponsiblePerson.save().then(() => {
-        res.send({
-          httpCode: '200',
-          msg: '添加成功'
+      City.findOne({code: req.body.cityCode}).then((city) => {
+        const newResponsiblePerson = new ResponsiblePerson({
+          ...req.body, cityName: city.cityName, identity: '2'
+        })
+        newResponsiblePerson.save().then(() => {
+          res.send({
+            httpCode: '200',
+            msg: '添加成功'
+          })
         })
       })
     }
@@ -49,18 +52,23 @@ router.delete('/delete', (req, res) => {
 * @private
 */
 router.get('/list', (req, res) => {
-  const {identity} = req.query;
+  let {identity, pageNum, pageSize} = req.query;
   if (identity !== '0') {
-    res.status(403).send({
+    res.send({
       httpCode: '403',
       msg: '请联系管理员，您暂时无该权限'
     })
   }
-  ResponsiblePerson.find().then((responsiblePerson) => {
-    res.send({
-      data: responsiblePerson,
-      httpCode: '200',
-      msg: '请求成功'
+  pageNum = parseInt(pageNum)
+  pageSize = parseInt(pageSize)
+  ResponsiblePerson.find().sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((responsiblePerson) => {
+    ResponsiblePerson.count().then((total) => {
+      res.send({
+        data: responsiblePerson,
+        total,
+        httpCode: '200',
+        msg: '请求成功'
+      })
     })
   })
 })

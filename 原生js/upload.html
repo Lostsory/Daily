@@ -15,7 +15,7 @@
   </style>
 </head>
 <body>
-  <div id="addFile"><input type="file" id="upload"></div>
+  <div id="addFile"><input type="file" multiple="multiple" id="upload"></div>
   <div id="imgs"></div>
   <script>
     let oUpload = document.getElementById('upload');
@@ -26,7 +26,7 @@
       fr = new FileReader();
 
       fr.readAsDataURL(files[0])
-      
+
       fr.onload = function (e) {
         console.log('onload');
         var img = new Image();
