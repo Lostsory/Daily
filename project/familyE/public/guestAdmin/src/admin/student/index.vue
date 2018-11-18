@@ -29,6 +29,7 @@
     <el-table-column
       prop="phone"
       align="center"
+      show-overflow-tooltip
       label="手机号码">
     </el-table-column>
     <el-table-column
@@ -38,11 +39,13 @@
     </el-table-column>
     <el-table-column
       prop="school"
+      show-overflow-tooltip
       align="center"
       label="所在学校">
     </el-table-column>
     <el-table-column
       prop="createTime"
+      show-overflow-tooltip
       align="center"
       label="创建时间">
       <template slot-scope="scope">
@@ -51,6 +54,7 @@
     </el-table-column>
     <el-table-column
       prop="remark"
+      show-overflow-tooltip
       align="center"
       label="备注">
     </el-table-column>

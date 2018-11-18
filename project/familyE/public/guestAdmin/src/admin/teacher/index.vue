@@ -29,16 +29,19 @@
     <el-table-column
       prop="typeId"
       align="center"
+      show-overflow-tooltip
       label="身份类型">
     </el-table-column>
     <el-table-column
       prop="phone"
       align="center"
+      show-overflow-tooltip
       label="手机号码">
     </el-table-column>
     <el-table-column
       prop="createTime"
       align="center"
+      show-overflow-tooltip
       label="创建时间">
       <template slot-scope="scope">
         {{scope.row.createTime | format}}
@@ -47,6 +50,7 @@
     <el-table-column
       prop="remark"
       align="center"
+      show-overflow-tooltip
       label="备注">
     </el-table-column>
     <el-table-column align="center" label="操作" width="80" class-name="small-padding fixed-width">

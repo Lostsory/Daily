@@ -13,11 +13,16 @@
     "test": "npm run lint"
   },
   "dependencies": {
+    "amaze-vue": "^1.1.16",
     "axios": "0.17.1",
+    "css-loader": "^0.28.7",
     "element-ui": "2.3.4",
     "js-cookie": "2.2.0",
+    "less": "^3.8.1",
+    "less-loader": "^4.1.0",
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
+    "style-loader": "^0.23.1",
     "vue": "2.5.10",
     "vue-router": "3.0.1",
     "vuex": "3.0.1"
@@ -63,6 +68,7 @@
     "vue-loader": "13.7.2",
     "vue-style-loader": "3.0.3",
     "vue-template-compiler": "2.5.10",
+    "vuex-persistedstate": "^2.5.4",
     "webpack": "3.10.0",
     "webpack-bundle-analyzer": "2.9.1",
     "webpack-dev-server": "2.9.7",

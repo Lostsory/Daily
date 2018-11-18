@@ -29,20 +29,24 @@
     <el-table-column
       prop="code"
       align="center"
+      show-overflow-tooltip
       label="城市编号">
     </el-table-column>
     <el-table-column
       prop="responsibleName"
       align="center"
+      show-overflow-tooltip
       label="负责人">
     </el-table-column>
     <el-table-column
       prop="responsiblePhone"
+      show-overflow-tooltip
       align="center"
       label="联系方式">
     </el-table-column>
     <el-table-column
       prop="createTime"
+      show-overflow-tooltip
       align="center"
       label="开通时间">
       <template slot-scope="scope">
@@ -51,6 +55,7 @@
     </el-table-column>
     <el-table-column
       prop="remark"
+      show-overflow-tooltip
       align="center"
       label="备注">
     </el-table-column>

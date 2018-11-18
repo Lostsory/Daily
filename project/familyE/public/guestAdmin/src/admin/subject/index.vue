@@ -2,13 +2,14 @@
   <div id="subject">
     <div class="btn"><el-button type='primary' size="medium" @click="addGrade">添加年级</el-button></div>
     <el-tree
+      v-loading="treeData.length===0"
       :data="treeData"
       node-key="_id"
       default-expand-all
       :expand-on-click-node="false">
       <span class="custom-tree-node" slot-scope="{ node, data }">
         <span>{{ node.label }}</span>
-        <span v-if="node.level < 2">
+        <span v-if="node.level == 1">
           <el-button
             type="text"
             size="mini"
@@ -22,12 +23,20 @@
             删除年级
           </el-button>
         </span>
+        <span v-else>
+          <el-button
+            type="text"
+            size="mini"
+            @click="() => remove(node, data)">
+            删除科目
+          </el-button>
+        </span>
       </span>
     </el-tree>
   </div>
 </template>
 <script>
-import { gradeList, gradeAdd, subjectList } from '@/api'
+import { gradeList, gradeAdd, gradeDelete, subjectList, subjectAdd, subjectDelete } from '@/api'
 export default {
   data() {
     return {
@@ -36,15 +45,36 @@ export default {
   },
   methods: {
     addGrade() {
-      gradeAdd().then((res) => {
-        this.getGrade()
+      this.$prompt('请输入年级名称', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(({ value }) => {
+        gradeAdd({ gradeName: value }).then((res) => {
+          this.getGrade()
+        })
       })
     },
     append(data) {
       console.log(data)
+      this.$prompt('请输入科目名称', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消'
+      }).then(({ value }) => {
+        subjectAdd({ subjectName: value, gradeId: data._id }).then((res) => {
+          this.getGrade()
+        })
+      })
     },
-    remove() {
-
+    remove(node, data) {
+      if (node.level === 1) {
+        gradeDelete({ id: data._id }).then((res) => {
+          this.getGrade()
+        })
+      } else {
+        subjectDelete({ id: data._id }).then((res) => {
+          this.getGrade()
+        })
+      }
     },
     getGrade() {
       gradeList().then((res) => {

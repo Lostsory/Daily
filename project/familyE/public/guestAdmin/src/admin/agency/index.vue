@@ -27,16 +27,19 @@
       label="负责人">
     </el-table-column>
     <el-table-column
+    show-overflow-tooltip
       prop="responsiblePhone"
       align="center"
       label="联系方式">
     </el-table-column>
     <el-table-column
       prop="cityName"
+      show-overflow-tooltip
       align="center"
       label="所在城市">
     </el-table-column>
     <el-table-column
+    show-overflow-tooltip
       prop="identity"
       align="center"
       label="身份类型">
@@ -49,6 +52,7 @@
     </el-table-column>
     <el-table-column
       prop="createTime"
+      show-overflow-tooltip
       align="center"
       label="创建时间">
       <template slot-scope="scope">
@@ -57,6 +61,7 @@
     </el-table-column>
     <el-table-column
       prop="remark"
+      show-overflow-tooltip
       align="center"
       label="备注">
     </el-table-column>
@@ -198,7 +203,7 @@ export default {
   methods: {
     // 列表数据获取
     getData() {
-      responsiblePersonList({...this.listQuery, identity: '0'}).then((res) => {
+      responsiblePersonList({ ...this.listQuery, identity: '0' }).then((res) => {
         console.log(res)
         this.tableLoading = false
         this.tableData = res.data.data

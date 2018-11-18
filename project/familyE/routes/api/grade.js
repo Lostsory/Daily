@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Grade = require('../../models/Grade');
+const Subject = require('../../models/Subject');
 
 /**
 * @api api/grade/add
@@ -38,9 +39,11 @@ router.post('/add', (req, res) => {
 router.delete('/delete', (req, res) => {
   const {id} = req.query;
   Grade.findByIdAndRemove(id).then((success) => {
-    res.send({
-      httpCode: '200',
-      msg: '删除成功'
+    Subject.deleteMany({gradeId: id}).then(() => {
+      res.send({
+        httpCode: '200',
+        msg: '删除成功'
+      })
     })
   })
 })

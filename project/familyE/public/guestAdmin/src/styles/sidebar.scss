@@ -11,13 +11,13 @@
     transition: width 0.28s;
     width: 180px !important;
     height: 100%;
+    overflow: auto;
     position: fixed;
     font-size: 0px;
     top: 0;
     bottom: 0;
     left: 0;
     z-index: 1001;
-    overflow: hidden;
     //reset element-ui css
     .horizontal-collapse-transition {
       transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;

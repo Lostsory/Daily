@@ -6,9 +6,14 @@ const app = {
       opened: !+Cookies.get('sidebarStatus'),
       withoutAnimation: false
     },
-    device: 'desktop'
+    device: 'desktop',
+    activeRouter: '/home',
+    width: document.body.clientWidth
   },
   mutations: {
+    SET_ACTIVEROUTER: (state, action) => {
+      state.activeRouter = action
+    },
     TOGGLE_SIDEBAR: state => {
       if (state.sidebar.opened) {
         Cookies.set('sidebarStatus', 1)
@@ -36,6 +41,9 @@ const app = {
     },
     ToggleDevice({ commit }, device) {
       commit('TOGGLE_DEVICE', device)
+    },
+    ToggleActiveRouter({ commit }, activeRouter) {
+      commit('SET_ACTIVEROUTER', activeRouter)
     }
   }
 }
