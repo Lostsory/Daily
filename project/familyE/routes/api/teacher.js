@@ -44,6 +44,39 @@ router.delete('/delete', (req, res) => {
 })
 
 /**
+* @api api/teacher/detail
+* @description 老师详情接口
+* @public
+*/
+router.get('/detail', (req, res) => {
+  const {id} = req.query;
+  Teacher.findById(id).then((teacher) => {
+    res.send({
+      data: teacher,
+      httpCode: '200',
+      msg: '删除成功'
+    })
+  })
+})
+
+/**
+* @api api/teacher/check
+* @description 老师审核接口
+* @public
+*/
+router.post('/check', (req, res) => {
+  const {id} = req.body;
+  console.log('==========================', id);
+  Teacher.update({_id:id},{$set: {checkStatus: '1'}}).then((success) => {
+    console.log('=====================', success);
+    res.send({
+      httpCode: '200',
+      msg: "审核通过"
+    })
+  })
+})
+
+/**
 * @api api/teacher/list
 * @description 老师查询接口
 * @public

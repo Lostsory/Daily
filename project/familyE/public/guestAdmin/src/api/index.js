@@ -114,6 +114,24 @@ export const teacherDelete = (params) => {
   })
 }
 
+// 教员审核接口
+export const teacherCheck = (data) => {
+  return request({
+    url: 'teacher/check',
+    method: 'post',
+    data
+  })
+}
+
+// 教员详情接口
+export const teacherDetail = (params) => {
+  return request({
+    url: 'teacher/detail',
+    method: 'get',
+    params
+  })
+}
+
 /* ----------------------------------------------------------------------------------------------------------------------------- */
 
 // 学员查询接口

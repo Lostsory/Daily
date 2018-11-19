@@ -39,6 +39,18 @@
       label="手机号码">
     </el-table-column>
     <el-table-column
+      prop="checkStatus"
+      align="center"
+      show-overflow-tooltip
+      width="100px"
+      label="状态">
+      <template slot-scope="scope">
+        <!-- 0：未审核，1：已审核 -->
+        <el-tag size="medium" type="danger" v-if="scope.row.checkStatus==0">未通过</el-tag>
+        <el-tag size="medium" type="success" v-else>已通过</el-tag>
+      </template>
+    </el-table-column>
+    <el-table-column
       prop="createTime"
       align="center"
       show-overflow-tooltip
@@ -53,9 +65,10 @@
       show-overflow-tooltip
       label="备注">
     </el-table-column>
-    <el-table-column align="center" label="操作" width="80" class-name="small-padding fixed-width">
+    <el-table-column align="center" label="操作" width="150" class-name="small-padding fixed-width">
       <template slot-scope="scope">
         <!-- <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">修改</el-button> -->
+        <el-button size="mini" type="primary" @click="checkDetail(scope.row)">审核</el-button>
         <el-button size="mini" type="danger" @click="handleDelete(scope.row)">删除</el-button>
       </template>
     </el-table-column>
@@ -97,7 +110,8 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="drinkDialog.show = false">取消</el-button>
-      <el-button type="primary" @click="save">确认</el-button>
+      <el-button type="primary" v-if="drinkDialog.type == 'ADD'" @click="save">确认</el-button>
+      <el-button type="primary" v-else @click="check">审核通过</el-button>
     </div>
   </el-dialog>
   <pagination @getTableData="getData" :total="total" :listQuery="listQuery" />
@@ -105,7 +119,7 @@
 </template>
 <script>
 import pagination from '@/components/Pagination'
-import { teacherList, teacherAdd, teacherDelete } from '@/api/index'
+import { teacherList, teacherAdd, teacherDelete, teacherCheck, teacherDetail } from '@/api/index'
 import { del } from '@/utils'
 export default {
   components: {
@@ -189,6 +203,29 @@ export default {
       /* drinkDetail(val.id).then((res) => {
         this.teacherForm = res.data.data
       }) */
+    },
+    // 审核查看详情
+    checkDetail(val) {
+      if (this.$refs.teacherForm) {
+        this.$refs.teacherForm.resetFields()
+      }
+      this.drinkDialog = {
+        type: 'UPDATE',
+        show: true,
+        title: '修改'
+      }
+      teacherDetail({ id: val._id }).then((res) => {
+        this.teacherForm = res.data.data
+      })
+    },
+    // 确认审核通过
+    check() {
+      teacherCheck({
+        id: this.teacherForm._id
+      }).then(() => {
+        this.getData()
+        this.drinkDialog.show = false
+      })
     },
     // 删除
     handleDelete(val) {

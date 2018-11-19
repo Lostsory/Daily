@@ -6,7 +6,7 @@ import 'nprogress/nprogress.css'// progress bar style
 nprogress.configure({ showSpinner: false })
 // 创建axios实例
 const service = axios.create({
-  baseURL: 'http://192.168.1.103:3000/api/', // api的base_url
+  baseURL: 'http://localhost:3000/api/', // api的base_url
   timeout: 5000 // 请求超时时间
 })
 
