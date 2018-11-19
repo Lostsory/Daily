@@ -6,7 +6,7 @@ import 'nprogress/nprogress.css'// progress bar style
 nprogress.configure({ showSpinner: false })
 // 创建axios实例
 const service = axios.create({
-  baseURL: 'http://localhost:3000/api/', // api的base_url
+  baseURL: `${process.env.BASE_API}/api/`, // api的base_url
   timeout: 5000 // 请求超时时间
 })
 
@@ -29,7 +29,6 @@ service.interceptors.request.use(config => {
       ...config.data
     }
   }
-  console.log(config)
   return config
 }, error => {
   Promise.reject(error)

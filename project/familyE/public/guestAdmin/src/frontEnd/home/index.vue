@@ -15,7 +15,7 @@
             <p>红掌拨清波。</p>
           </am-panel-body>
         </am-panel>
-        <am-panel color="primary">
+        <!-- <am-panel color="primary">
           <am-panel-header title="科目分类" :title-level=4></am-panel-header>
           <am-panel-body>
             <p>鹅鹅鹅，</p>
@@ -32,7 +32,7 @@
             <p>白毛浮绿水，</p>
             <p>红掌拨清波。</p>
           </am-panel-body>
-        </am-panel>
+        </am-panel> -->
       </am-col>
       <am-col size="md" :span="8">
         <am-panel color="primary">

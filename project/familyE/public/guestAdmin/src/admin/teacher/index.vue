@@ -31,6 +31,9 @@
       align="center"
       show-overflow-tooltip
       label="身份类型">
+      <template slot-scope="scope">
+        <span v-for="(item, index) in teacherTypes" :key="index" v-if="item.value == scope.row.typeId">{{item.label}}</span>
+      </template>
     </el-table-column>
     <el-table-column
       prop="phone"
@@ -88,7 +91,14 @@
         </el-col>
         <el-col :span="24">
           <el-form-item label="身份类型：" prop="typeId">
-            <el-input v-model="teacherForm.typeId" placeholder="请输入身份类型"></el-input>
+            <el-select v-model="teacherForm.typeId" placeholder="请选择">
+              <el-option
+                v-for="item in teacherTypes"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="24">
@@ -141,6 +151,19 @@ export default {
         show: false
       },
       teacherForm: {},
+      teacherTypes: [{
+        value: 1,
+        label: '在校大学生(研究生) ,不含留学生'
+      }, {
+        value: 2,
+        label: '教师(在职/进修/离职/退休)'
+      }, {
+        value: 3,
+        label: '外籍人士(留学生/外教/海归人员)'
+      }, {
+        value: 4,
+        label: '其他(已毕业离校的人员)'
+      }],
       teacherRules: {
         teacherName: [
           { required: true, message: '此项为必填项', trigger: 'blur' }
@@ -220,9 +243,7 @@ export default {
     },
     // 确认审核通过
     check() {
-      teacherCheck({
-        id: this.teacherForm._id
-      }).then(() => {
+      teacherCheck(this.teacherForm).then(() => {
         this.getData()
         this.drinkDialog.show = false
       })

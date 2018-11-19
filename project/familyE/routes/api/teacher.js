@@ -65,9 +65,7 @@ router.get('/detail', (req, res) => {
 * @public
 */
 router.post('/check', (req, res) => {
-  const {id} = req.body;
-  console.log('==========================', id);
-  Teacher.update({_id:id},{$set: {checkStatus: '1'}}).then((success) => {
+  Teacher.update({_id:req.body._id}, {$set: {...req.body, checkStatus: '1' }}).then((success) => {
     console.log('=====================', success);
     res.send({
       httpCode: '200',
