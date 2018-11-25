@@ -26,13 +26,14 @@ const db = require('./config/keys').mongodbUrl;
 // connect to mongodb
 const mongo = require('mongoose');
 mongo.connect(db).then(() => {
-  console.log('mongodb connected');
+  console.log('============================mongodb connected============================');
 }).catch((err) => {
   console.log(err);
 })
 
 // 设置跨域访问
 app.use(function (req, res, next) {
+  console.log('有一波请求');
   res.header("Cache-Control", "no-cache, no-store");
   res.header("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST,GET,PUT,OPTIONS,DELETE")
@@ -55,11 +56,6 @@ app.use('/api/subject', subjectRouter)
 app.use('/api/student', studentRouter)
 app.use('/api/responsiblePerson', responsiblePersonRouter)
 app.use('/api/teacher', teacherRouter)
-
-// catch 404 and forward to error handler
-/* app.use(function(req, res, next) {
-  next(createError(404));
-}); */
 
 // error handler
 app.use(function(err, req, res, next) {

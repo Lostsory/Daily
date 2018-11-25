@@ -31,12 +31,27 @@
       align="center"
       show-overflow-tooltip
       label="身份类型">
+      <template slot-scope="scope">
+        <span v-for="(item, index) in teacherTypes" :key="index" v-if="item.value == scope.row.typeId">{{item.label}}</span>
+      </template>
     </el-table-column>
     <el-table-column
       prop="phone"
       align="center"
       show-overflow-tooltip
       label="手机号码">
+    </el-table-column>
+    <el-table-column
+      prop="checkStatus"
+      align="center"
+      show-overflow-tooltip
+      width="100px"
+      label="状态">
+      <template slot-scope="scope">
+        <!-- 0：未审核，1：已审核 -->
+        <el-tag size="medium" type="danger" v-if="scope.row.checkStatus==0">未通过</el-tag>
+        <el-tag size="medium" type="success" v-else>已通过</el-tag>
+      </template>
     </el-table-column>
     <el-table-column
       prop="createTime"
@@ -53,9 +68,10 @@
       show-overflow-tooltip
       label="备注">
     </el-table-column>
-    <el-table-column align="center" label="操作" width="80" class-name="small-padding fixed-width">
+    <el-table-column align="center" label="操作" width="150" class-name="small-padding fixed-width">
       <template slot-scope="scope">
         <!-- <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">修改</el-button> -->
+        <el-button size="mini" type="primary" @click="checkDetail(scope.row)">审核</el-button>
         <el-button size="mini" type="danger" @click="handleDelete(scope.row)">删除</el-button>
       </template>
     </el-table-column>
@@ -75,7 +91,14 @@
         </el-col>
         <el-col :span="24">
           <el-form-item label="身份类型：" prop="typeId">
-            <el-input v-model="teacherForm.typeId" placeholder="请输入身份类型"></el-input>
+            <el-select v-model="teacherForm.typeId" placeholder="请选择">
+              <el-option
+                v-for="item in teacherTypes"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
           </el-form-item>
         </el-col>
         <el-col :span="24">
@@ -97,7 +120,8 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="drinkDialog.show = false">取消</el-button>
-      <el-button type="primary" @click="save">确认</el-button>
+      <el-button type="primary" v-if="drinkDialog.type == 'ADD'" @click="save">确认</el-button>
+      <el-button type="primary" v-else @click="check">审核通过</el-button>
     </div>
   </el-dialog>
   <pagination @getTableData="getData" :total="total" :listQuery="listQuery" />
@@ -105,7 +129,7 @@
 </template>
 <script>
 import pagination from '@/components/Pagination'
-import { teacherList, teacherAdd, teacherDelete } from '@/api/index'
+import { teacherList, teacherAdd, teacherDelete, teacherCheck, teacherDetail } from '@/api/index'
 import { del } from '@/utils'
 export default {
   components: {
@@ -127,6 +151,19 @@ export default {
         show: false
       },
       teacherForm: {},
+      teacherTypes: [{
+        value: 1,
+        label: '在校大学生(研究生) ,不含留学生'
+      }, {
+        value: 2,
+        label: '教师(在职/进修/离职/退休)'
+      }, {
+        value: 3,
+        label: '外籍人士(留学生/外教/海归人员)'
+      }, {
+        value: 4,
+        label: '其他(已毕业离校的人员)'
+      }],
       teacherRules: {
         teacherName: [
           { required: true, message: '此项为必填项', trigger: 'blur' }
@@ -189,6 +226,27 @@ export default {
       /* drinkDetail(val.id).then((res) => {
         this.teacherForm = res.data.data
       }) */
+    },
+    // 审核查看详情
+    checkDetail(val) {
+      if (this.$refs.teacherForm) {
+        this.$refs.teacherForm.resetFields()
+      }
+      this.drinkDialog = {
+        type: 'UPDATE',
+        show: true,
+        title: '修改'
+      }
+      teacherDetail({ id: val._id }).then((res) => {
+        this.teacherForm = res.data.data
+      })
+    },
+    // 确认审核通过
+    check() {
+      teacherCheck(this.teacherForm).then(() => {
+        this.getData()
+        this.drinkDialog.show = false
+      })
     },
     // 删除
     handleDelete(val) {

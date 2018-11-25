@@ -38,6 +38,11 @@ var teacherSchema = new Schema({
     type: String,
     required: false
   },
+  // 审核状态 0：未审核，1：已审核
+  checkStatus: {
+    type: String,
+    default: 0
+  },
   // 备注
   remark: {
     type: String,
