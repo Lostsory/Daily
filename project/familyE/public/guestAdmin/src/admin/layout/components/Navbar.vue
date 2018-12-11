@@ -1,6 +1,9 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
+    <el-badge :value="12" class="notice">
+      <el-button size="mini">消息</el-button>
+    </el-badge>
     <el-dropdown class="avatar-container" trigger="click">
       <div class="avatar-wrapper">
         <img class="user-avatar" src='../../../assets/touxiang.gif'>
@@ -38,6 +41,17 @@ export default {
     logout() {
       this.$store.dispatch('LogOut')
     }
+  },
+  created() {
+    const socket = new WebSocket(`${process.env.WSURL}/notice`)
+
+    socket.onopen = function() {
+      console.log('WebSocket connected')
+    }
+
+    /* socket.onmessage = (evt) => {
+      console.log(evt)
+    } */
   }
 }
 </script>
@@ -52,6 +66,10 @@ export default {
     height: 50px;
     float: left;
     padding: 0 10px;
+  }
+  .notice{
+    position: absolute;
+    right: 150px;
   }
   .screenfull {
     position: absolute;
