@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const defaultHome = require('../config/homeContent');
 
 // 开通城市 schema
 var citySchema = new Schema({
@@ -20,6 +21,11 @@ var citySchema = new Schema({
   responsiblePhone: {
     type: String,
     required: true
+  },
+  // 首页设置
+  homeSetting: {
+    type: Object,
+    default: defaultHome
   },
   remark: {
     type: String,

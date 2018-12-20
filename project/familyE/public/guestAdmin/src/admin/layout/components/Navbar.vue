@@ -101,4 +101,9 @@ export default {
   }
 }
 </style>
-
+<style>
+.el-badge__content.is-fixed{
+  top: 13px;
+  right: 16PX;
+}
+</style>

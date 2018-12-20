@@ -73,7 +73,7 @@
     </el-table-column>
   </el-table>
   <el-dialog :title="drinkDialog.title" :visible.sync="drinkDialog.show" width="500px">
-    <el-form ref="responsiblePersonForm" :rules="responsiblePersonRules" :model="responsiblePersonForm" label-position="left" label-width="100px">
+    <el-form ref="responsiblePersonForm" size="medium" :rules="responsiblePersonRules" :model="responsiblePersonForm" label-position="left" label-width="100px">
       <el-row>
         <el-col :span="24">
           <el-form-item label="城市列表：" prop="cityCode">

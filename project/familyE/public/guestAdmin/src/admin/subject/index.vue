@@ -120,9 +120,7 @@ export default {
 </script>
 <style scoped>
 #subject{
-  padding: 30px;
-  width: 300px;
-  margin: 0px auto
+  padding-left: 32px
 }
 #subject .btn{
   padding: 12px

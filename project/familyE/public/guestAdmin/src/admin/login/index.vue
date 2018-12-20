@@ -28,7 +28,7 @@
 
 <script>
 // import { isvalidUsername } from '@/utils/validate'
-import { login } from '@/api/login'
+import { login } from '@/api'
 export default {
   name: 'login',
   data() {

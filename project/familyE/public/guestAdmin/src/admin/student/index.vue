@@ -2,10 +2,6 @@
 <div class="app-container">
   <div class="filter-container">
     <el-button size="medium" @click="handleAdd" type="primary" icon="el-icon-edit">添加</el-button>
-    <!-- <div class="search_btn_container" style="float:right">
-      <el-input size="medium" :clearable="true" v-model="listQuery.drinkName" placeholder="输入酒水名称进行搜索"></el-input>
-      <el-button @click="getData" class="search_btn" type="primary" size="small" icon="el-icon-search"></el-button>
-    </div> -->
   </div>
   <el-table
     size="medium"
@@ -38,6 +34,12 @@
       label="子女年级">
     </el-table-column>
     <el-table-column
+      prop="subjectIds"
+      align="center"
+      show-overflow-tooltip
+      label="所补科目">
+    </el-table-column>
+    <el-table-column
       prop="school"
       show-overflow-tooltip
       align="center"
@@ -56,7 +58,7 @@
       prop="remark"
       show-overflow-tooltip
       align="center"
-      label="备注">
+      label="子女情况">
     </el-table-column>
     <el-table-column align="center" label="操作" width="80" class-name="small-padding fixed-width">
       <template slot-scope="scope">
@@ -66,11 +68,11 @@
     </el-table-column>
   </el-table>
   <el-dialog :title="drinkDialog.title" :visible.sync="drinkDialog.show" width="500px">
-    <el-form ref="studentForm" :rules="studentRules" :model="studentForm" label-position="left" label-width="100px">
+    <el-form ref="studentForm" size="medium" :rules="studentRules" :model="studentForm" label-position="left" label-width="100px">
       <el-row>
         <el-col :span="24">
           <el-form-item label="家长姓名：" prop="studentName">
-            <el-input v-model="studentForm.studentName" placeholder="请输入教员姓名"></el-input>
+            <el-input v-model="studentForm.studentName" placeholder="请输入家长姓名"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="24">
@@ -79,13 +81,8 @@
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="所在学校：" prop="school">
-            <el-input v-model="studentForm.school" placeholder="请输入所在学校"></el-input>
-          </el-form-item>
-        </el-col>
-        <el-col :span="24">
           <el-form-item label="子女年级：" prop="gradeId">
-            <el-select v-model="studentForm.gradeId" placeholder="请选择">
+            <el-select v-model="studentForm.gradeId" @change="getSubjectList" placeholder="请选择">
               <el-option
                 v-for="item in gradeData"
                 :key="item._id"
@@ -93,6 +90,23 @@
                 :value="item._id">
               </el-option>
             </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
+          <el-form-item label="所补科目：" prop="subjectIds">
+            <el-select v-model="studentForm.subjectIds" :disabled="!studentForm.gradeId" multiple :placeholder="!studentForm.gradeId?'请先选择子女年级':'请选择'">
+              <el-option
+                v-for="(item, index) in subjectList"
+                :key="index"
+                :label="item.subjectName"
+                :value="item._id">
+              </el-option>
+            </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
+          <el-form-item label="所在学校：" prop="school">
+            <el-input v-model="studentForm.school" placeholder="请输入所在学校"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="24">
@@ -110,7 +124,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="备注：">
+          <el-form-item label="子女情况：">
             <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}" placeholder="请输入" v-model="studentForm.remark">
             </el-input>
           </el-form-item>
@@ -127,7 +141,7 @@
 </template>
 <script>
 import pagination from '@/components/Pagination'
-import { studentList, studentAdd, studentDelete, gradeList } from '@/api/index'
+import { studentList, studentAdd, studentDelete, gradeList, subjectList } from '@/api/index'
 import { del } from '@/utils'
 export default {
   components: {
@@ -150,6 +164,7 @@ export default {
       },
       studentForm: {},
       gradeData: [],
+      subjectList: [],
       studentRules: {
         studentName: [
           { required: true, message: '此项为必填项', trigger: 'blur' }
@@ -157,7 +172,13 @@ export default {
         phone: [
           { required: true, message: '此项为必填项', trigger: 'blur' }
         ],
+        gradeId: [
+          { required: true, message: '此项为必填项', trigger: 'blur' }
+        ],
         typeId: [
+          { required: true, message: '此项为必填项', trigger: 'blur' }
+        ],
+        subjectIds: [
           { required: true, message: '此项为必填项', trigger: 'blur' }
         ]
       }
@@ -197,10 +218,22 @@ export default {
         console.log(this.gradeData)
       })
     },
+    // 所补科目格式化
+    formatSub(v) {
+      let str = ''
+      const L = v.length
+      for (let i = 0; i < L; i++) {
+        str += v[i].subjectName + (i === v.length - 1 ? '' : '/')
+      }
+      return str
+    },
     // 列表数据获取
     getData() {
       studentList(this.listQuery).then((res) => {
         this.tableLoading = false
+        res.data.data.forEach((item) => {
+          item.subjectIds = this.formatSub(item.subjectIds)
+        })
         this.tableData = res.data.data
         this.total = parseInt(res.data.total)
       })
@@ -229,6 +262,13 @@ export default {
         })
       })
     },
+    // 获取年级相应的科目
+    getSubjectList(gradeId) {
+      this.studentForm.subjectIds = []
+      subjectList({ gradeId }).then((res) => {
+        this.subjectList = res.data.data
+      })
+    },
     // 新增弹框
     handleAdd() {
       this.drinkDialog = {
@@ -245,6 +285,13 @@ export default {
       if (this.drinkDialog.type === 'ADD') {
         this.$refs.studentForm.validate((valid) => {
           if (valid) {
+            const mapSubject = {}
+            this.subjectList.forEach(item => {
+              mapSubject[item._id] = item
+            })
+            this.studentForm.subjectIds = this.studentForm.subjectIds.map((item) => {
+              return mapSubject[item]
+            })
             studentAdd(this.studentForm).then((res) => {
               this.getData()
               this.drinkDialog.show = false

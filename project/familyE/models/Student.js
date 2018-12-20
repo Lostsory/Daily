@@ -47,6 +47,11 @@ var studentSchema = new Schema({
     type: String,
     required: false
   },
+  // 所补科目
+  subjectIds: {
+    type: Array,
+    required: true
+  },
   // 备注
   remark: {
     type: String,

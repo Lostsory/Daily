@@ -51,8 +51,12 @@ router.delete('/delete', (req, res) => {
 * @public
 */
 router.get('/list', (req, res) => {
-  const {cityCode} = req.query;
-  Subject.find({cityCode}).sort({'createTime': -1}).then((subject) => {
+  const {cityCode, gradeId} = req.query;
+  let query = {cityCode}
+  if (gradeId) {
+    query = {cityCode, gradeId}
+  }
+  Subject.find(query).sort({'createTime': -1}).then((subject) => {
     res.send({
       data: subject,
       httpCode: '200',

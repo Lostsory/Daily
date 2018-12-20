@@ -11,7 +11,7 @@ var cookieParser = require('cookie-parser');
 
 var app = express();
 
-// WebSocket配置
+/* // WebSocket配置
 var app = express();
 var wsapp = require('express-ws')(wsapp);
 app.ws('/notice', function(ws, req) {
@@ -19,7 +19,7 @@ app.ws('/notice', function(ws, req) {
     console.log(msg);
   });
 });
-wsapp.listen(3000);
+wsapp.listen(3000); */
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

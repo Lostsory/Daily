@@ -1,5 +1,24 @@
 import request from '@/utils/request'
 
+// 用户登录
+export const login = (data) => {
+  return request({
+    url: '/login',
+    method: 'post',
+    data
+  })
+}
+
+// 用户登出
+export function logout() {
+  return request({
+    url: '/logout',
+    method: 'post'
+  })
+}
+
+/* ----------------------------------------------------------------------------------------------------------------------------- */
+
 // 开通城市查询接口
 export const cityList = (params) => {
   return request({
@@ -24,6 +43,23 @@ export const cityDelete = (params) => {
     url: 'city/delete',
     method: 'delete',
     params
+  })
+}
+
+// 首页信息接口
+export const homeDetail = () => {
+  return request({
+    url: 'city/cityDetail',
+    method: 'get'
+  })
+}
+
+// 城市首页信息修改接口
+export const homeUpdata = (data) => {
+  return request({
+    url: 'city/updata',
+    method: 'post',
+    data
   })
 }
 

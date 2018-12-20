@@ -71,7 +71,7 @@ router.get('/list', (req, res) => {
   let {pageSize, pageNum} = req.query;
   pageNum = parseInt(pageNum)
   pageSize = parseInt(pageSize)
-  City.find().sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((city) => {
+  City.find({}, {homeSetting: 0}).sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((city) => {
     City.count().then((total) => {
       res.send({
         data: city,
@@ -82,4 +82,35 @@ router.get('/list', (req, res) => {
     })
   })
 })
+
+/**
+* @api api/city/cityDetail
+* @description 当前城市主页信息查询
+* @private
+*/
+router.get('/cityDetail', (req, res) => {
+  City.findOne({code: req.query.cityCode}).then((city) => {
+    res.send({
+      data: city,
+      httpCode: '200',
+      msg: '请求成功'
+    })
+  })
+})
+
+/**
+* @api api/city/updata
+* @description 当前城市主页信息修改
+* @private
+*/
+router.post('/updata', (req, res) => {
+  const {cityCode, ...homeSetting} = req.body
+  City.updateOne({code: cityCode}, {$set: {homeSetting}}).then((success) => {
+    res.send({
+      httpCode: '200',
+      msg: "修改成功"
+    })
+  })
+})
+
 module.exports = router

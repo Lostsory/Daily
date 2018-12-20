@@ -66,7 +66,7 @@
       prop="remark"
       align="center"
       show-overflow-tooltip
-      label="备注">
+      label="">
     </el-table-column>
     <el-table-column align="center" label="操作" width="150" class-name="small-padding fixed-width">
       <template slot-scope="scope">
@@ -77,7 +77,7 @@
     </el-table-column>
   </el-table>
   <el-dialog :title="drinkDialog.title" :visible.sync="drinkDialog.show" width="500px">
-    <el-form ref="teacherForm" :rules="teacherRules" :model="teacherForm" label-position="left" label-width="100px">
+    <el-form size="medium" ref="teacherForm" :rules="teacherRules" :model="teacherForm" label-position="left" label-width="100px">
       <el-row>
         <el-col :span="24">
           <el-form-item label="教员姓名：" prop="teacherName">
