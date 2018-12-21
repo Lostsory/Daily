@@ -1,22 +1,24 @@
 var express = require('express');
 var router = express.Router();
 
-var MongoClient = require('mongodb').MongoClient;
+/* var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
 var url = "mongodb://119.23.202.46:27017/";
 
 var bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
-
-router.use(function(req, res, next) {
-  console.log('reqMethod======================== is indexRouter.use');
-  next()
-})
+ */
 
 /* GET users listing. */
-router.post('/login', function(req, res, next) {
-  MongoClient.connect(url, function (error, db) {
+router.post('/login', (req, res) => {
+  console.log('req+_+_+_+_+_+_+_+_+_+_+_+', req);
+  res.send({
+    token: 'dasdh123jhasdx',
+    httpCode: '200',
+    msg: "登录成功"
+  })
+  /* MongoClient.connect(url, function (error, db) {
     var dbName = db.db('qzx');
     const { name, paw } = req.body;
     dbName.collection('user').findOne({name}, function(err, user) {
@@ -39,7 +41,7 @@ router.post('/login', function(req, res, next) {
         }
       }
     })
-  })
+  }) */
 });
 
 module.exports = router;

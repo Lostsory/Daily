@@ -46,7 +46,7 @@
       align="center"
       show-overflow-tooltip
       width="100px"
-      label="状态">
+      label="审核状态">
       <template slot-scope="scope">
         <!-- 0：未审核，1：已审核 -->
         <el-tag size="medium" type="danger" v-if="scope.row.checkStatus==0">未通过</el-tag>
@@ -66,7 +66,7 @@
       prop="remark"
       align="center"
       show-overflow-tooltip
-      label="">
+      label="备注">
     </el-table-column>
     <el-table-column align="center" label="操作" width="150" class-name="small-padding fixed-width">
       <template slot-scope="scope">

@@ -22,7 +22,7 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
-
+import { mapActions } from 'vuex'
 export default {
   components: {
     Breadcrumb,
@@ -35,19 +35,19 @@ export default {
     ])
   },
   methods: {
+    ...mapActions({
+      logout: 'Logout'
+    }),
     toggleSideBar() {
       this.$store.dispatch('ToggleSideBar')
-    },
-    logout() {
-      this.$store.dispatch('LogOut')
     }
   },
   created() {
-    const socket = new WebSocket(`${process.env.WSURL}/notice`)
+    /* const socket = new WebSocket(`${process.env.WSURL}/notice`)
 
     socket.onopen = function() {
       console.log('WebSocket connected')
-    }
+    } */
 
     /* socket.onmessage = (evt) => {
       console.log(evt)

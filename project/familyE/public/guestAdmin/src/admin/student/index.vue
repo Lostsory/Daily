@@ -40,6 +40,15 @@
       label="所补科目">
     </el-table-column>
     <el-table-column
+      prop="expectFee"
+      align="center"
+      show-overflow-tooltip
+      label="期望课费">
+      <!-- <template slot-scope="scope">
+        {{scope.row.expectFee}}￥
+      </template> -->
+    </el-table-column>
+    <el-table-column
       prop="school"
       show-overflow-tooltip
       align="center"
@@ -102,6 +111,11 @@
                 :value="item._id">
               </el-option>
             </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
+          <el-form-item label="期望课费：" prop="expectFee">
+            <el-input v-model="studentForm.expectFee" placeholder="请输入期望课费"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="24">

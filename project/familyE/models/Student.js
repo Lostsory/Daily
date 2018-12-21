@@ -38,6 +38,7 @@ var studentSchema = new Schema({
     type: String,
     required: false
   },
+  // 年级名称
   gradeName: {
     type: String,
     required: false
@@ -51,6 +52,11 @@ var studentSchema = new Schema({
   subjectIds: {
     type: Array,
     required: true
+  },
+  // 期望课费
+  expectFee: {
+    type: String,
+    required: false
   },
   // 备注
   remark: {

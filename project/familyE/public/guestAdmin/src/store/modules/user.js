@@ -1,10 +1,10 @@
 import { login, logout, getInfo } from '@/api'
-import { getToken, removeToken } from '@/utils/auth'
+import { removeToken, setToken } from '@/utils/auth'
 import router from '@/router'
 
 const user = {
   state: {
-    token: getToken(),
+    token: '',
     name: '',
     avatar: '',
     roles: []
@@ -29,10 +29,19 @@ const user = {
     // 登录
     Login({ commit }, userInfo) {
       return login(userInfo).then(res => {
-        console.log(res)
+        const token = res.data.token
+        setToken(token)
+        commit('SET_TOKEN', token)
+        router.push('/admin/homeSetting')
       })
     },
-
+    // 退出登录
+    Logout({ commit }) {
+      const token = ''
+      setToken(token)
+      commit('SET_TOKEN', token)
+      router.push('/login')
+    },
     // 获取用户信息
     GetInfo({ commit, state }) {
       return new Promise((resolve, reject) => {

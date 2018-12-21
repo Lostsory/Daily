@@ -12,6 +12,22 @@
           active-text-color="#409EFF"
           :router="true"
         >
+        <el-menu-item index="/admin/homeSetting">
+          <i class="el-icon-setting"></i>
+          <span slot="title">首页管理</span>
+        </el-menu-item>
+        <el-menu-item index="/admin/student">
+          <i class="el-icon-setting"></i>
+          <span slot="title">学员管理</span>
+        </el-menu-item>
+        <el-menu-item index="/admin/teacher">
+          <i class="el-icon-document"></i>
+          <span slot="title">教员管理</span>
+        </el-menu-item>
+        <el-menu-item index="/admin/subject">
+          <i class="el-icon-setting"></i>
+          <span slot="title">科目管理</span>
+        </el-menu-item>
         <el-menu-item index="/admin/city">
           <i class="el-icon-menu"></i>
           <span slot="title">城市管理</span>
@@ -19,22 +35,6 @@
         <el-menu-item index="/admin/agency">
           <i class="el-icon-menu"></i>
           <span slot="title">代理管理</span>
-        </el-menu-item>
-        <el-menu-item index="/admin/teacher">
-          <i class="el-icon-document"></i>
-          <span slot="title">教员管理</span>
-        </el-menu-item>
-        <el-menu-item index="/admin/student">
-          <i class="el-icon-setting"></i>
-          <span slot="title">学员管理</span>
-        </el-menu-item>
-        <el-menu-item index="/admin/subject">
-          <i class="el-icon-setting"></i>
-          <span slot="title">科目管理</span>
-        </el-menu-item>
-        <el-menu-item index="/admin/home">
-          <i class="el-icon-setting"></i>
-          <span slot="title">首页管理</span>
         </el-menu-item>
       </el-menu>
     </div>

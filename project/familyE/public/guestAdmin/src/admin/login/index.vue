@@ -1,12 +1,12 @@
 <template>
   <div class="login-container">
     <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
-      <h2 class="title"><img height="50px" src="../../assets/font.png" alt=""></h2>
+      <h2 class="title">优智家教后台管理系统</h2>
       <el-form-item prop="account">
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user" />
         </span>
-        <el-input name="account" type="text" v-model="loginForm.account" autoComplete="on" placeholder="请输入用户名" />
+        <el-input name="account" type="text" v-model="loginForm.account" autoComplete="on" placeholder="请输入用户名 / 手机号" />
       </el-form-item>
       <el-form-item prop="passWord">
         <span class="svg-container">
@@ -28,7 +28,7 @@
 
 <script>
 // import { isvalidUsername } from '@/utils/validate'
-import { login } from '@/api'
+import { mapActions } from 'vuex'
 export default {
   name: 'login',
   data() {
@@ -59,6 +59,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      login: 'Login'
+    }),
     showPwd() {
       if (this.pwdType === 'password') {
         this.pwdType = ''
@@ -69,11 +72,7 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          login(this.loginForm).then((res) => {
-            if (res.data.httpCode === '0') {
-              this.$router.push({ path: '/drink' })
-            }
-          })
+          this.login(this.loginForm)
         } else {
           console.log('error submit!!')
           return false

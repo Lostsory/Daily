@@ -52,19 +52,21 @@ app.use(function (req, res, next) {
   next()
 })
 
-var cityRouter = require('./routes/api/city');
-var gradeRouter = require('./routes/api/grade');
-var subjectRouter = require('./routes/api/subject');
-var studentRouter = require('./routes/api/student');
-var responsiblePersonRouter = require('./routes/api/responsiblePerson');
-var teacherRouter = require('./routes/api/teacher');
+var cityApi = require('./routes/api/city');
+var gradeApi = require('./routes/api/grade');
+var subjectApi = require('./routes/api/subject');
+var studentApi = require('./routes/api/student');
+var responsiblePersonApi = require('./routes/api/responsiblePerson');
+var teacherApi = require('./routes/api/teacher');
+var userApi = require('./routes/api/user');
 
-app.use('/api/city', cityRouter)
-app.use('/api/grade', gradeRouter)
-app.use('/api/subject', subjectRouter)
-app.use('/api/student', studentRouter)
-app.use('/api/responsiblePerson', responsiblePersonRouter)
-app.use('/api/teacher', teacherRouter)
+app.use('/api/city', cityApi);
+app.use('/api/grade', gradeApi);
+app.use('/api/subject', subjectApi);
+app.use('/api/student', studentApi);
+app.use('/api/responsiblePerson', responsiblePersonApi);
+app.use('/api/teacher', teacherApi);
+app.use('/api/user', userApi);
 
 // error handler
 app.use(function(err, req, res, next) {

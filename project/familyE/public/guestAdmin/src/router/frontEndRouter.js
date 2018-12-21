@@ -33,6 +33,11 @@ export default [
         path: '/frontEndLayout/pleaseTeach',
         name: 'pleaseTeach',
         component: () => import(/* webpackChunkName: "pleaseTeach" */ '@/frontEnd/pleaseTeach')
+      },
+      {
+        path: '/frontEndLayout/doTeach',
+        name: 'doTeach',
+        component: () => import(/* webpackChunkName: "doTeach" */ '@/frontEnd/doTeach')
       }
     ]
   }

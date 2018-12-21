@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
+// import { getToken } from '@/utils/auth'
+// import router from '@/router'
 import nprogress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css'// progress bar style
 
@@ -39,6 +41,11 @@ service.interceptors.response.use(res => {
   const RESPONSE_CODE = res.data.httpCode
   const RESPONSE_MSG = res.data.msg
   const SUCCESS_CODE = '200'
+  /* const token = getToken()
+  if (token) {
+  } else {
+    router.push('/login')
+  } */
   if (res.config.method === 'get' && RESPONSE_CODE === SUCCESS_CODE) return res
   if (RESPONSE_CODE === SUCCESS_CODE) {
     Message({

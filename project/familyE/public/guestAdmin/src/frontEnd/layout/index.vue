@@ -70,20 +70,15 @@
         </am-topbar-slot>
       </am-topbar-collapse>
     </am-topbar>
-    <am-slider :height="device==='mobile'?200:300">
-      <am-slider-item><img src="http://s.amazeui.org/media/i/demos/bing-1.jpg" /></am-slider-item>
-      <am-slider-item><img src="http://s.amazeui.org/media/i/demos/bing-2.jpg" /></am-slider-item>
-      <am-slider-item><img src="http://s.amazeui.org/media/i/demos/bing-3.jpg" /></am-slider-item>
-      <am-slider-item><img src="http://s.amazeui.org/media/i/demos/bing-4.jpg" /></am-slider-item>
-    </am-slider>
+    <div style="width: 100%;height:300px;background: url('http://s.amazeui.org/media/i/demos/bing-1.jpg') center center;background-size:cover"></div>
     <router-view class="content"/>
-    <div class="contact-us" v-if="device==='mobile'">
+    <!-- <div class="contact-us" v-if="device==='mobile'">
       <am-button-group>
         <am-button :round="true" color="primary"><a href="tel:13068035571">电话</a></am-button>
         <am-button :round="true" color="success"><a href="sms:13068035571">短信</a></am-button>
         <am-button :round="true" color="danger" @click="toTeacher">预约</am-button>
       </am-button-group>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -99,6 +94,10 @@ export default {
         {
           path: '/frontEndLayout/pleaseTeach',
           name: '请家教'
+        },
+        {
+          path: '/frontEndLayout/doTeach',
+          name: '做家教'
         },
         {
           path: '/frontEndLayout/teachers',
@@ -198,6 +197,10 @@ export default {
         margin-right: 12px
       }
     }
+  }
+  .content{
+    background: #fffaee;
+    min-height: 200px;
   }
 }
 </style>

@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 用户登录
 export const login = (data) => {
   return request({
-    url: '/login',
+    url: 'user/login',
     method: 'post',
     data
   })
@@ -11,6 +11,13 @@ export const login = (data) => {
 
 // 用户登出
 export function logout() {
+  return request({
+    url: '/logout',
+    method: 'post'
+  })
+}
+
+export function getInfo() {
   return request({
     url: '/logout',
     method: 'post'
@@ -132,7 +139,7 @@ export const teacherList = (params) => {
   })
 }
 
-// 教员增加接口
+// 教员增加接口(做家教)
 export const teacherAdd = (data) => {
   return request({
     url: 'teacher/add',
@@ -179,7 +186,7 @@ export const studentList = (params) => {
   })
 }
 
-// 学员增加接口
+// 学员增加接口(请家教)
 export const studentAdd = (data) => {
   return request({
     url: 'student/add',
