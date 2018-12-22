@@ -70,6 +70,22 @@ export const homeUpdata = (data) => {
   })
 }
 
+// 首页学院推荐接口
+export const homeStudents = () => {
+  return request({
+    url: 'home/student',
+    method: 'get'
+  })
+}
+
+// 首页教员推荐接口
+export const homeTeachers = () => {
+  return request({
+    url: 'home/teacher',
+    method: 'get'
+  })
+}
+
 /* ----------------------------------------------------------------------------------------------------------------------------- */
 
 // 年级查询

@@ -6,7 +6,7 @@
 <script>
 export default {
   created () {
-    this.$store.commit('SET_ACTIVEROUTER', '/teachers')
+    this.$store.commit('SET_ACTIVEROUTER', '/frontEndLayout/teachers')
   }
 }
 </script>

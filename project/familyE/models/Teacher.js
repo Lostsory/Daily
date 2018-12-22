@@ -48,6 +48,16 @@ var teacherSchema = new Schema({
     type: String,
     required: false
   },
+  // 教龄
+  teachTime: {
+    type: String,
+    required: false
+  },
+  // 毕业院校
+  finishSchool: {
+    type: String,
+    required: false
+  },
   // 创建时间
   createTime: {
     type: Date,

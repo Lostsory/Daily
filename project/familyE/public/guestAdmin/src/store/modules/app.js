@@ -8,9 +8,13 @@ const app = {
     },
     device: 'desktop',
     activeRouter: '/home',
-    width: document.body.clientWidth
+    width: document.body.clientWidth,
+    homeInfo: {}
   },
   mutations: {
+    SET_HOMEINFO: (state, info) => {
+      state.homeInfo = info
+    },
     SET_ACTIVEROUTER: (state, action) => {
       state.activeRouter = action
     },

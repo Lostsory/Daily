@@ -42,6 +42,18 @@
       label="手机号码">
     </el-table-column>
     <el-table-column
+      prop="finishSchool"
+      align="center"
+      show-overflow-tooltip
+      label="毕业院校">
+    </el-table-column>
+    <el-table-column
+      prop="teachTime"
+      align="center"
+      show-overflow-tooltip
+      label="教龄">
+    </el-table-column>
+    <el-table-column
       prop="checkStatus"
       align="center"
       show-overflow-tooltip
@@ -99,6 +111,16 @@
                 :value="item.value">
               </el-option>
             </el-select>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
+          <el-form-item label="毕业院校：" prop="finishSchool">
+            <el-input v-model="teacherForm.finishSchool" placeholder="请输入毕业院校"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
+          <el-form-item label="教龄：" prop="teachTime">
+           <el-input-number v-model="teacherForm.teachTime" :min="1" :max="30" label="描述文字"></el-input-number>
           </el-form-item>
         </el-col>
         <el-col :span="24">

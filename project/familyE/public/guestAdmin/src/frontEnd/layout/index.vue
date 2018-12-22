@@ -1,88 +1,77 @@
 <template>
-  <div id="frontEnd" :class="{'showBottom': device==='mobile'}">
-    <am-topbar :inverse="true">
-      <am-topbar-brand><a href="#">LOGO</a></am-topbar-brand>
-      <am-topbar-toggle></am-topbar-toggle>
-      <am-topbar-collapse>
-        <am-nav :pill="true" :topbar="true">
-          <am-nav-item v-for="(item, index) in routes" :active="$store.state.activeRouter == item.path" :to="item.path" :key="index">{{item.name}}</am-nav-item>
-        </am-nav>
-        <am-topbar-slot>
-          <am-button color="primary" @click="loginModal = true" custom-class="am-topbar-btn">加入我们</am-button>
-        </am-topbar-slot>
-        <am-topbar-slot>
-          <am-button color="secondary" @click="registerModal = true" custom-class="am-topbar-btn">注册</am-button>
-          <am-modal :is-show.sync="registerModal" :width="320">
-            <am-modal-header>注册</am-modal-header>
-            <am-modal-body>
-              <am-form>
-                  <am-input-group block>
-                      <am-input-label transparent slot="prepend">
-                          <am-icon type="user" placeholder="请输入您的帐号"></am-icon>
-                      </am-input-label>
-                      <am-input placeholder="请输入新用户名"></am-input>
-                  </am-input-group>
-                  <am-input-group block>
-                      <am-input-label transparent slot="prepend">
-                          <am-icon type="lock"></am-icon>
-                      </am-input-label>
-                      <am-input type="password" placeholder="请输入您的密码"></am-input>
-                  </am-input-group>
-                  <am-input-group block>
-                      <am-input-label transparent slot="prepend">
-                          <am-icon type="lock"></am-icon>
-                      </am-input-label>
-                      <am-input type="password" placeholder="请确认您的密码"></am-input>
-                  </am-input-group>
-                  <am-input-group>
-                      <am-checkbox>男</am-checkbox>
-                      <am-checkbox>女</am-checkbox>
-                  </am-input-group>
-                  <am-input-group>
-                      <am-select width="300px" placeholder="请选择您的身份" :options="sections"></am-select>
-                  </am-input-group>
-              </am-form>
-            </am-modal-body>
-            <am-modal-footer>
-              <am-button color="primary" @click="register">注册</am-button>
-              <am-button @click="registerModal=false">取消</am-button>
-            </am-modal-footer>
-          </am-modal>
-        </am-topbar-slot>
-        <am-topbar-slot>
-          <am-button color="primary" @click="loginModal = true" custom-class="am-topbar-btn">登录</am-button>
-          <am-modal :is-show.sync="loginModal" :width="320">
-            <am-modal-header>注册</am-modal-header>
-            <am-modal-body>
-              <am-form>
-                <am-form-group>
-                    <label>帐 号</label>
-                    <am-input placeholder="请输入您的帐号"></am-input>
-                </am-form-group>
-                <am-form-group>
-                    <label>密 码</label>
-                    <am-input placeholder="请输入您的密码"></am-input>
-                </am-form-group>
-                <am-button @click="login">登录</am-button>
-              </am-form>
-            </am-modal-body>
-          </am-modal>
-        </am-topbar-slot>
-      </am-topbar-collapse>
-    </am-topbar>
-    <div style="width: 100%;height:300px;background: url('http://s.amazeui.org/media/i/demos/bing-1.jpg') center center;background-size:cover"></div>
+  <div id="frontEnd">
+    <div class="top">
+      <div class="brand">LOGO</div>
+      <ul>
+        <li class="hidden">
+          <i class="iconfont icon-fuwu1"></i>
+          <p>
+            <span>精品一对一</span>
+            <span>带来最优质的服务</span>
+          </p>
+        </li>
+        <li class="hidden">
+          <i class="iconfont icon-jiaoyu"></i>
+          <p>
+            <span>网罗全国名师</span>
+            <span>带来最顶尖的教学</span>
+          </p>
+        </li>
+        <li>
+          <i class="iconfont icon-customer"></i>
+          <p>
+            <span>24小时贴心服务</span>
+            <span style="color: #f7c864;font-weight: 600">{{homeInfo.banner.phone}}</span>
+          </p>
+        </li>
+      </ul>
+    </div>
+    <div class="navCon">
+      <am-topbar :inverse="true">
+        <!-- <am-topbar-brand> -->
+        <am-topbar-toggle></am-topbar-toggle>
+        <am-topbar-collapse>
+          <am-nav :pill="true" :topbar="true">
+            <am-nav-item v-for="(item, index) in routes" :active="activeRouter == item.path" :to="item.path" :key="index">{{item.name}}</am-nav-item>
+          </am-nav>
+        </am-topbar-collapse>
+      </am-topbar>
+    </div>
+    <div class="banner" :class="bannerImg">
+      <div class="animated fadeInUp" v-if="activeRouter == '/frontEndLayout/home'">
+        <h2>在家学习没有老师？作业不会怎么办？</h2>
+        <h3>全国优质名师</h3>
+        <h4>让你把家当课堂,从此学习不再发愁</h4>
+        <p><span v-for="item in 3" :key="item"></span></p>
+        <span class="btn" @click="$router.push('/frontEndLayout/pleaseTeach')">助 力 学 习</span>
+      </div>
+    </div>
     <router-view class="content"/>
-    <!-- <div class="contact-us" v-if="device==='mobile'">
-      <am-button-group>
+      <!-- am-button-group>
         <am-button :round="true" color="primary"><a href="tel:13068035571">电话</a></am-button>
         <am-button :round="true" color="success"><a href="sms:13068035571">短信</a></am-button>
         <am-button :round="true" color="danger" @click="toTeacher">预约</am-button>
-      </am-button-group>
-    </div> -->
+      </am-button-group> -->
+    <el-row class="contact-us show">
+      <el-col :span="8">
+        <a :href="'sms:'+homeInfo.banner.phone">短信 <i class="iconfont icon-duanxin"></i></a>
+      </el-col>
+      <el-col :span="8">
+        <a :href="'tel:'+homeInfo.banner.phone">
+          <i class="iconfont icon-phone"></i>
+          <p>0356-3826155</p>
+        </a>
+      </el-col>
+      <el-col :span="8">
+        <span></span>
+        <a @click="$router.push('/frontEndLayout/pleaseTeach')"><i class="iconfont icon-yuyue"></i> 预约</a>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -134,14 +123,27 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      homeInfo: 'homeInfo',
+      activeRouter: 'activeRouter'
+    }),
     swiperH() {
       const width = document.body.clientWidth
       if (width < 500) {
         return 200
       }
     },
-    device() {
-      return this.$store.state.app.device
+    bannerImg() {
+      const nowRouter = this.activeRouter
+      if (nowRouter === '/frontEndLayout/home') {
+        return { 'home': true }
+      } else if (nowRouter === '/frontEndLayout/teachers') {
+        return { 'teacher': true }
+      } else if (nowRouter === '/frontEndLayout/students') {
+        return { 'student': true }
+      } else {
+        return { 'none': true }
+      }
     }
   },
   methods: {
@@ -164,8 +166,163 @@ export default {
   &.showBottom{
     padding-bottom: 6rem;
   }
+  .top{
+    background-color: #fff;
+    color: #666;
+    overflow: hidden;
+    width: 1200px;
+    margin: 0 auto;
+    .brand{
+      height: 100%;
+      display: flex;
+      float: left;
+      align-content: center;
+    }
+    ul{
+      list-style: none;
+      overflow: hidden;
+      height: 6rem;
+      margin: 0px;
+      float: right;
+      li{
+        height: 100%;
+        float: left;
+        padding: 1.2rem 2rem 1.2rem 4.2rem;
+        position: relative;
+        i{
+          position: absolute;
+          top: 1.2rem;
+          left: 0;
+          font-size: 3.2rem;
+        }
+        p{
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          margin: 0;
+          line-height: 1;
+          span:first-child{
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+          }
+          span:last-child{
+            font-size: 2rem;
+          }
+        }
+      }
+    }
+  }
+  .navCon{
+    background-color: #f7c864;
+  }
   header{
     margin-bottom: 0px;
+  }
+  .am-topbar{
+    height: 60px;
+    .am-topbar-brand{
+      height: 60px;
+      line-height: 60px;
+    }
+    .am-topbar-btn{
+      margin-top: 13px;
+    }
+    .am-btn-primary, .am-btn-primary:focus, .am-btn-primary:hover {
+      background-color: #f7c864;
+      border-color: #f7c864
+    }
+    .am-topbar-collapse{
+      background-color: #f7c864;
+      z-index: 999;
+    }
+  }
+  .am-topbar-inverse {
+    background-color: #f7c864;
+    border-color: #f7c864;
+    color: #eee;
+    width: 1200px;
+    margin: 0 auto;
+    .router-link-exact-active.router-link-active{
+      background-color: #302d26;
+      color: #f7c864;
+    }
+    .am-nav-pills>li+li{
+      margin-left: 0px;
+    }
+    .am-topbar-nav>li>a{
+      color: #333;
+      height: 60px;
+      line-height: 60px;
+      padding: 0 1.5rem;
+      font-size: 1.6rem;
+      &::after{
+        border-bottom-color: #f7c864
+      }
+      &:hover, &:focus{
+        background-color: #302d26;
+        color: #f7c864;
+        &::after{
+          border-bottom-color: #f7c864
+        }
+      }
+    }
+  }
+  .show{
+    display: none
+  }
+  @media only screen and (max-width: 768px) {
+    .am-topbar-inverse, .top{
+      width: 100%;
+    }
+    .hidden{
+      display: none;
+    }
+    .contact-us{
+      position: fixed;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      height: 6rem;
+      .el-col{
+        height: 100%;
+        position: relative;
+        a{
+          width: 90%;
+          height: 100%;
+          margin: 0 auto;
+          color: #fff;
+          display: block;
+          background: #f7c864;
+          border-radius: 3rem;
+          padding: 0 1rem;
+          line-height: 6rem;
+          font-size: 2rem;
+          .iconfont{
+            font-size: 2rem;
+          }
+          p{
+            margin: 0
+          }
+        }
+        &:nth-of-type(1) {
+          text-align: center;
+        }
+        &:nth-of-type(2) {
+          text-align: center;
+          a{
+            line-height: 2rem;
+            font-size: 12px;
+            padding: 1rem;
+          }
+        }
+        &:nth-of-type(3) {
+          text-align: center;
+        }
+      }
+    }
+    .show{
+      display: block;
+    }
   }
   .am-slider-default{
     margin-bottom: 32px;
@@ -173,34 +330,82 @@ export default {
   .am-container{
     max-width: 1200px
   }
-  .contact-us{
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
+  .banner{
     width: 100%;
-    height: 6rem;
-    padding: 1rem;
-    background-color: rgba(0, 0, 0, .6);
-    .am-btn-group{
-      width: 100%;
+    padding: 0 1rem 5.6rem;
+    text-align: center;
+    overflow: hidden;
+    &.home{
+      background: url('../../assets/webImg/home-banner.jpg') no-repeat center center;
+      background-size: cover;
     }
-    .am-btn{
-      line-height: 4rem;
-      font-size: 1.8rem;
-      padding: 0;
-      width: 33.333333%
+    &.teacher{
+      background: url('../../assets/webImg/teacher-banner.jpg') no-repeat center center;
+      background-size: cover;
+      min-height: 28rem;
     }
-    a{
-      color: #fff;
-      display: block;
-      .am-icon-btn{
-        margin-right: 12px
+    &.student{
+      background: url('../../assets/webImg/student-banner.jpg') no-repeat center center;
+      background-size: cover;
+      min-height: 28rem;
+    }
+    &.none{
+      display: none;
+    }
+    .animated{
+      animation-duration: 1.8s
+    }
+    h2{
+      margin: 0;
+      color: #281e09;
+      font-size: 3.2rem;
+      padding-top: 4.8rem;
+      line-height: 3.2rem;
+    }
+    h3{
+      margin: 1rem 0 0;
+      color: #281e09;
+      font-size: 2.8rem;
+      line-height: 4.8rem;
+    }
+    h4{
+      margin: 0;
+      color: #564520;
+      font-size: 2.4rem;
+      line-height: 2.6rem;
+    }
+    .btn{
+      display: inline-block;
+      font-size: 1.4rem;
+      line-height: 3.2rem;
+      padding: 0 4rem;
+      border-radius: 2rem;
+      background: #f7c864;
+      color: #564520;
+      cursor: pointer;
+      &:hover{
+        background-color: #fbce6e
+      }
+    }
+    p{
+      margin: 0 0 3.6rem;
+      span{
+        width: 4px;
+        height: 4px;
+        transform: rotate(45deg);
+        background: #3f3011;
+        display: inline-block;
+        margin: 0 4px;
       }
     }
   }
-  .content{
+  &>.content{
     background: #fffaee;
-    min-height: 200px;
+    min-height: 20rem;
+    &>div{
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
   }
 }
 </style>

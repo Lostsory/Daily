@@ -5,8 +5,8 @@
 </template>
 <script>
 export default {
-  created () {
-    this.$store.commit('SET_ACTIVEROUTER', '/students')
+  created() {
+    this.$store.commit('SET_ACTIVEROUTER', '/frontEndLayout/students')
   }
 }
 </script>
