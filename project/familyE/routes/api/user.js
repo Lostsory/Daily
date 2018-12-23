@@ -13,7 +13,7 @@ const config = require('../config');
 
 /* GET users listing. */
 router.post('/login', (req, res) => {
-  const { account, passWord } = req.body
+  const { account, passWord, cityCode } = req.body
 
   ResponsiblePerson.findOne({responsiblePhone: account}).then((user) => {
     console.log(user);
@@ -24,17 +24,24 @@ router.post('/login', (req, res) => {
       })
     } else {
       if (user.pwd == passWord) {
-        res.send({
-          token: 'dasdh123jhasdx',
-          userInfo: {
-            cityCode: user.cityCode,
-            phone: user.responsiblePhone,
-            userName: user.responsibleName,
-            identity: user.identity
-          },
-          httpCode: '200',
-          msg: "登录成功"
-        })
+        if (user.cityCode == cityCode) {
+          res.send({
+            token: 'dasdh123jhasdx',
+            userInfo: {
+              cityCode: user.cityCode,
+              phone: user.responsiblePhone,
+              userName: user.responsibleName,
+              identity: user.identity
+            },
+            httpCode: '200',
+            msg: "登录成功"
+          })
+        } else {
+          res.send({
+            httpCode: '-1',
+            msg: "请联系管理员获取当前城市的管理权限"
+          })
+        }
       } else {
         res.send({
           httpCode: '-1',

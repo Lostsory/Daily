@@ -56,7 +56,7 @@ export default [
       },
       {
         path: '/admin/partners',
-        name: 'subject',
+        name: 'adminPartners',
         component: () => import('@/admin/partners'),
         meta: {
           title: '合作机构'

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
 // import { getToken } from '@/utils/auth'
-// import router from '@/router'
+import router from '@/router'
 import nprogress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css'// progress bar style
 
@@ -47,6 +47,7 @@ service.interceptors.response.use(res => {
     router.push('/login')
   } */
   if (res.config.method === 'get' && RESPONSE_CODE === SUCCESS_CODE) return res
+  if (/^\/frontEndLayout/.test(router.currentRoute.fullPath)) return res
   if (RESPONSE_CODE === SUCCESS_CODE) {
     Message({
       message: RESPONSE_MSG,

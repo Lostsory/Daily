@@ -49,6 +49,7 @@ app.use(function (req, res, next) {
   res.setHeader('Content-Type', 'application/json;charset=UTF-8')
   // res.setHeader("Access-Control-Allow-Headers", "Content-Type,XFILENAME,XFILECATEGORY,XFILESIZE,x-access-token"); // 如有特别需要可开启此项
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  console.log(new Date() + '来了一拨请求');
   next()
 })
 

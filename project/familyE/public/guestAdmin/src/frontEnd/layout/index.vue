@@ -1,7 +1,7 @@
 <template>
   <div id="frontEnd" v-if="homeInfo.banner" class="showBottom">
     <div class="top">
-      <div class="brand">LOGO</div>
+      <div class="brand"></div>
       <ul>
         <li class="hidden">
           <i class="iconfont icon-fuwu1"></i>
@@ -174,10 +174,11 @@ export default {
     width: 1200px;
     margin: 0 auto;
     .brand{
-      height: 100%;
-      display: flex;
+      height: 6rem;
+      width: 200px;
+      background: url('../../assets/logo.png') no-repeat left center;
+      background-size: 80%;
       float: left;
-      align-content: center;
     }
     ul{
       list-style: none;
