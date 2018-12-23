@@ -5,6 +5,7 @@ import router from '@/router'
 const user = {
   state: {
     token: '',
+    userInfo: {},
     name: '',
     avatar: '',
     roles: []
@@ -13,6 +14,9 @@ const user = {
   mutations: {
     SET_TOKEN: (state, token) => {
       state.token = token
+    },
+    SET_USERINFO: (state, userInfo) => {
+      state.userInfo = userInfo
     },
     SET_NAME: (state, name) => {
       state.name = name
@@ -29,10 +33,13 @@ const user = {
     // 登录
     Login({ commit }, userInfo) {
       return login(userInfo).then(res => {
-        const token = res.data.token
+        const { token, userInfo } = res.data
         setToken(token)
-        commit('SET_TOKEN', token)
-        router.push('/admin/homeSetting')
+        if (res.data.httpCode === '200') {
+          commit('SET_TOKEN', token)
+          commit('SET_USERINFO', userInfo)
+          router.push('/admin/homeSetting')
+        }
       })
     },
     // 退出登录

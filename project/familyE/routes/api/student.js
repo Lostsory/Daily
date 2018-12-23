@@ -56,7 +56,7 @@ router.get('/list', (req, res) => {
   pageNum = parseInt(pageNum)
   pageSize = parseInt(pageSize)
   Student.find({cityCode}).sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((student) => {
-    Student.count().then((total) => {
+    Student.countDocuments({cityCode}).then((total) => {
       res.send({
         data: student,
         total,

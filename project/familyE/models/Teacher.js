@@ -53,6 +53,16 @@ var teacherSchema = new Schema({
     type: String,
     required: false
   },
+  // 出身日期
+  birthDate: {
+    type: String,
+    required: false
+  },
+  // 专业
+  profession: {
+    type: String,
+    required: false
+  },
   // 毕业院校
   finishSchool: {
     type: String,

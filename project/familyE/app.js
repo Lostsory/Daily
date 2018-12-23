@@ -60,6 +60,7 @@ var responsiblePersonApi = require('./routes/api/responsiblePerson');
 var teacherApi = require('./routes/api/teacher');
 var userApi = require('./routes/api/user');
 var homeApi = require('./routes/api/home');
+var partnerApi = require('./routes/api/partners');
 
 app.use('/api/city', cityApi);
 app.use('/api/grade', gradeApi);
@@ -69,6 +70,7 @@ app.use('/api/responsiblePerson', responsiblePersonApi);
 app.use('/api/teacher', teacherApi);
 app.use('/api/user', userApi);
 app.use('/api/home', homeApi);
+app.use('/api/partner', partnerApi);
 
 // error handler
 app.use(function(err, req, res, next) {

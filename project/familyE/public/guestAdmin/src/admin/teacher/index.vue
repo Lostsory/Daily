@@ -27,6 +27,12 @@
       label="教员姓名">
     </el-table-column>
     <el-table-column
+      prop="phone"
+      align="center"
+      show-overflow-tooltip
+      label="手机号码">
+    </el-table-column>
+    <el-table-column
       prop="typeId"
       align="center"
       show-overflow-tooltip
@@ -34,12 +40,6 @@
       <template slot-scope="scope">
         <span v-for="(item, index) in teacherTypes" :key="index" v-if="item.value == scope.row.typeId">{{item.label}}</span>
       </template>
-    </el-table-column>
-    <el-table-column
-      prop="phone"
-      align="center"
-      show-overflow-tooltip
-      label="手机号码">
     </el-table-column>
     <el-table-column
       prop="finishSchool"
@@ -52,6 +52,9 @@
       align="center"
       show-overflow-tooltip
       label="教龄">
+      <template slot-scope="scope">
+        {{scope.row.teachTime?scope.row.teachTime+'年': ''}}
+      </template>
     </el-table-column>
     <el-table-column
       prop="checkStatus"
@@ -80,7 +83,7 @@
       show-overflow-tooltip
       label="备注">
     </el-table-column>
-    <el-table-column align="center" label="操作" width="150" class-name="small-padding fixed-width">
+    <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
       <template slot-scope="scope">
         <!-- <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">修改</el-button> -->
         <el-button size="mini" type="primary" @click="checkDetail(scope.row)">审核</el-button>
@@ -116,6 +119,11 @@
         <el-col :span="24">
           <el-form-item label="毕业院校：" prop="finishSchool">
             <el-input v-model="teacherForm.finishSchool" placeholder="请输入毕业院校"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
+          <el-form-item label="专业：" prop="profession">
+            <el-input v-model="teacherForm.profession" placeholder="请输入专业"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="24">

@@ -125,27 +125,25 @@
 </template>
 <script>
 import Titlecomp from '@/components/Title'
-import { homeDetail, homeStudents, homeTeachers } from '@/api'
+import { homeStudents, homeTeachers } from '@/api'
+import { mapGetters } from 'vuex'
 export default {
   components: {
     Titlecomp
   },
   data() {
     return {
-      // 主要文案
-      mainCon: {},
       // 学院推荐
       students: [],
       teachers: []
     }
   },
+  computed: {
+    ...mapGetters({
+      mainCon: 'homeInfo'
+    })
+  },
   methods: {
-    getHomeInfo() {
-      homeDetail().then((res) => {
-        this.mainCon = res.data.data.homeSetting
-        this.$store.commit('SET_HOMEINFO', this.mainCon)
-      })
-    },
     getStudent() {
       homeStudents().then((res) => {
         this.students = res.data.data
@@ -159,7 +157,6 @@ export default {
   },
   created() {
     this.$store.commit('SET_ACTIVEROUTER', '/frontEndLayout/home')
-    this.getHomeInfo()
     this.getStudent()
     this.getTeachers()
   }
@@ -217,6 +214,13 @@ export default {
           overflow:hidden;
           text-overflow:ellipsis;
         }
+        @media only screen and (max-width: 768px) {
+          p:last-of-type{
+            height: 4.8rem;
+            overflow:hidden;
+            text-overflow:ellipsis;
+          }
+        }
         &:hover{
           .icon{
             background: #f7c864;
@@ -265,8 +269,14 @@ export default {
         p:nth-of-type(3){
           color: #666;
           font-size: 14px;
-          margin: 0 auto 14px;
-          width: 60%;
+          margin: 0 auto 12px;
+          width: 70%;
+        }
+        @media only screen and (max-width: 768px) {
+          p:nth-of-type(3){
+            font-size: 12px;
+            width: 35%;
+          }
         }
         p:nth-of-type(4){
           position: absolute;
@@ -329,7 +339,7 @@ export default {
           p:nth-of-type(3){
             color: #999;
             line-height: 1.6rem;
-            height: 5rem;
+            height: 6.4rem;
             overflow:hidden;
             text-overflow:ellipsis;
           }

@@ -53,6 +53,14 @@ export default [
         meta: {
           title: '科目管理'
         }
+      },
+      {
+        path: '/admin/partners',
+        name: 'subject',
+        component: () => import('@/admin/partners'),
+        meta: {
+          title: '合作机构'
+        }
       }
     ]
   },

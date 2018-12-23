@@ -11,6 +11,9 @@
       </div>
       <el-dropdown-menu class="user-dropdown" slot="dropdown">
         <el-dropdown-item>
+          <span @click="$router.push('/frontEndLayout/home')" style="display:block;">网站首页</span>
+        </el-dropdown-item>
+        <el-dropdown-item>
           <span @click="logout" style="display:block;">退出登录</span>
         </el-dropdown-item>
       </el-dropdown-menu>

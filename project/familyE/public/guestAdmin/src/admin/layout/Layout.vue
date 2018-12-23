@@ -13,27 +13,31 @@
           :router="true"
         >
         <el-menu-item index="/admin/homeSetting">
-          <i class="el-icon-setting"></i>
+          <i class="iconfont icon-shouye"></i>
           <span slot="title">首页管理</span>
         </el-menu-item>
         <el-menu-item index="/admin/student">
-          <i class="el-icon-setting"></i>
+          <i class="iconfont icon-xueyuanguanli"></i>
           <span slot="title">学员管理</span>
         </el-menu-item>
         <el-menu-item index="/admin/teacher">
-          <i class="el-icon-document"></i>
+          <i class="iconfont icon-laoshi"></i>
           <span slot="title">教员管理</span>
         </el-menu-item>
         <el-menu-item index="/admin/subject">
-          <i class="el-icon-setting"></i>
+          <i class="iconfont icon-kemu"></i>
           <span slot="title">科目管理</span>
         </el-menu-item>
-        <el-menu-item index="/admin/city">
-          <i class="el-icon-menu"></i>
+        <el-menu-item index="/admin/partners" v-if='admin'>
+          <i class="iconfont icon-hezuojigou"></i>
+          <span slot="title">合作机构</span>
+        </el-menu-item>
+        <el-menu-item index="/admin/city" v-if='admin'>
+          <i class="iconfont icon-chengshiguanli"></i>
           <span slot="title">城市管理</span>
         </el-menu-item>
-        <el-menu-item index="/admin/agency">
-          <i class="el-icon-menu"></i>
+        <el-menu-item index="/admin/agency" v-if='admin'>
+          <i class="iconfont icon-dailiguanli"></i>
           <span slot="title">代理管理</span>
         </el-menu-item>
       </el-menu>
@@ -62,6 +66,9 @@ export default {
     },
     device() {
       return this.$store.state.app.device
+    },
+    admin() {
+      return this.$store.state.user.userInfo.identity === '0'
     },
     classObj() {
       return {

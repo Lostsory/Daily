@@ -1,5 +1,5 @@
 <template>
-  <div id="frontEnd">
+  <div id="frontEnd" v-if="homeInfo.banner" class="showBottom">
     <div class="top">
       <div class="brand">LOGO</div>
       <ul>
@@ -72,9 +72,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import { homeDetail } from '@/api'
 export default {
   data() {
     return {
+      homeInfo: {},
       routes: [
         {
           path: '/frontEndLayout/home',
@@ -124,7 +126,6 @@ export default {
   },
   computed: {
     ...mapGetters({
-      homeInfo: 'homeInfo',
       activeRouter: 'activeRouter'
     }),
     swiperH() {
@@ -147,15 +148,18 @@ export default {
     }
   },
   methods: {
-    register() {
-
-    },
-    login() {
-
+    getHomeInfo() {
+      homeDetail().then((res) => {
+        this.homeInfo = res.data.data.homeSetting
+        this.$store.commit('SET_HOMEINFO', this.homeInfo)
+      })
     },
     toTeacher() {
       this.$router.push('/frontEndLayout/pleaseTeach')
     }
+  },
+  created() {
+    this.getHomeInfo()
   }
 }
 </script>
@@ -163,9 +167,6 @@ export default {
 <style lang="less">
 #frontEnd {
   color: #2c3e50;
-  &.showBottom{
-    padding-bottom: 6rem;
-  }
   .top{
     background-color: #fff;
     color: #666;
@@ -225,7 +226,7 @@ export default {
       line-height: 60px;
     }
     .am-topbar-btn{
-      margin-top: 13px;
+      margin-top: 15px;
     }
     .am-btn-primary, .am-btn-primary:focus, .am-btn-primary:hover {
       background-color: #f7c864;
@@ -279,10 +280,12 @@ export default {
     }
     .contact-us{
       position: fixed;
-      bottom: 0px;
       left: 0px;
+      bottom: 0;
       width: 100%;
-      height: 6rem;
+      height: 8rem;
+      background: rgba(0, 0, 0, 0.8);
+      padding: 1rem 0;
       .el-col{
         height: 100%;
         position: relative;
@@ -323,6 +326,9 @@ export default {
     .show{
       display: block;
     }
+    &.showBottom{
+      padding-bottom: 8rem;
+    }
   }
   .am-slider-default{
     margin-bottom: 32px;
@@ -353,7 +359,7 @@ export default {
       display: none;
     }
     .animated{
-      animation-duration: 1.8s
+      animation-duration: 1.5s
     }
     h2{
       margin: 0;

@@ -248,3 +248,40 @@ export const responsiblePersonDelete = (params) => {
     params
   })
 }
+
+/* ----------------------------------------------------------------------------------------------------------------------------- */
+
+// 合作机构列表查询
+export const partnerList = () => {
+  return request({
+    url: 'partner/list',
+    method: 'get'
+  })
+}
+
+// 新增合作机构
+export const partnerAdd = (data) => {
+  return request({
+    url: 'partner/add',
+    method: 'post',
+    data
+  })
+}
+
+// 修改合作机构
+export const partnerUpdata = (data) => {
+  return request({
+    url: 'partner/update',
+    method: 'post',
+    data
+  })
+}
+
+// 合作机构删除接口
+export const partnerDelete = (params) => {
+  return request({
+    url: 'grade/delete',
+    method: 'delete',
+    params
+  })
+}

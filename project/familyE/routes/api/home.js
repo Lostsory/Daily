@@ -9,8 +9,10 @@ const Teacher = require('../../models/Teacher.js');
 * @public
 */
 router.get('/student', (req, res) => {
-  let {cityCode} = req.query;
-  Student.find({cityCode}, {phone: 0, pwd: 0}).sort({'createTime': -1}).limit(6).then((students) => {
+  let {cityCode, pageSize, pageNum} = req.query;
+  pageNum = parseInt(pageNum) || 1
+  pageSize = parseInt(pageSize) || 6
+  Student.find({cityCode}, {phone: 0, pwd: 0}).sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((students) => {
     const newData = students.map((item) => {
       var subjects = ''
       item.subjectIds.forEach(element => {
@@ -23,10 +25,13 @@ router.get('/student', (req, res) => {
         gradeName: item.gradeName
       }
     })
-    res.send({
-      data: newData,
-      httpCode: '200',
-      msg: '请求成功'
+    Student.countDocuments({cityCode}).then((total) => {
+      res.send({
+        data: newData,
+        total,
+        httpCode: '200',
+        msg: '请求成功'
+      })
     })
   })
 })
@@ -37,8 +42,11 @@ router.get('/student', (req, res) => {
 * @public
 */
 router.get('/teacher', (req, res) => {
-  let {cityCode} = req.query;
-  Teacher.find({cityCode, teachTime: {$exists: true}}, {phone: 0, pwd: 0}).sort({'createTime': -1}).limit(8).then((teachers) => {
+  let {cityCode, pageSize, pageNum} = req.query;
+  pageNum = parseInt(pageNum) || 1
+  pageSize = parseInt(pageSize) || 8
+  let exists = req.query.pageNum?true:false
+  Teacher.find({cityCode, teachTime: {$exists: exists}}, {phone: 0, pwd: 0}).sort({'createTime': -1}).limit(8).then((teachers) => {
     const newData = teachers.map((item) => {
       return {
         name: item.teacherName[0] + '老师',
@@ -47,10 +55,13 @@ router.get('/teacher', (req, res) => {
         finishSchool: item.finishSchool
       }
     })
-    res.send({
-      data: newData,
-      httpCode: '200',
-      msg: '请求成功'
+    Teacher.countDocuments({cityCode, teachTime: {$exists: exists}}).then((total) => {
+      res.send({
+        data: newData,
+        total,
+        httpCode: '200',
+        msg: '请求成功'
+      })
     })
   })
 })
