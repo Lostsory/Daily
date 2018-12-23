@@ -90,7 +90,7 @@
           </el-col>
         </el-form>
         <el-col :span="24" style="text-align: center;margin-top: 20px;margin-bottom: 20px;">
-          <el-checkbox></el-checkbox>我已阅读<span><a href="#">《XXXXXXXXXXXXXXX》</a></span>协议
+          <!--<el-checkbox></el-checkbox>我已阅读<span><a href="#">《XXXXXXXXXXXXXXX》</a></span>协议-->
         </el-col>
         <el-col :span="24" style="text-align: center;margin-bottom: 20px;">
         	<el-button style="padding: 1.5rem 5rem;" type="warning" @click="nexts" v-show="buttonShow" id="dianjicishu">下一步</el-button>
@@ -203,15 +203,32 @@ export default {
 		nexts() {
       this.active = this.active + 1
       if(this.active == 2) {
-				this.contact = false
-				this.show = true
-        this.kemu = false
+      	if (this.subXuqiu.teacherName == undefined || this.subXuqiu.teacherName == '' || this.subXuqiu.phone == undefined || this.subXuqiu.phone == '') {
+      		
+      		this.active = 1
+      		this.$message({
+	          message: '请填写您的信息',
+	          type: 'warning'
+	        })
+      	} else {
+      		this.contact = false
+					this.show = true
+	        this.kemu = false
+      	}
       } else if (this.active==3) {
-        this.buttonShow = false
-				this.subShow = true
-				this.contact = false
-				this.show = false
-				this.kemu = true
+      	if (this.subXuqiu.address == undefined || this.subXuqiu.address == '' || this.subXuqiu.finishSchool == undefined || this.subXuqiu.finishSchool == ''){
+      		this.active = 2
+      		this.$message({
+	          message: '请填写您的信息',
+	          type: 'warning'
+	        })
+      	} else {
+      		this.buttonShow = false
+					this.subShow = true
+					this.contact = false
+					this.show = false
+					this.kemu = true
+      	}
       } else if (this.active++ > 3) {
         this.active = 1
       }
@@ -248,7 +265,7 @@ export default {
 </script>
 <style>
 #doTeach{
-  padding: 20px 30px
+  padding: 2rem
 }
  .doTeach-box h1{
    font-size: 32px;

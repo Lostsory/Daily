@@ -32,7 +32,7 @@ export default {
 	},
   created () {
 		this.getData()
-    this.$store.commit('SET_ACTIVEROUTER', '/partners')
+    this.$store.commit('SET_ACTIVEROUTER', '/frontEndLayout/partners')
   }
 }
 </script>

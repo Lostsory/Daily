@@ -173,12 +173,14 @@ export default {
     overflow: hidden;
     width: 1200px;
     margin: 0 auto;
+    position: relative;
     .brand{
       height: 6rem;
-      width: 200px;
+      width: 14rem;
       background: url('../../assets/logo.png') no-repeat left center;
       background-size: 80%;
-      float: left;
+      position: absolute;
+      left: 1rem;
     }
     ul{
       list-style: none;
