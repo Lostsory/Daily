@@ -63,19 +63,19 @@
       <Titlecomp :content='mainCon.register' color="#fff" />
       <el-row>
         <el-col :span="12">
-          <div class="content">
+          <div class="content" @click="$router.push('/frontEndLayout/pleaseTeach')">
             <p><i class="iconfont icon-jiaoshi"></i></p>
             <p>请家教</p>
             <p>{{mainCon.register.studentDesc}}</p>
-            <p><a @click="$router.push('/frontEndLayout/pleaseTeach')" style="color: #f7c864">精准匹配 ></a></p>
+            <p><a style="color: #f7c864">精准匹配 ></a></p>
           </div>
         </el-col>
         <el-col :span="12">
-          <div class="content" style="background: #f7c864">
+          <div class="content" style="background: #f7c864" @click="$router.push('/frontEndLayout/doTeach')">
             <p><i class="iconfont icon-jiaoshi1"></i></p>
             <p>做家教</p>
             <p>{{mainCon.register.teacherDesc}}</p>
-            <p><a @click="$router.push('/frontEndLayout/doTeach')" style="color: #fff">展现自我 ></a></p>
+            <p><a style="color: #fff">展现自我 ></a></p>
           </div>
         </el-col>
       </el-row>

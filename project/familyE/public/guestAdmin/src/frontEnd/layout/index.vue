@@ -59,7 +59,7 @@
       <el-col :span="8">
         <a :href="'tel:'+homeInfo.banner.phone">
           <i class="iconfont icon-phone"></i>
-          <p>0356-3826155</p>
+          <p>{{homeInfo.banner.phone}}</p>
         </a>
       </el-col>
       <el-col :span="8">
@@ -176,11 +176,16 @@ export default {
     position: relative;
     .brand{
       height: 6rem;
-      width: 14rem;
+      width: 30rem;
       background: url('../../assets/logo.png') no-repeat left center;
       background-size: 80%;
       position: absolute;
       left: 1rem;
+    }
+    @media only screen and (max-width: 768px) {
+      .brand{
+        width: 18rem
+      }
     }
     ul{
       list-style: none;

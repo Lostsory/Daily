@@ -1,0 +1,35 @@
+/* .el-range-editor--small.el-input__inner{
+  width: 100%
+} */
+
+// 默认搜索按钮容器及按钮样式
+.search_btn_container{
+  position: relative;
+  padding-right: 78px !important;
+  .search_btn{
+    position: absolute;
+    right: 10px;
+    top: 0px;
+    width: 54px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0px 20px;
+    font-size: 18px;
+    box-sizing: border-box;
+    .el-icon-search{
+      position: relative;
+      left: -3px;
+    }
+  }
+}
+// select默认下拉框
+.el-select{
+  width: 100%
+}
+// 全局的时间选择器
+.el-date-editor.el-input, .el-date-editor.el-input__inner{
+  width: 100%
+}
+.el-date-editor .el-range-separator{
+  width: auto;
+}
