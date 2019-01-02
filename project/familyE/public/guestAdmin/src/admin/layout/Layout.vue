@@ -36,9 +36,9 @@
           <i class="iconfont icon-chengshiguanli"></i>
           <span slot="title">城市管理</span>
         </el-menu-item>
-        <el-menu-item index="/admin/agency" v-if='admin'>
+        <el-menu-item index="/admin/agency">
           <i class="iconfont icon-dailiguanli"></i>
-          <span slot="title">代理管理</span>
+          <span slot="title">账号管理</span>
         </el-menu-item>
       </el-menu>
     </div>

@@ -69,9 +69,21 @@
       align="center"
       label="子女情况">
     </el-table-column>
-    <el-table-column align="center" label="操作" width="80" class-name="small-padding fixed-width">
+    <el-table-column
+      prop="checkStatus"
+      align="center"
+      show-overflow-tooltip
+      width="100px"
+      label="审核状态">
       <template slot-scope="scope">
-        <!-- <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">修改</el-button> -->
+        <!-- 0：未审核，1：已审核 -->
+        <el-tag size="medium" type="danger" v-if="scope.row.checkStatus==0">未通过</el-tag>
+        <el-tag size="medium" type="success" v-else>已通过</el-tag>
+      </template>
+    </el-table-column>
+    <el-table-column align="center" label="操作" width="160" class-name="small-padding fixed-width">
+      <template slot-scope="scope">
+        <el-button size="mini" type="primary" @click="checkDetail(scope.row)">审核</el-button>
         <el-button size="mini" type="danger" @click="handleDelete(scope.row)">删除</el-button>
       </template>
     </el-table-column>
@@ -147,7 +159,8 @@
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="drinkDialog.show = false">取消</el-button>
-      <el-button type="primary" @click="save">确认</el-button>
+      <el-button type="primary" v-if="drinkDialog.type == 'ADD'" @click="save">确认</el-button>
+      <el-button type="primary" v-else @click="check">审核通过</el-button>
     </div>
   </el-dialog>
   <pagination @getTableData="getData" :total="total" :listQuery="listQuery" />
@@ -155,7 +168,7 @@
 </template>
 <script>
 import pagination from '@/components/Pagination'
-import { studentList, studentAdd, studentDelete, gradeList, subjectList } from '@/api/index'
+import { studentList, studentAdd, studentDelete, gradeList, subjectList, studentCheck, studentDetail } from '@/api/index'
 import { del } from '@/utils'
 export default {
   components: {
@@ -252,8 +265,8 @@ export default {
         this.total = parseInt(res.data.total)
       })
     },
-    // 数据修改
-    handleUpdate(val) {
+    // 审核查看详情
+    checkDetail(val) {
       if (this.$refs.studentForm) {
         this.$refs.studentForm.resetFields()
       }
@@ -262,9 +275,31 @@ export default {
         show: true,
         title: '修改'
       }
-      /* drinkDetail(val.id).then((res) => {
-        this.studentForm = res.data.data
-      }) */
+      studentDetail({
+        id: val._id
+      }).then((res) => {
+        this.getSubjectList(val.gradeId)
+        this.$nextTick(() => {
+          this.studentForm = res.data.data
+          this.studentForm.subjectIds = this.studentForm.subjectIds.map((item) => {
+            return item._id
+          })
+        })
+      })
+    },
+    // 确认审核通过
+    check() {
+      const mapSubject = {}
+      this.subjectList.forEach(item => {
+        mapSubject[item._id] = item
+      })
+      this.studentForm.subjectIds = this.studentForm.subjectIds.map((item) => {
+        return mapSubject[item]
+      })
+      studentCheck(this.studentForm).then(() => {
+        this.getData()
+        this.drinkDialog.show = false
+      })
     },
     // 删除
     handleDelete(val) {

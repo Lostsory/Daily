@@ -52,8 +52,8 @@ router.delete('/delete', (req, res) => {
 * @private
 */
 router.get('/list', (req, res) => {
-  let {identity, pageNum, pageSize} = req.query;
-  if (identity !== '0') {
+  let {identity, pageNum, pageSize, cityCode} = req.query;
+  if (identity == '2') {
     res.send({
       httpCode: '403',
       msg: '请联系管理员，您暂时无该权限'
@@ -61,7 +61,10 @@ router.get('/list', (req, res) => {
   }
   pageNum = parseInt(pageNum)
   pageSize = parseInt(pageSize)
-  ResponsiblePerson.find().sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((responsiblePerson) => {
+  ResponsiblePerson.find({
+    identity: ['1', '2'],
+    cityCode
+  }).sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((responsiblePerson) => {
     ResponsiblePerson.count().then((total) => {
       res.send({
         data: responsiblePerson,

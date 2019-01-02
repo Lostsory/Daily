@@ -67,6 +67,11 @@ var studentSchema = new Schema({
   createTime: {
     type: Date,
     default: Date.now
+  },
+  // 审核状态 0：未审核，1：已审核
+  checkStatus: {
+    type: String,
+    default: 0
   }
 });
 

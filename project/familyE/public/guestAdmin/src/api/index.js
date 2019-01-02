@@ -53,10 +53,12 @@ export const cityDelete = (params) => {
   })
 }
 
+/* ----------------------------------------------------------------------------------------------------------------------------- */
+
 // 首页信息接口
 export const homeDetail = () => {
   return request({
-    url: 'city/cityDetail',
+    url: 'home/homeInfo',
     method: 'get'
   })
 }
@@ -64,7 +66,7 @@ export const homeDetail = () => {
 // 城市首页信息修改接口
 export const homeUpdata = (data) => {
   return request({
-    url: 'city/updata',
+    url: 'home/homeInfoUpdata',
     method: 'post',
     data
   })
@@ -220,6 +222,24 @@ export const studentDelete = (params) => {
   })
 }
 
+// 学员审核接口
+export const studentCheck = (data) => {
+  return request({
+    url: 'student/check',
+    method: 'post',
+    data
+  })
+}
+
+// 学员详情接口
+export const studentDetail = (params) => {
+  return request({
+    url: 'student/detail',
+    method: 'get',
+    params
+  })
+}
+
 /* ----------------------------------------------------------------------------------------------------------------------------- */
 
 // 代理及负责人查询接口
@@ -280,7 +300,7 @@ export const partnerUpdata = (data) => {
 // 合作机构删除接口
 export const partnerDelete = (params) => {
   return request({
-    url: 'grade/delete',
+    url: 'partner/delete',
     method: 'delete',
     params
   })

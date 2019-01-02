@@ -19,7 +19,8 @@ export default [
         name: 'city',
         component: () => import('@/admin/city'),
         meta: {
-          title: '城市管理'
+          title: '城市管理',
+          isAdmin: true
         }
       },
       {
@@ -27,7 +28,7 @@ export default [
         name: 'agency',
         component: () => import('@/admin/agency'),
         meta: {
-          title: '代理管理'
+          title: '账号管理'
         }
       },
       {
@@ -59,7 +60,8 @@ export default [
         name: 'adminPartners',
         component: () => import('@/admin/partners'),
         meta: {
-          title: '合作机构'
+          title: '合作机构',
+          isAdmin: true
         }
       }
     ]

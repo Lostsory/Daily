@@ -54,7 +54,7 @@ router.get('/detail', (req, res) => {
     res.send({
       data: teacher,
       httpCode: '200',
-      msg: '删除成功'
+      msg: '请求成功'
     })
   })
 })

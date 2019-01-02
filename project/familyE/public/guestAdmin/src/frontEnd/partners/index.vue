@@ -3,7 +3,7 @@
     <div class="part-box" v-for="(item, index) in titleArr" :key="index" v-if="titleArr">
     	<el-row>
     		<el-col :xs="10" :span="4" class="part-title">
-    			<h2>{{item.h1}}</h2>
+    			<h2><a :href="item.href">{{item.h1}}</a></h2>
     		</el-col>
     		<el-col :span="24" class="part-tt">
     			<p>{{item.h2}}</p>
@@ -16,22 +16,22 @@
   </div>
 </template>
 <script>
-import { partnerList } from '@/api';
+import { partnerList } from '@/api'
 export default {
-	data() {
+  data() {
     return {
-      titleArr:[]
+      titleArr: []
     }
-	},
-	methods: {
-		getData() {
-			partnerList().then((res) => {
-				this.titleArr = res.data.data
-			})
-		}
-	},
-  created () {
-		this.getData()
+  },
+  methods: {
+    getData() {
+      partnerList().then((res) => {
+        this.titleArr = res.data.data
+      })
+    }
+  },
+  created() {
+    this.getData()
     this.$store.commit('SET_ACTIVEROUTER', '/frontEndLayout/partners')
   }
 }
@@ -40,8 +40,8 @@ export default {
 	#partners{
 		width: 1200px;
 		margin: 0 auto;
-		padding: 20px 30px;
-		background: #f7c864;
+		padding: 2rem;
+		background: #fff !important;
 		.part-box{
 			width: 100%;
 			background: #fff;
@@ -55,6 +55,12 @@ export default {
 					padding: 0;
 					font-weight: bold;
 					font-size: 20px;
+					a{
+						color: #666
+					}
+					a:hover{
+						color: #999
+					}
 				}
 			}
 			.part-tt p{

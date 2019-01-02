@@ -30,7 +30,7 @@
       <am-topbar :inverse="true">
         <!-- <am-topbar-brand> -->
         <am-topbar-toggle></am-topbar-toggle>
-        <am-topbar-collapse>
+        <am-topbar-collapse class='rederere'>
           <am-nav :pill="true" :topbar="true">
             <am-nav-item v-for="(item, index) in routes" :active="activeRouter == item.path" :to="item.path" :key="index">{{item.name}}</am-nav-item>
           </am-nav>

@@ -137,7 +137,7 @@ export default {
     handleDelete(val) {
       del(this, () => {
         partnerDelete({
-          id: val._id
+          _id: val._id
         }).then(() => {
           this.getPartners()
         })

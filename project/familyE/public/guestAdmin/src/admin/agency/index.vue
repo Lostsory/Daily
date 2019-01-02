@@ -80,7 +80,7 @@
             <el-select v-model="responsiblePersonForm.cityCode" placeholder="请选择">
               <el-option
                 v-for="item in cityData"
-                :key="item._id"
+                :key="item.code"
                 :label="item.cityName"
                 :value="item.code">
               </el-option>
@@ -203,8 +203,8 @@ export default {
   methods: {
     // 列表数据获取
     getData() {
-      responsiblePersonList({ ...this.listQuery, identity: '0' }).then((res) => {
-        console.log(res)
+      const identity = this.$store.state.user.userInfo.identity
+      responsiblePersonList({ ...this.listQuery, identity }).then((res) => {
         this.tableLoading = false
         this.tableData = res.data.data
         this.total = parseInt(res.data.total)

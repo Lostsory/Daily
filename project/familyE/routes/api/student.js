@@ -67,4 +67,35 @@ router.get('/list', (req, res) => {
   })
 })
 
+/**
+* @api api/student/detail
+* @description 学员详情接口
+* @public
+*/
+router.get('/detail', (req, res) => {
+  const {id} = req.query;
+  Student.findById(id).then((teacher) => {
+    res.send({
+      data: teacher,
+      httpCode: '200',
+      msg: '请求成功'
+    })
+  })
+})
+
+/**
+* @api api/student/check
+* @description 学员审核接口
+* @public
+*/
+router.post('/check', (req, res) => {
+  Student.update({_id:req.body._id}, {$set: {...req.body, checkStatus: '1' }}).then((success) => {
+    console.log('=====================', success);
+    res.send({
+      httpCode: '200',
+      msg: "审核通过"
+    })
+  })
+})
+
 module.exports = router

@@ -83,7 +83,7 @@
       show-overflow-tooltip
       label="备注">
     </el-table-column>
-    <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
+    <el-table-column align="center" label="操作" width="160" class-name="small-padding fixed-width">
       <template slot-scope="scope">
         <!-- <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">修改</el-button> -->
         <el-button size="mini" type="primary" @click="checkDetail(scope.row)">审核</el-button>

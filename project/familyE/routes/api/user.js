@@ -24,7 +24,8 @@ router.post('/login', (req, res) => {
       })
     } else {
       if (user.pwd == passWord) {
-        if (user.cityCode == cityCode) {
+        // 平台超级管理员可以进入任何城市的后台
+        if (user.cityCode == cityCode || user.identity == '0') {
           res.send({
             token: 'dasdh123jhasdx',
             userInfo: {
@@ -50,30 +51,6 @@ router.post('/login', (req, res) => {
       }
     }
   })
-  /* MongoClient.connect(url, function (error, db) {
-    var dbName = db.db('qzx');
-    const { name, paw } = req.body;
-    dbName.collection('user').findOne({name}, function(err, user) {
-      if (err) {
-        console.log(err);
-      } else {
-        if (user) {
-          let pawIsVaild = bcrypt.compareSync(paw, user.paw)
-          if (pawIsVaild) {
-            let token = jwt.sign({ _id: user._id }, config.secret, {expiresIn: 3600 // expires in 30 min
-            });
-            res.send({ auth: true, token, user: user, msg: '登录成功', httpCode: '0' });
-          } else {
-            res.send({ auth: false, token: null, msg: '密码错误', httpCode: '-1' })
-          }
-        } else {
-          res.send({
-            msg: '该用户不存在'
-          });
-        }
-      }
-    })
-  }) */
 });
 
 module.exports = router;
