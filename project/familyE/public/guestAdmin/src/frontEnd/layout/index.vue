@@ -29,10 +29,10 @@
     <div class="navCon">
       <am-topbar :inverse="true">
         <!-- <am-topbar-brand> -->
-        <am-topbar-toggle></am-topbar-toggle>
-        <am-topbar-collapse class='rederere'>
+        <am-topbar-toggle @click.native="isDown = true"></am-topbar-toggle>
+        <am-topbar-collapse>
           <am-nav :pill="true" :topbar="true">
-            <am-nav-item v-for="(item, index) in routes" :active="activeRouter == item.path" :to="item.path" :key="index">{{item.name}}</am-nav-item>
+            <am-nav-item v-for="(item, index) in routes" @click.native="navItemClick" :active="activeRouter == item.path" :to="item.path" :key="index">{{item.name}}</am-nav-item>
           </am-nav>
         </am-topbar-collapse>
       </am-topbar>
@@ -76,6 +76,7 @@ import { homeDetail } from '@/api'
 export default {
   data() {
     return {
+      isDown: true,
       homeInfo: {},
       routes: [
         {
@@ -156,6 +157,11 @@ export default {
     },
     toTeacher() {
       this.$router.push('/frontEndLayout/pleaseTeach')
+    },
+    navItemClick() {
+      const navCon = document.querySelector('.am-topbar-collapse')
+      navCon.classList.remove('am-in', 'am-collapsing')
+      navCon.style.height = ''
     }
   },
   created() {

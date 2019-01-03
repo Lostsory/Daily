@@ -2,14 +2,10 @@ var express = require('express');
 var router = express.Router();
 const ResponsiblePerson = require('../../models/ResponsiblePerson');
 
-/* var MongoClient = require('mongodb').MongoClient;
-var ObjectId = require('mongodb').ObjectId;
-var url = "mongodb://119.23.202.46:27017/";
-
-var bcrypt = require('bcrypt');
+// var bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const config = require('../config');
- */
+const config = require('../../config');
+
 
 /* GET users listing. */
 router.post('/login', (req, res) => {
@@ -26,8 +22,9 @@ router.post('/login', (req, res) => {
       if (user.pwd == passWord) {
         // 平台超级管理员可以进入任何城市的后台
         if (user.cityCode == cityCode || user.identity == '0') {
+          const token = jwt.sign({ _id: user._id }, config.secret, {expiresIn: 86400 })  // token有效期为一天
           res.send({
-            token: 'dasdh123jhasdx',
+            token,
             userInfo: {
               cityCode: user.cityCode,
               phone: user.responsiblePhone,

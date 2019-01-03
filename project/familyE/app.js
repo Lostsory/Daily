@@ -11,6 +11,8 @@ var cookieParser = require('cookie-parser');
 
 var app = express();
 
+var config = require('./config');
+
 /* // WebSocket配置
 var app = express();
 var wsapp = require('express-ws')(wsapp);
@@ -47,12 +49,12 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST,GET,PUT,OPTIONS,DELETE")
   res.setHeader('Content-Type', 'application/json;charset=UTF-8')
-  // res.setHeader("Access-Control-Allow-Headers", "Content-Type,XFILENAME,XFILECATEGORY,XFILESIZE,x-access-token"); // 如有特别需要可开启此项
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  console.log(new Date() + '来了一拨请求');
+  res.setHeader("Access-Control-Allow-Headers", "x-access-token")
+  console.log(`${new Date().toLocaleString()}来了一拨请求, 请求路径是${req.url}`)
   next()
 })
 
+var homeApi = require('./routes/api/home');
 var cityApi = require('./routes/api/city');
 var gradeApi = require('./routes/api/grade');
 var subjectApi = require('./routes/api/subject');
@@ -60,9 +62,41 @@ var studentApi = require('./routes/api/student');
 var responsiblePersonApi = require('./routes/api/responsiblePerson');
 var teacherApi = require('./routes/api/teacher');
 var userApi = require('./routes/api/user');
-var homeApi = require('./routes/api/home');
 var partnerApi = require('./routes/api/partners');
 
+// web前端首页接口
+app.use('/api/home', homeApi);
+
+const jwt = require('jsonwebtoken');
+// token验证
+app.use(function(req, res, next) {
+  if (req.method == 'OPTIONS') {
+    return next()
+  }
+  var token = req.headers['x-access-token'];
+  var noToken = {
+    msg: '身份验证失败，请重新登录',
+    httpCode: '401'
+  };
+  if (token) {   // token存在的话执行
+    jwt.verify(token, config.secret, function (err, decoded) {
+      if (err) {
+        return res.send(noToken)
+      } else {
+        req.user_id = decoded
+        next()
+      }
+    })
+  } else {
+    if (req.url == '/api/user/login') {
+      return next()
+    } else {
+      return res.send(noToken)
+    }
+  }
+})
+
+// 后台管理接口
 app.use('/api/city', cityApi);
 app.use('/api/grade', gradeApi);
 app.use('/api/subject', subjectApi);
@@ -70,7 +104,6 @@ app.use('/api/student', studentApi);
 app.use('/api/responsiblePerson', responsiblePersonApi);
 app.use('/api/teacher', teacherApi);
 app.use('/api/user', userApi);
-app.use('/api/home', homeApi);
 app.use('/api/partner', partnerApi);
 
 // error handler
