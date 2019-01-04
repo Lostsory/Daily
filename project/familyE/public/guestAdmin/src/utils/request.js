@@ -19,7 +19,7 @@ service.defaults.headers['Content-Type'] = 'application/json;charset=UTF-8'
 service.interceptors.request.use(config => {
   nprogress.start() // 进度条开始
   // 添加城市编号
-  const CITY_CODE = 2
+  const CITY_CODE = 0
   if (config.method === 'get' || config.method === 'delete') {
     config.params = {
       cityCode: CITY_CODE,
