@@ -49,7 +49,7 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST,GET,PUT,OPTIONS,DELETE")
   res.setHeader('Content-Type', 'application/json;charset=UTF-8')
-  res.setHeader("Access-Control-Allow-Headers", "x-access-token")
+  res.setHeader("Access-Control-Allow-Headers", "x-access-token, Content-Type")
   console.log(`${new Date().toLocaleString()}来了一拨请求, 请求路径是${req.url}`)
   next()
 })
@@ -66,8 +66,11 @@ var partnerApi = require('./routes/api/partners');
 
 // web前端首页接口
 app.use('/api/home', homeApi);
+app.use('/api/student', studentApi);
+app.use('/api/teacher', teacherApi);
 
-const jwt = require('jsonwebtoken');
+
+/* const jwt = require('jsonwebtoken');
 // token验证
 app.use(function(req, res, next) {
   if (req.method == 'OPTIONS') {
@@ -90,19 +93,15 @@ app.use(function(req, res, next) {
   } else {
     if (req.url == '/api/user/login') {
       return next()
-    } else {
-      return res.send(noToken)
     }
   }
-})
+}) */
 
 // 后台管理接口
 app.use('/api/city', cityApi);
 app.use('/api/grade', gradeApi);
 app.use('/api/subject', subjectApi);
-app.use('/api/student', studentApi);
 app.use('/api/responsiblePerson', responsiblePersonApi);
-app.use('/api/teacher', teacherApi);
 app.use('/api/user', userApi);
 app.use('/api/partner', partnerApi);
 
