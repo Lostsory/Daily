@@ -13,16 +13,6 @@ var app = express();
 
 var config = require('./config');
 
-/* // WebSocket配置
-var app = express();
-var wsapp = require('express-ws')(wsapp);
-app.ws('/notice', function(ws, req) {
-  ws.on('message', function(msg) {
-    console.log(msg);
-  });
-});
-wsapp.listen(3000); */
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -43,6 +33,8 @@ mongo.connect(db).then(() => {
   console.log(err);
 })
 
+const child = require('child_process');
+const worker = child.fork('./wx/index.js');
 // 设置跨域访问
 app.use(function (req, res, next) {
   res.header("Cache-Control", "no-cache, no-store");
@@ -51,6 +43,14 @@ app.use(function (req, res, next) {
   res.setHeader('Content-Type', 'application/json;charset=UTF-8')
   res.setHeader("Access-Control-Allow-Headers", "x-access-token, Content-Type")
   console.log(`${new Date().toLocaleString()}来了一拨请求, 请求路径是${req.url}`)
+
+  // WebSocket配置
+  res.push = function (data) {
+    if (data instanceof Object) {
+      var tranfer = JSON.stringify(data)
+    }
+    worker.send(tranfer)
+  }
   next()
 })
 

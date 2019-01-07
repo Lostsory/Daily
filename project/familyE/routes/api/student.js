@@ -20,11 +20,12 @@ router.post('/add', (req, res) => {
         const newStudent = new Student({
           ...req.body, gradeName: grade.gradeName
         })
-        newStudent.save().then(() => {
+        newStudent.save().then((student) => {
           res.send({
             httpCode: '200',
             msg: '添加成功'
           })
+          res.push(student)
         })
       })
     }

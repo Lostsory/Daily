@@ -18,11 +18,12 @@ router.post('/add', (req, res) => {
       const newTeacher = new Teacher({
         ...req.body
       })
-      newTeacher.save().then(() => {
+      newTeacher.save().then((teacher) => {
         res.send({
           httpCode: '200',
           msg: '添加成功'
         })
+        res.push(teacher)
       })
     }
   })
