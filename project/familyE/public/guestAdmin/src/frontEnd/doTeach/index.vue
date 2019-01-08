@@ -270,7 +270,7 @@ export default {
  .doTeach-box h1{
    font-size: 32px;
    text-align: center;
-   padding: 34px 0px;
+   padding: 2rem 0px;
    margin: 0px
  }
  .doTeach-box p{

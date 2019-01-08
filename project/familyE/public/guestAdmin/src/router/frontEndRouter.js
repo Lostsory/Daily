@@ -20,9 +20,19 @@ export default [
         component: () => import(/* webpackChunkName: "teachers" */ '@/frontEnd/teachers')
       },
       {
+        path: '/frontEndLayout/teacherDetail',
+        name: 'teacherDetail',
+        component: () => import(/* webpackChunkName: "teacherDetail" */ '@/frontEnd/teachers/teacherDetail')
+      },
+      {
         path: '/frontEndLayout/students',
         name: 'students',
         component: () => import(/* webpackChunkName: "students" */ '@/frontEnd/students')
+      },
+      {
+        path: '/frontEndLayout/studentDetail',
+        name: 'studentDetail',
+        component: () => import(/* webpackChunkName: "studentDetail" */ '@/frontEnd/students/studentDetail')
       },
       {
         path: '/frontEndLayout/partners',

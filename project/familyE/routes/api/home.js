@@ -53,7 +53,8 @@ router.get('/student', (req, res) => {
         name: item.studentName[0] + '同学',
         subjects,
         remark: item.remark,
-        gradeName: item.gradeName
+        gradeName: item.gradeName,
+        _id: item._id
       }
     })
     Student.countDocuments({cityCode, checkStatus: 1}).then((total) => {
@@ -83,7 +84,8 @@ router.get('/teacher', (req, res) => {
         name: item.teacherName[0] + '老师',
         remark: item.remark,
         teachTime: item.teachTime,
-        finishSchool: item.finishSchool
+        finishSchool: item.finishSchool,
+        _id: item._id
       }
     })
     Teacher.countDocuments({cityCode, checkStatus: 1}).then((total) => {

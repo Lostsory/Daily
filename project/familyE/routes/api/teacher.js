@@ -50,8 +50,8 @@ router.delete('/delete', (req, res) => {
 * @public
 */
 router.get('/detail', (req, res) => {
-  const {id} = req.query;
-  Teacher.findById(id).then((teacher) => {
+  const {_id} = req.query;
+  Teacher.findById(_id).then((teacher) => {
     res.send({
       data: teacher,
       httpCode: '200',

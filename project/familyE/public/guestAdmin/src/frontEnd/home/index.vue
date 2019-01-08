@@ -84,7 +84,7 @@
       <Titlecomp :content='mainCon.students' />
       <el-row>
         <el-col v-for="(item, index) in students" :key="index" :sm="4" :xs="12">
-          <div class="temp">
+          <div class="temp" @click="$router.push({path: '/frontEndLayout/studentDetail', query: {d: item._id}})">
             <img src="../../assets/webImg/default-student.jpg" alt="">
             <div class="con">
               <p>{{item.name}}</p>
@@ -110,7 +110,7 @@
       <Titlecomp :content='mainCon.teachers' />
       <el-row>
         <el-col v-for="(item, index) in teachers" :key="index" :sm="6" :xs="12">
-          <div class="temp">
+          <div class="temp" @click="$router.push({path: '/frontEndLayout/teacherDetail', query: {d: item._id}})">
             <img src="../../assets/webImg/default-teacher.jpg" alt="">
             <div class="con">
               <p>{{item.name}}</p>

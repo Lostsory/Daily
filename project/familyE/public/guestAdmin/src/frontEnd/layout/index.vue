@@ -300,6 +300,7 @@ export default {
       height: 8rem;
       background: rgba(0, 0, 0, 0.8);
       padding: 1rem 0;
+      z-index: 9999;
       .el-col{
         height: 100%;
         position: relative;
