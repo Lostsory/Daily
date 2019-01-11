@@ -5,7 +5,6 @@
       v-loading="treeData.length===0"
       :data="treeData"
       node-key="_id"
-      default-expand-all
       :expand-on-click-node="false">
       <span class="custom-tree-node" slot-scope="{ node, data }">
         <span>{{ node.label }}</span>
@@ -124,5 +123,8 @@ export default {
 }
 #subject .btn{
   padding: 12px
+}
+#subject .el-tree{
+  width: 300px
 }
 </style>

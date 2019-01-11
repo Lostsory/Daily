@@ -118,16 +118,16 @@ export default {
           label: '女'
         }],
       teacherTypes: [{
-        value: 1,
+        value: '1',
         label: '在校大学生(研究生) ,不含留学生'
       }, {
-        value: 2,
+        value: '2',
         label: '教师(在职/进修/离职/退休)'
       }, {
-        value: 3,
+        value: '3',
         label: '外籍人士(留学生/外教/海归人员)'
       }, {
-        value: 4,
+        value: '4',
         label: '其他(已毕业离校的人员)'
       }],
       value: '',
@@ -140,7 +140,9 @@ export default {
       buttonShow: false,
       stepShow: false,
       subShow: true,
-      subXuqiu: {},
+      subXuqiu: {
+        
+      },
       // 表单验证
       subRules: {
         teacherName: [

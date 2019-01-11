@@ -23,16 +23,20 @@ router.post('/login', (req, res) => {
         // 平台超级管理员可以进入任何城市的后台
         if (user.cityCode == cityCode || user.identity == '0') {
           const token = jwt.sign({ _id: user._id }, config.secret, {expiresIn: 86400 })  // token有效期为一天
-          res.send({
-            token,
-            userInfo: {
-              cityCode: user.cityCode,
-              phone: user.responsiblePhone,
-              userName: user.responsibleName,
-              identity: user.identity
-            },
-            httpCode: '200',
-            msg: "登录成功"
+          
+          // 将token存在数据库中
+          ResponsiblePerson.update({_id: user._id}, {$set: {token}}).then(() => {
+            res.send({
+              token,
+              userInfo: {
+                cityCode: user.cityCode,
+                phone: user.responsiblePhone,
+                userName: user.responsibleName,
+                identity: user.identity
+              },
+              httpCode: '200',
+              msg: "登录成功"
+            })
           })
         } else {
           res.send({

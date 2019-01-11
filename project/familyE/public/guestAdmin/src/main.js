@@ -17,8 +17,8 @@ import store from './store'
 
 import '@/icons' // icon
 
-Vue.use(ElementUI)
 Vue.use(AmazeVue)
+Vue.use(ElementUI)
 
 Vue.config.productionTip = false
 

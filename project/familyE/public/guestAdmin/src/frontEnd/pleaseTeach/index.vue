@@ -109,7 +109,8 @@
         </el-col>
         <el-col :span="24" style="text-align: center;margin-bottom: 20px;">
         	<!-- <el-button style="padding: 1.5rem 5rem;" type="warning" @click="nexts" v-show="buttonShow" id="dianjicishu">下一步</el-button> -->
-        	<el-button style="padding: 1.5rem 5rem;" type="warning" v-show="subShow" @click="subMit('subXuqiu')">提交需求</el-button>
+        	<!-- <el-button style="padding: 1.5rem 5rem;" type="warning" v-show="subShow" @click="subMit('subXuqiu')">提交需求</el-button> -->
+        	<el-button style="padding: 1.5rem 5rem;" type="warning" @click="subMit('subXuqiu')">提交需求</el-button>
         </el-col>
       </el-row>
     </div>
@@ -255,6 +256,7 @@ export default {
                 delay: 10000
               });
               this.subXuqiu = {}
+              
             } else {
               this.$message({
                 showClose: true,
