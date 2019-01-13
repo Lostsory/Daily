@@ -75,7 +75,7 @@
   <el-dialog :title="drinkDialog.title" :visible.sync="drinkDialog.show" width="500px">
     <el-form ref="responsiblePersonForm" size="medium" :rules="responsiblePersonRules" :model="responsiblePersonForm" label-position="left" label-width="100px">
       <el-row>
-        <el-col :span="24">
+        <el-col :span="24" v-if="admin">
           <el-form-item label="城市列表：" prop="cityCode">
             <el-select v-model="responsiblePersonForm.cityCode" placeholder="请选择">
               <el-option
@@ -150,9 +150,6 @@ export default {
       },
       responsiblePersonForm: {},
       responsiblePersonRules: {
-        cityCode: [
-          { required: true, message: '此项为必填项', trigger: 'blur' }
-        ],
         responsibleName: [
           { required: true, message: '此项为必填项', trigger: 'blur' }
         ],
@@ -198,6 +195,9 @@ export default {
     num(val) {
       const { pageNum, pageSize } = this.listQuery
       return (pageNum - 1) * pageSize + 1
+    },
+    admin() {
+      return this.$store.state.user.userInfo.identity === '0'
     }
   },
   methods: {

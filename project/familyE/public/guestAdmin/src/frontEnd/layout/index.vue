@@ -29,19 +29,19 @@
     <div class="navCon">
       <am-topbar :inverse="true">
         <!-- <am-topbar-brand> -->
-        <am-topbar-toggle></am-topbar-toggle>
-        <am-topbar-collapse class='rederere'>
+        <am-topbar-toggle @click.native="isDown = true"></am-topbar-toggle>
+        <am-topbar-collapse>
           <am-nav :pill="true" :topbar="true">
-            <am-nav-item v-for="(item, index) in routes" :active="activeRouter == item.path" :to="item.path" :key="index">{{item.name}}</am-nav-item>
+            <am-nav-item v-for="(item, index) in routes" @click.native="navItemClick" :active="activeRouter == item.path" :to="item.path" :key="index">{{item.name}}</am-nav-item>
           </am-nav>
         </am-topbar-collapse>
       </am-topbar>
     </div>
     <div class="banner" :class="bannerImg">
       <div class="animated fadeInUp" v-if="activeRouter == '/frontEndLayout/home'">
-        <h2>在家学习没有老师？作业不会怎么办？</h2>
-        <h3>全国优质名师</h3>
-        <h4>让你把家当课堂,从此学习不再发愁</h4>
+        <h2>{{homeInfo.banner.h1}}</h2>
+        <h3>{{homeInfo.banner.h2}}</h3>
+        <h4>{{homeInfo.banner.h3}}</h4>
         <p><span v-for="item in 3" :key="item"></span></p>
         <span class="btn" @click="$router.push('/frontEndLayout/pleaseTeach')">助 力 学 习</span>
       </div>
@@ -76,6 +76,7 @@ import { homeDetail } from '@/api'
 export default {
   data() {
     return {
+      isDown: true,
       homeInfo: {},
       routes: [
         {
@@ -156,6 +157,11 @@ export default {
     },
     toTeacher() {
       this.$router.push('/frontEndLayout/pleaseTeach')
+    },
+    navItemClick() {
+      const navCon = document.querySelector('.am-topbar-collapse')
+      navCon.classList.remove('am-in', 'am-collapsing')
+      navCon.style.height = ''
     }
   },
   created() {
@@ -294,6 +300,7 @@ export default {
       height: 8rem;
       background: rgba(0, 0, 0, 0.8);
       padding: 1rem 0;
+      z-index: 9999;
       .el-col{
         height: 100%;
         position: relative;

@@ -8,6 +8,15 @@
         <el-form-item label="客服电话：">
           <el-input  placeholder="请输入" v-model="homeSettingForm.banner.phone"></el-input>
         </el-form-item>
+        <el-form-item label="一级标题：">
+        <el-input  placeholder="请输入" v-model="homeSettingForm.banner.h1"></el-input>
+        </el-form-item>
+        <el-form-item label="二级标题：">
+          <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}" placeholder="请输入" v-model="homeSettingForm.banner.h2"></el-input>
+        </el-form-item>
+        <el-form-item label="三级标题：">
+          <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}" placeholder="请输入" v-model="homeSettingForm.banner.h3">             </el-input>
+        </el-form-item>
       </am-article-lead>
       <am-article-lead custom-class="bgWhite">
         <blockquote>

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
-// import { getToken } from '@/utils/auth'
+import { getToken } from '@/utils/auth'
 import router from '@/router'
 import nprogress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css'// progress bar style
@@ -31,6 +31,7 @@ service.interceptors.request.use(config => {
       ...config.data
     }
   }
+  config.headers['x-access-token'] = getToken()
   return config
 }, error => {
   Promise.reject(error)

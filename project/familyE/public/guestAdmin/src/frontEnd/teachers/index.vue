@@ -4,7 +4,7 @@
       <Titlecomp :content="content" />
       <el-row v-if="teachersList">
         <el-col v-for="(item, index) in teachersList" :key="index" :sm="4" :xs="12">
-          <div class="temp">
+          <div class="temp" @click="$router.push({path: '/frontEndLayout/teacherDetail', query: {d: item._id}})">
             <img src="../../assets/webImg/default-teacher.jpg" alt="">
             <div class="con">
               <p>{{item.name}}</p>

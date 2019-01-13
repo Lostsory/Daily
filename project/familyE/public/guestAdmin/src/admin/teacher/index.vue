@@ -182,16 +182,16 @@ export default {
       },
       teacherForm: {},
       teacherTypes: [{
-        value: 1,
+        value: '1',
         label: '在校大学生(研究生) ,不含留学生'
       }, {
-        value: 2,
+        value: '2',
         label: '教师(在职/进修/离职/退休)'
       }, {
-        value: 3,
+        value: '3',
         label: '外籍人士(留学生/外教/海归人员)'
       }, {
-        value: 4,
+        value: '4',
         label: '其他(已毕业离校的人员)'
       }],
       teacherRules: {
@@ -237,7 +237,6 @@ export default {
     // 列表数据获取
     getData() {
       teacherList(this.listQuery).then((res) => {
-        console.log(res)
         this.tableLoading = false
         this.tableData = res.data.data
         this.total = parseInt(res.data.total)
@@ -267,7 +266,7 @@ export default {
         show: true,
         title: '修改'
       }
-      teacherDetail({ id: val._id }).then((res) => {
+      teacherDetail({ _id: val._id }).then((res) => {
         this.teacherForm = res.data.data
       })
     },

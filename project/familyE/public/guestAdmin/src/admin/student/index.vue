@@ -242,7 +242,6 @@ export default {
     getGrade() {
       gradeList().then((res) => {
         this.gradeData = res.data.data
-        console.log(this.gradeData)
       })
     },
     // 所补科目格式化

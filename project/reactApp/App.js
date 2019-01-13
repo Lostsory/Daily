@@ -20,31 +20,34 @@ export default class App extends Component {
   constructor() {
       super();
       this.state = {
-          textArr: ['军事','新闻','音乐']
+          textArr: ['军事','新闻','音乐'],
       }
   }
   render() {
     const texts = this.state.textArr.map((item,index)=>{
         return <Text 
+                  style={styles.text}
                   onPress={() => {
                     Alert.alert(`你点击了${item}`);
                   }}
                   key={index}
                 >{item}</Text>
     })
+    const pic = {
+      uri: './images/default-student'
+    }
     return (
       <View style={styles.container}>
-        <View style={{...styles.box, backgroundColor: 'powderblue'}} />
-        <View style={styles.box}>
-            {texts}
-        </View>
+        <View style={{...styles.box, backgroundColor: 'powderblue'}}>{texts}</View>
+        <View style={styles.box}>{texts}</View>
         <View style={{...styles.box, backgroundColor: 'yellow'}}>
-          
+          {/* <Image source={require('./images/default-student.jpg')} /> */}
         </View>
       </View>
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -54,5 +57,9 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
+  },
+  text: {
+    backgroundColor: 'red',
+    alignItems: 'center',
   }
 });

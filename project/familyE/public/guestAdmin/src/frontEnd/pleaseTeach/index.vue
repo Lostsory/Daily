@@ -3,18 +3,18 @@
     <div class="pleaseTeach-box">
       <h1>请家教</h1>
       <p style="text-indent:2em;margin-bottom: 1rem">为了保证您对家教的期望，保证孩子的学习情况有良好的改善，请认真填写以下内容。我们保证信息绝对保密，永不外泄，保证您与您孩子的信息安全是我们的责无旁贷的责任和义务。让我们为了孩子更好的成长共同努力吧！</p>
-      <el-col :span="24" v-show="stepShow">
+      <!-- <el-col :span="24" v-show="stepShow">
       	<el-steps :active="active">
 				  <el-step title="联系方式" icon="iconfont icon-lianxi"></el-step>
 				  <el-step title="学习情况" icon="iconfont icon-ziliao"></el-step>
 				  <el-step title="家教情况" icon="iconfont icon-jiaoyu"></el-step>
 				</el-steps>
-      </el-col>
+      </el-col> -->
       <el-row :gutter="60" :active="active">
         <el-form ref="subXuqiu" :model="subXuqiu" :rules="subRules">
           <el-col :xs="24" :span="8" v-show="contact">
             <div class="contact">
-              <div class="contact-head">
+              <div class="contact-head" v-show="!stepShow">
                 <p>*</p>请留下您的联系方式
               </div>
               <div class="contact-body">
@@ -26,6 +26,26 @@
                 </el-form-item>
                 <el-form-item label="" prop="address">
                   <el-input size="medium" placeholder="请输入您的地址" v-model="subXuqiu.address"></el-input>
+                </el-form-item>
+                <el-form-item label="" prop="gradeId" v-if="stepShow">
+                  <el-select size="medium" v-model="subXuqiu.gradeId" clearable placeholder="请选择孩子的所在年级" @change="selectKemu">
+                    <el-option
+                      v-for="(item, index) in options"
+                      :key="index"
+                      :label="item.gradeName"
+                      :value="item._id">
+                    </el-option>
+                  </el-select>
+                </el-form-item>
+                <el-form-item label="" prop="subjectIds" v-if="stepShow">
+                  <el-select multiple size="medium" v-model="subXuqiu.subjectIds" clearable placeholder="请选择科目">
+                    <el-option
+                      v-for="(item, index) in kemuOptions"
+                      :key="index"
+                      :label="item.subjectName"
+                      :value="item._id">
+                    </el-option>
+                  </el-select>
                 </el-form-item>
               </div>
               <div class="contact-footer">
@@ -88,8 +108,9 @@
           <!--<el-checkbox></el-checkbox>我已阅读<span><a href="#">《XXXXXXXXXXXXXXX》</a></span>协议-->
         </el-col>
         <el-col :span="24" style="text-align: center;margin-bottom: 20px;">
-        	<el-button style="padding: 1.5rem 5rem;" type="warning" @click="nexts" v-show="buttonShow" id="dianjicishu">下一步</el-button>
-        	<el-button style="padding: 1.5rem 5rem;" type="warning" v-show="subShow" @click="subMit('subXuqiu')">提交需求</el-button>
+        	<!-- <el-button style="padding: 1.5rem 5rem;" type="warning" @click="nexts" v-show="buttonShow" id="dianjicishu">下一步</el-button> -->
+        	<!-- <el-button style="padding: 1.5rem 5rem;" type="warning" v-show="subShow" @click="subMit('subXuqiu')">提交需求</el-button> -->
+        	<el-button style="padding: 1.5rem 5rem;" type="warning" @click="subMit('subXuqiu')">提交需求</el-button>
         </el-col>
       </el-row>
     </div>
@@ -235,6 +256,7 @@ export default {
                 delay: 10000
               });
               this.subXuqiu = {}
+              
             } else {
               this.$message({
                 showClose: true,
@@ -261,7 +283,7 @@ export default {
  .pleaseTeach-box h1{
    font-size: 32px;
    text-align: center;
-   padding: 34px 0px;
+   padding: 2rem 0px;
    margin: 0px
  }
  .pleaseTeach-box p{
@@ -277,11 +299,11 @@ export default {
  }
  .contact{
    width: 100%;
-   height: 280px;
    margin-right: 30px;
    border: 1px solid #ccc;
    font-size: 16px;
-   padding: 30px 20px
+   padding: 1.8rem;
+   overflow: hidden;
  }
  .contact-head{
    width: 100%;
@@ -291,9 +313,6 @@ export default {
    color: #f7c864;
    margin-right: 5px;
    float: left;
- }
- .contact-body{
-   height: 135px;
  }
  .contact-footer p{
    color: #f7c864;

@@ -31,6 +31,10 @@ var responsiblePersonSchema = new Schema({
     type: String,
     required: true
   },
+  // 登陆令牌
+  token: {
+    type: String
+  },
   remark: {
     type: String,
     required: false

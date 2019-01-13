@@ -18,11 +18,12 @@ router.post('/add', (req, res) => {
       const newTeacher = new Teacher({
         ...req.body
       })
-      newTeacher.save().then(() => {
+      newTeacher.save().then((teacher) => {
         res.send({
           httpCode: '200',
           msg: '添加成功'
         })
+        /* res.push(teacher) */
       })
     }
   })
@@ -49,8 +50,8 @@ router.delete('/delete', (req, res) => {
 * @public
 */
 router.get('/detail', (req, res) => {
-  const {id} = req.query;
-  Teacher.findById(id).then((teacher) => {
+  const {_id} = req.query;
+  Teacher.findById(_id).then((teacher) => {
     res.send({
       data: teacher,
       httpCode: '200',

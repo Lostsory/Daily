@@ -1,7 +1,7 @@
 <template>
   <el-menu class="navbar" mode="horizontal">
     <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
-    <el-badge :value="12" class="notice">
+    <el-badge :value="noticeNum" :hidden="noticeNum===0" class="notice">
       <el-button size="mini">消息</el-button>
     </el-badge>
     <el-dropdown class="avatar-container" trigger="click">
@@ -26,7 +26,13 @@ import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
 import { mapActions } from 'vuex'
+import { getToken } from '@/utils/auth'
 export default {
+  data() {
+    return {
+      noticeNum: 0
+    }
+  },
   components: {
     Breadcrumb,
     Hamburger
@@ -43,18 +49,19 @@ export default {
     }),
     toggleSideBar() {
       this.$store.dispatch('ToggleSideBar')
+    },
+    connectSocket() {
+      const socket = new WebSocket(`${process.env.WSURL}?token=${getToken('Admin-Token')}`)
+      socket.onopen = function() {
+      }
+      socket.onmessage = (evt) => {
+        console.log(evt)
+        this.noticeNum++
+      }
     }
   },
   created() {
-    /* const socket = new WebSocket(`${process.env.WSURL}/notice`)
-
-    socket.onopen = function() {
-      console.log('WebSocket connected')
-    } */
-
-    /* socket.onmessage = (evt) => {
-      console.log(evt)
-    } */
+    // this.connectSocket()
   }
 }
 </script>

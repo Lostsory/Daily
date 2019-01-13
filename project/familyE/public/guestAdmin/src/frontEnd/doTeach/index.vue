@@ -12,7 +12,7 @@
       </el-col>
       <el-row :gutter="60" :active="active">
         <el-form ref="subXuqiu" :model="subXuqiu" :rules="subRules">
-          <el-col :xs="24" :span="8" v-show="contact">
+          <el-col :xs="24" :span="8" v-show="!stepShow || active==1">
             <div class="contact">
               <div class="contact-head">
                 <p>*</p>请留下您的联系方式
@@ -21,8 +21,11 @@
                 <el-form-item label="" prop="teacherName">
                   <el-input size="medium" placeholder="请输入您的姓名" v-model="subXuqiu.teacherName"></el-input>
                 </el-form-item>
+                <el-form-item label="" prop="phone">
+                  <el-input size="medium" placeholder="请输入您的手机号" v-model="subXuqiu.phone"></el-input>
+                </el-form-item>
                 <el-form-item label="" prop="sex">
-                  <el-select size="medium" v-model="subXuqiu.sex" clearable placeholder="请选择您的性别">
+                  <el-select size="medium" v-model="subXuqiu.sex" placeholder="请选择您的性别"  v-show="show">
                     <el-option
                       v-for="(item, index) in options"
                       :key="index"
@@ -31,7 +34,7 @@
                     </el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="" prop="birthDate">
+                <el-form-item label="" prop="birthDate" v-show="show">
                  	<el-date-picker
                  		size="medium"
 							      v-model="subXuqiu.birthDate"
@@ -39,13 +42,10 @@
 							      placeholder="请选择您的出生日期">
 							    </el-date-picker>
                 </el-form-item>
-                <el-form-item label="" prop="phone">
-                  <el-input size="medium" placeholder="请输入您的手机号" v-model="subXuqiu.phone"></el-input>
-                </el-form-item>
               </div>
             </div>
           </el-col>
-          <el-col :xs="24" :span="8" v-show="show">
+          <el-col :xs="24" :span="8" v-show="!stepShow || active==2">
             <div class="contact">
               <div class="contact-head">
                 <p>*</p>请留下您的资料
@@ -55,7 +55,7 @@
                   <el-input size="medium" placeholder="请输入您的所在城区" v-model="subXuqiu.address"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="typeId">
-                  <el-select size="medium" v-model="subXuqiu.typeId" clearable placeholder="请选择您的身份">
+                  <el-select size="medium" v-model="subXuqiu.typeId" placeholder="请选择您的身份">
                     <el-option
 			                v-for="item in teacherTypes"
 			                :key="item.value"
@@ -69,11 +69,11 @@
                 </el-form-item>
               </div>
               <div class="contact-footer">
-                <p>信息保密绝不外泄，只为更好的和学生进行匹配，让 我们更好的为您服务！</p>
+                <p>信息保密绝不外泄，只为更好的和学生进行匹配，让我们更好的为您服务！</p>
               </div>
             </div>
           </el-col>
-          <el-col :xs="24" :span="8" v-show="kemu">
+          <el-col :xs="24" :span="8" v-show="!stepShow || active==3">
             <div class="contact">
               <div class="contact-head">
                 <p>*</p>请留下您的教育资料
@@ -93,8 +93,8 @@
           <!--<el-checkbox></el-checkbox>我已阅读<span><a href="#">《XXXXXXXXXXXXXXX》</a></span>协议-->
         </el-col>
         <el-col :span="24" style="text-align: center;margin-bottom: 20px;">
-        	<el-button style="padding: 1.5rem 5rem;" type="warning" @click="nexts" v-show="buttonShow" id="dianjicishu">下一步</el-button>
-        	<el-button style="padding: 1.5rem 5rem;" type="warning" v-show="subShow" @click="subMit('subXuqiu')">提交需求</el-button>
+        	<el-button style="padding: 1.5rem 5rem;" type="warning" @click="nexts" v-if="active < 3" id="dianjicishu">下一步</el-button>
+        	<el-button style="padding: 1.5rem 5rem;" type="warning" v-else @click="subMit('subXuqiu')">提交需求</el-button>
         </el-col>
       </el-row>
     </div>
@@ -118,16 +118,16 @@ export default {
           label: '女'
         }],
       teacherTypes: [{
-        value: 1,
+        value: '1',
         label: '在校大学生(研究生) ,不含留学生'
       }, {
-        value: 2,
+        value: '2',
         label: '教师(在职/进修/离职/退休)'
       }, {
-        value: 3,
+        value: '3',
         label: '外籍人士(留学生/外教/海归人员)'
       }, {
-        value: 4,
+        value: '4',
         label: '其他(已毕业离校的人员)'
       }],
       value: '',
@@ -140,7 +140,8 @@ export default {
       buttonShow: false,
       stepShow: false,
       subShow: true,
-      subXuqiu: {},
+      subXuqiu: {
+      },
       // 表单验证
       subRules: {
         teacherName: [
@@ -201,37 +202,15 @@ export default {
       }
     },
 		nexts() {
-      this.active = this.active + 1
-      if(this.active == 2) {
-      	if (this.subXuqiu.teacherName == undefined || this.subXuqiu.teacherName == '' || this.subXuqiu.phone == undefined || this.subXuqiu.phone == '') {
-      		
-      		this.active = 1
-      		this.$message({
-	          message: '请填写您的信息',
-	          type: 'warning'
-	        })
-      	} else {
-      		this.contact = false
-					this.show = true
-	        this.kemu = false
-      	}
-      } else if (this.active==3) {
-      	if (this.subXuqiu.address == undefined || this.subXuqiu.address == '' || this.subXuqiu.finishSchool == undefined || this.subXuqiu.finishSchool == ''){
-      		this.active = 2
-      		this.$message({
-	          message: '请填写您的信息',
-	          type: 'warning'
-	        })
-      	} else {
-      		this.buttonShow = false
-					this.subShow = true
-					this.contact = false
-					this.show = false
-					this.kemu = true
-      	}
-      } else if (this.active++ > 3) {
-        this.active = 1
+      if (!this.subXuqiu.teacherName || !this.subXuqiu.phone) {
+        this.$message({
+          message: '请填写您的信息',
+          type: 'warning'
+        })
+        return
       }
+      this.active = this.active + 1
+      console.log(this.subXuqiu);
 		},
     subMit(formName) {
       this.$refs[formName].validate((valid) => {
@@ -244,7 +223,8 @@ export default {
                 showClose: true,
                 delay: 10000
               });
-              this.subXuqiu = {}
+              this.subXuqiu = {
+              }
             } else {
               this.$message({
                 showClose: true,
@@ -270,7 +250,7 @@ export default {
  .doTeach-box h1{
    font-size: 32px;
    text-align: center;
-   padding: 34px 0px;
+   padding: 2rem 0px;
    margin: 0px
  }
  .doTeach-box p{
@@ -286,7 +266,7 @@ export default {
  }
  .contact{
    width: 100%;
-   height: 290px;
+   /* height: 290px; */
    margin-right: 30px;
    border: 1px solid #ccc;
    font-size: 16px;

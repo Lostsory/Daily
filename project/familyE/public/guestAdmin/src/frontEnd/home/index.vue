@@ -1,5 +1,26 @@
 <template>
   <div id="home" cla>
+    <div class="register hidden-xs-only" v-if="mainCon.register">
+      <Titlecomp :content='mainCon.register' color="#fff" />
+      <el-row>
+        <el-col :span="12">
+          <div class="content" @click="$router.push('/frontEndLayout/pleaseTeach')">
+            <p><i class="iconfont icon-jiaoshi"></i></p>
+            <p>请家教</p>
+            <p>{{mainCon.register.studentDesc}}</p>
+            <p><a style="color: #f7c864">精准匹配 ></a></p>
+          </div>
+        </el-col>
+        <el-col :span="12">
+          <div class="content" style="background: #f7c864" @click="$router.push('/frontEndLayout/doTeach')">
+            <p><i class="iconfont icon-jiaoshi1"></i></p>
+            <p>做家教</p>
+            <p>{{mainCon.register.teacherDesc}}</p>
+            <p><a style="color: #fff">展现自我 ></a></p>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
     <div class="introduction">
       <Titlecomp :content='mainCon.introduction' />
       <el-row>
@@ -59,10 +80,10 @@
         </el-col>
       </el-row>
     </div>
-    <div class="register" v-if="mainCon.register">
+    <div class="register" v-if="mainCon.register ">
       <Titlecomp :content='mainCon.register' color="#fff" />
       <el-row>
-        <el-col :span="12">
+        <el-col :span="12"> 
           <div class="content" @click="$router.push('/frontEndLayout/pleaseTeach')">
             <p><i class="iconfont icon-jiaoshi"></i></p>
             <p>请家教</p>
@@ -84,7 +105,7 @@
       <Titlecomp :content='mainCon.students' />
       <el-row>
         <el-col v-for="(item, index) in students" :key="index" :sm="4" :xs="12">
-          <div class="temp">
+          <div class="temp" @click="studentDetail(item)">
             <img src="../../assets/webImg/default-student.jpg" alt="">
             <div class="con">
               <p>{{item.name}}</p>
@@ -110,7 +131,7 @@
       <Titlecomp :content='mainCon.teachers' />
       <el-row>
         <el-col v-for="(item, index) in teachers" :key="index" :sm="6" :xs="12">
-          <div class="temp">
+          <div class="temp" @click="teacherDetail(item)">
             <img src="../../assets/webImg/default-teacher.jpg" alt="">
             <div class="con">
               <p>{{item.name}}</p>
@@ -153,6 +174,12 @@ export default {
       homeTeachers().then((res) => {
         this.teachers = res.data.data
       })
+    },
+    studentDetail(val) {
+      // this.$router.push({ path: '/frontEndLayout/studentDetail', query: { d: val._id }})
+    },
+    teacherDetail(val) {
+      this.$router.push({ path: '/frontEndLayout/teacherDetail', query: { d: val._id }})
     }
   },
   created() {
