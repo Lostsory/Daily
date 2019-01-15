@@ -1,6 +1,6 @@
 <template>
   <div id="home" cla>
-    <div class="register hidden-xs-only" v-if="mainCon.register">
+    <div class="register showMobile" v-if="mainCon.register">
       <Titlecomp :content='mainCon.register' color="#fff" />
       <el-row>
         <el-col :span="12">
@@ -80,7 +80,7 @@
         </el-col>
       </el-row>
     </div>
-    <div class="register" v-if="mainCon.register ">
+    <div class="register hideMobile" v-if="mainCon.register ">
       <Titlecomp :content='mainCon.register' color="#fff" />
       <el-row>
         <el-col :span="12"> 
@@ -398,13 +398,24 @@ export default {
   .teachers{
     width: 1000px;
   }
-  
+  .showMobile{
+    display: none
+  }
+  .hideMobile{
+    display: block
+  }
   @media only screen and (max-width: 768px) {
     .introduction, .register, .students, .success{
       width: 100%;
       .el-row{
         width: 100%;
       }
+    }
+    .showMobile{
+      display: block
+    }
+    .hideMobile{
+      display: none
     }
   }
 }
