@@ -95,7 +95,7 @@ export default {
   }
 }
 @media only screen and (max-width: 768px) {
-  #teacherDetail{
+  #studentDetail{
     width: 100%;
     padding: 0 2rem;
   }
