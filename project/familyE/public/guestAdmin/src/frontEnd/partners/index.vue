@@ -1,6 +1,6 @@
 <template>
-  <div id="partners">
-    <div class="part-box" v-for="(item, index) in titleArr" :key="index" v-if="titleArr">
+  <div id="partners"  v-if="titleArr">
+    <div class="part-box" v-for="(item, index) in titleArr" :key="index">
     	<el-row>
     		<el-col :xs="10" :span="4" class="part-title">
     			<h2><a :href="item.href">{{item.h1}}</a></h2>
@@ -74,9 +74,6 @@ export default {
 			.yichu{
 				width: 100%;
 				text-indent:2em;
-				display: -webkit-box;
-				-webkit-box-orient: vertical;
-				-webkit-line-clamp: 3;
 				overflow: hidden;
 				font-size: 18px;
 				font-weight: 500;

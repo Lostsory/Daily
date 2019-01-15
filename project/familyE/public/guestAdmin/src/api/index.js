@@ -73,18 +73,20 @@ export const homeUpdata = (data) => {
 }
 
 // 首页学院推荐接口
-export const homeStudents = () => {
+export const homeStudents = (params) => {
   return request({
     url: 'home/student',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 
 // 首页教员推荐接口
-export const homeTeachers = () => {
+export const homeTeachers = (params) => {
   return request({
     url: 'home/teacher',
-    method: 'get'
+    method: 'get',
+    params
   })
 }
 
