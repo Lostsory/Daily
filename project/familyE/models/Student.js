@@ -26,12 +26,14 @@ var studentSchema = new Schema({
   // 详细地址
   address: {
     type: String,
-    required: false
+    required: false,
+    default: '未知'
   },
   //性别 0：未知，1：:男，2：女
   sex: {
     type: String,
-    required: false
+    required: false,
+    default: '0'
   },
   //子女年级
   gradeId: {
@@ -46,7 +48,8 @@ var studentSchema = new Schema({
   // 所在学校
   school: {
     type: String,
-    required: false
+    required: false,
+    default: '未知'
   },
   // 所补科目
   subjectIds: {

@@ -1,39 +1,25 @@
 <template>
-  <div id="teacherDetail">
-    <el-form ref="studentForm" size="medium" :rules="studentRules" :model="studentForm" label-position="left" label-width="100px">
+  <div id="studentDetail">
+    <el-form ref="studentForm" :disabled="true" size="medium" :model="studentForm" label-position="left" label-width="100px">
       <el-row>
         <el-col :span="24">
           <el-form-item label="家长姓名：" prop="studentName">
-            <el-input v-model="studentForm.studentName" placeholder="请输入家长姓名"></el-input>
+            <el-input v-model="studentForm.studentName"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="子女年级：" prop="gradeId">
-            <el-select v-model="studentForm.gradeId" @change="getSubjectList" placeholder="请选择">
-              <el-option
-                v-for="item in gradeData"
-                :key="item._id"
-                :label="item.gradeName"
-                :value="item._id">
-              </el-option>
-            </el-select>
+          <el-form-item label="子女年级：" prop="gradeName">
+            <el-input v-model="studentForm.gradeName"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="所补科目：" prop="subjectIds">
-            <el-select v-model="studentForm.subjectIds" :disabled="!studentForm.gradeId" multiple :placeholder="!studentForm.gradeId?'请先选择子女年级':'请选择'">
-              <el-option
-                v-for="(item, index) in subjectList"
-                :key="index"
-                :label="item.subjectName"
-                :value="item._id">
-              </el-option>
-            </el-select>
+          <el-form-item label="所补科目：" prop="subjectNames">
+            <el-input v-model="studentForm.subjectNames"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="24">
           <el-form-item label="期望课费：" prop="expectFee">
-            <el-input v-model="studentForm.expectFee" placeholder="请输入期望课费"></el-input>
+            <el-input v-model="studentForm.expectFee"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="24">
@@ -57,7 +43,7 @@
         </el-col>
         <el-col :span="24">
           <el-form-item label="子女情况：">
-            <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}" placeholder="请输入" v-model="studentForm.remark">
+            <el-input type="textarea" :autosize="{ minRows: 3, maxRows: 5}" v-model="studentForm.remark">
             </el-input>
           </el-form-item>
         </el-col>
@@ -78,7 +64,13 @@ export default {
       studentDetail({
         _id: this.$route.query.d
       }).then((res) => {
-        this.studentForm = res.data.data
+        let subjectNames = ''
+        const data = res.data.data
+        data.subjectIds.forEach((item, index) => {
+          subjectNames = subjectNames + item.subjectName + (index === data.subjectIds.length - 1 ? '' : '/')
+        })
+        data.subjectNames = subjectNames
+        this.studentForm = data
       })
     }
   },
@@ -92,9 +84,10 @@ export default {
 }
 </script>
 <style lang="less">
-#teacherDetail{
+#studentDetail{
   width: 800px;
   margin: 2rem auto 0;
+  padding-bottom: 2rem;
   background: #fff !important;
     textarea[disabled], input[disabled]{
     background: #fff;

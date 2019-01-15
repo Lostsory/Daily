@@ -176,7 +176,7 @@ export default {
       })
     },
     studentDetail(val) {
-      // this.$router.push({ path: '/frontEndLayout/studentDetail', query: { d: val._id }})
+      this.$router.push({ path: '/frontEndLayout/studentDetail', query: { d: val._id }})
     },
     teacherDetail(val) {
       this.$router.push({ path: '/frontEndLayout/teacherDetail', query: { d: val._id }})

@@ -97,6 +97,7 @@ export default {
 #teacherDetail{
   width: 800px;
   margin: 2rem auto 0;
+  padding-bottom: 2rem;
   background: #fff !important;
     textarea[disabled], input[disabled]{
     background: #fff;

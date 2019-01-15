@@ -77,10 +77,10 @@ router.get('/list', (req, res) => {
 * @public
 */
 router.get('/detail', (req, res) => {
-  const {id} = req.query;
-  Student.findById(id).then((teacher) => {
+  const {_id} = req.query;
+  Student.findById(_id).then((student) => {
     res.send({
-      data: teacher,
+      data: student,
       httpCode: '200',
       msg: '请求成功'
     })

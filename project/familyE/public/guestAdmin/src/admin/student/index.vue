@@ -275,7 +275,7 @@ export default {
         title: '修改'
       }
       studentDetail({
-        id: val._id
+        _id: val._id
       }).then((res) => {
         this.getSubjectList(val.gradeId)
         this.$nextTick(() => {

@@ -4,7 +4,7 @@
       <Titlecomp :content="content" />
       <el-row v-if="studentsList">
         <el-col v-for="(item, index) in studentsList" :key="index" :sm="4" :xs="12">
-          <div class="temp">
+          <div class="temp" @click="toDetail(item)">
             <img src="../../assets/webImg/default-student.jpg" alt="">
             <div class="con">
               <p>{{item.name}}</p>
@@ -47,6 +47,9 @@ export default {
         this.studentsList = res.data.data
         this.total = parseInt(res.data.total)
       })
+    },
+    toDetail(item) {
+      this.$router.push({ path: '/frontEndLayout/studentDetail', query: { d: item._id }})
     }
   },
   created() {

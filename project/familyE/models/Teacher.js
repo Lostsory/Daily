@@ -31,12 +31,14 @@ var teacherSchema = new Schema({
   //性别 0：未知，1：:男，2：女
   sex: {
     type: Number,
-    required: false
+    required: false,
+    default: '0'
   },
   // 详细地址
   address: {
     type: String,
-    required: false
+    required: false,
+    default: '未知'
   },
   // 审核状态 0：未审核，1：已审核
   checkStatus: {
@@ -56,17 +58,19 @@ var teacherSchema = new Schema({
   // 出身日期
   birthDate: {
     type: String,
-    required: false
+    required: false,
   },
   // 专业
   profession: {
     type: String,
-    required: false
+    required: false,
+    default: '未知'
   },
   // 毕业院校
   finishSchool: {
     type: String,
-    required: false
+    required: false,
+    default: '未知'
   },
   // 创建时间
   createTime: {
