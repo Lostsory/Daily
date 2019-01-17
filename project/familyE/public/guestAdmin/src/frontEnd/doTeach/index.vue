@@ -19,13 +19,13 @@
               </div>
               <div class="contact-body">
                 <el-form-item label="" prop="teacherName">
-                  <el-input size="medium" placeholder="请输入您的姓名" v-model="subXuqiu.teacherName"></el-input>
+                  <el-input size="medium" placeholder="请输入您的姓名" v-model="addForm.teacherName"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="phone">
-                  <el-input size="medium" placeholder="请输入您的手机号" v-model="subXuqiu.phone"></el-input>
+                  <el-input size="medium" placeholder="请输入您的手机号" v-model="addForm.phone"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="sex">
-                  <el-select size="medium" v-model="subXuqiu.sex" placeholder="请选择您的性别"  v-show="show">
+                  <el-select size="medium" v-model="addForm.sex" placeholder="请选择您的性别">
                     <el-option
                       v-for="(item, index) in options"
                       :key="index"
@@ -34,10 +34,10 @@
                     </el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="" prop="birthDate" v-show="show">
+                <el-form-item label="" prop="birthDate">
                  	<el-date-picker
                  		size="medium"
-							      v-model="subXuqiu.birthDate"
+							      v-model="addForm.birthDate"
 							      type="date"
 							      placeholder="请选择您的出生日期">
 							    </el-date-picker>
@@ -52,10 +52,10 @@
               </div>
               <div class="contact-body">
                 <el-form-item label="" prop="address">
-                  <el-input size="medium" placeholder="请输入您的所在城区" v-model="subXuqiu.address"></el-input>
+                  <el-input size="medium" placeholder="请输入您的所在城区" v-model="addForm.address"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="typeId">
-                  <el-select size="medium" v-model="subXuqiu.typeId" placeholder="请选择您的身份">
+                  <el-select size="medium" v-model="addForm.typeId" placeholder="请选择您的身份">
                     <el-option
 			                v-for="item in teacherTypes"
 			                :key="item.value"
@@ -65,7 +65,7 @@
                   </el-select>
                 </el-form-item>
                 <el-form-item label="" prop="finishSchool">
-                  <el-input size="medium" v-model="subXuqiu.finishSchool" placeholder="请输入您的学校"></el-input>
+                  <el-input size="medium" v-model="addForm.finishSchool" placeholder="请输入您的学校"></el-input>
                 </el-form-item>
               </div>
               <div class="contact-footer">
@@ -80,10 +80,10 @@
               </div>
               <div class="contact-body">
                 <el-form-item label="" prop="profession">
-                  <el-input size="medium" v-model="subXuqiu.profession" placeholder="请输入您的专业"></el-input>
+                  <el-input size="medium" v-model="addForm.profession" placeholder="请输入您的专业"></el-input>
                 </el-form-item>
                 <el-form-item label="" prop="remark">
-                  <el-input size="medium" type="textarea" :rows="4" placeholder="请输入您的经验与优势，更好的吸引学员。" v-model="subXuqiu.remark"></el-input>
+                  <el-input size="medium" type="textarea" :rows="4" placeholder="请输入您的经验与优势，更好的吸引学员。" v-model="addForm.remark"></el-input>
                 </el-form-item>
               </div>
             </div>
@@ -140,7 +140,7 @@ export default {
       buttonShow: false,
       stepShow: false,
       subShow: true,
-      subXuqiu: {
+      addForm: {
       },
       // 表单验证
       subRules: {
