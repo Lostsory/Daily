@@ -36,6 +36,10 @@
         odiv.appendChild(img);
       }
 
+      fr.onloadstart = function () {
+        console.log('loadstart')
+      }
+
       fr.onloadend = function (e) {
         console.log('onloadend');
       }
