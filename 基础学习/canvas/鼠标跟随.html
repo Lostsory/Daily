@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    #ckt{
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="600"></canvas>
+  <script>
+    var canvas = document.getElementById('canvas');
+    if (canvas.getContext){
+      var ctx = canvas.getContext('2d');
+      var raf;
+      var running = false;
+
+      var ball = {
+        x: 100,
+        y: 100,
+        vx: 5,
+        vy: 1,
+        radius: 25,
+        color: 'blue',
+        draw: function() {
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+          ctx.closePath();
+          ctx.fillStyle = this.color;
+          ctx.fill();
+        }
+      };
+
+      function clear() {
+        ctx.fillStyle = 'rgba(255,255,255,0.3)';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+      }
+
+      function draw() {
+        clear();
+        ball.draw();
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+
+        if (ball.y + ball.vy > canvas.height || ball.y + ball.vy < 0) {
+          ball.vy = -ball.vy;
+        }
+        if (ball.x + ball.vx > canvas.width || ball.x + ball.vx < 0) {
+          ball.vx = -ball.vx;
+        }
+
+        raf = window.requestAnimationFrame(draw);
+      }
+
+      canvas.addEventListener('mousemove', function(e){
+        if (!running) {
+          clear();
+          ball.x = e.clientX;
+          ball.y = e.clientY;
+          this.style.cursor = 'none'
+          ball.draw();
+        }
+      });
+
+      canvas.addEventListener('mouseout', function(e){
+        ctx.fillStyle = 'rgba(255,255,255,0)';
+        running = false;
+      });
+
+      ball.draw();
+    }
+  </script>
+</body>
+</html> 

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    #ckt{
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="600"></canvas>
+  <div id="color" style="width: 100px;height: 100px;"></div>
+  <script>
+    var canvas = document.getElementById('canvas');
+    if (canvas.getContext){
+      var ctx = canvas.getContext('2d');
+      
+      /* ctx.fillStyle = "rgb(200,0,0)";
+      ctx.fillRect (10, 10, 55, 50);
+
+      ctx.fillStyle = "rgba(0, 0, 200, 0.5)";
+      ctx.fillRect (30, 30, 55, 50); */
+
+      /* // 画矩形(x, y, width, height)
+      ctx.fillRect(25, 25, 100, 100);
+      ctx.clearRect(45, 45, 60, 60);  // 擦成透明矩形
+      ctx.strokeRect(50, 50, 50, 50); */
+
+      // 绘制三角形
+      /* ctx.beginPath();
+      ctx.moveTo(75, 50);
+      ctx.lineTo(100, 75);
+      ctx.lineTo(100, 25);
+      ctx.fill(); */
+        
+      // arc(x, y, radius, startAngle, endAngle, anticlockwise)
+      /* ctx.beginPath();
+      ctx.arc(75,75,50,0,Math.PI*2,true); // 绘制
+      ctx.moveTo(100,100);
+      ctx.arc(75,75,35,Math.PI/4,Math.PI*3/4,false);   // 口(顺时针)
+      ctx.moveTo(65,65);
+      ctx.arc(60,65,5,0,Math.PI*2,true);  // 左眼
+      ctx.moveTo(95,65);
+      ctx.arc(90,65,5,0,Math.PI*2,true);  // 右眼
+      ctx.stroke(); */
+
+      /* var rectangle = new Path2D();
+      rectangle.rect(10,10,50,50);
+
+      var circleangle = new Path2D();
+      circleangle.moveTo(125,35);
+      circleangle.arc(100,35,25,0,2*Math.PI);
+
+      ctx.stroke(circleangle);
+      ctx.fill(rectangle); */
+
+      /* var p = new Path2D("M10 10 h 80 v 80 h -80 Z");
+      // ctx.fill(p);
+      ctx.stroke(p); */
+
+      /* for (var i=0;i<6;i++){
+        for (var j=0;j<6;j++){
+          ctx.fillStyle = 'rgb(' + Math.floor(255-42.5*i) + ',' + 
+                          Math.floor(255-42.5*j) + ',0)';
+          ctx.fillRect(j*25,i*25,25,25);
+        }
+      } */
+
+      /* var img = new Image()
+      img.src = 'https://ss0.baidu.com/6ONWsjip0QIZ8tyhnq/it/u=642378870,4211461145&fm=58';
+      img.onload = function() {
+        let w = 200;
+        let h = w/this.width*this.height
+        console.log(this.width, this.height);
+        ctx.drawImage(img, 0, 0, w, h);
+        
+      } */
+      
+    }
+  </script>
+</body>
+</html> 
