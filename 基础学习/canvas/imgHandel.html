@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    #ckt{
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas" width="600" height="600"></canvas>
+  <div id="color" style="width: 100px;height: 100px;"></div>
+  <script>
+    var canvas = document.getElementById('canvas');
+    if (canvas.getContext){
+      var ctx = canvas.getContext('2d');
+
+      var img = new Image();
+      img.src = './img/color.jpg';
+      var canvas = document.getElementById('canvas');
+      var ctx = canvas.getContext('2d');
+      
+      // 鼠标吸色
+      /* img.onload = function() {
+        ctx.drawImage(img, 0, 0);
+        img.style.display = 'none';
+      }; 
+      var color = document.getElementById('color');
+      function pick(event) {
+        var x = event.layerX;
+        var y = event.layerY;
+        var pixel = ctx.getImageData(x, y, 1, 1);
+        console.log(pixel);
+        var data = pixel.data;
+        var rgba = 'rgba(' + data[0] + ',' + data[1] +
+                  ',' + data[2] + ',' + (data[3] / 255) + ')';
+        color.style.background =  rgba;
+        color.textContent = rgba;
+      }
+      canvas.addEventListener('mousemove', pick); */
+
+
+      // 灰度处理
+      function CalculateGrayValue(r,g,b){
+        return parseInt(r * 0.299 + g * 0.587 + b * 0.114);
+      }
+      //取得图像数据
+      img.onload = function() {
+        ctx.drawImage(img, 0, 0);
+        img.style.display = 'none';
+
+        const { width:w, height:h } = img
+        var imgData=ctx.getImageData(0,0,w,h);
+        for (var x = 0; x < imgData.width; x++) {
+          //alert("x="+x);
+          for (var y = 0; y < imgData.height; y++) {
+            //alert("y="+y);
+            // Index of the pixel in the array
+            var idx = (x + y * canvas.width) * 4;
+
+            // The RGB values
+            var r = imgData.data[idx + 0];
+            var g = imgData.data[idx + 1];
+            var b = imgData.data[idx + 2];
+            //更新图像数据
+            var gray = CalculateGrayValue(r , g , b);
+            imgData.data[idx + 0] = gray;
+            imgData.data[idx + 1] = gray;
+            imgData.data[idx + 2] = gray;
+          }
+        }
+        ctx.putImageData(imgData, 0, 0);
+      };
+      
+    }
+  </script>
+</body>
+</html> 
