@@ -133,12 +133,6 @@ export default {
     // 获取当前城市主页信息
     getHomeInfo() {
       homeDetail().then((res) => {
-        !res.data.data.homeSetting.userNum.h1 ? res.data.data.homeSetting.userNum = {
-          h1: '改变从今天开始，你还等什么',
-          successNum: '14452',
-          teacherNum: '17900',
-          studentNum: '15531'
-        } : ''
         this.homeSettingForm = res.data.data.homeSetting
       })
     }
