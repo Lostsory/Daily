@@ -94,7 +94,6 @@ export default {
     right: 35px;
     .avatar-wrapper {
       cursor: pointer;
-      margin-top: 5px;
       position: relative;
       .user-avatar {
         width: 40px;
