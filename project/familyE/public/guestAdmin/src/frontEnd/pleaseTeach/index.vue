@@ -256,7 +256,6 @@ export default {
                 delay: 10000
               });
               this.subXuqiu = {}
-              
             } else {
               this.$message({
                 showClose: true,

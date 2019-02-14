@@ -10,8 +10,8 @@
 				  <el-step title="教育资料" icon="iconfont icon-jiaoyu"></el-step>
 				</el-steps>
       </el-col>
-      <el-row :gutter="60" :active="active">
-        <el-form ref="subXuqiu" :model="subXuqiu" :rules="subRules">
+      <el-row :gutter="60">
+        <el-form ref="addForm" :model="addForm" :rules="subRules">
           <el-col :xs="24" :span="8" v-show="!stepShow || active==1">
             <div class="contact">
               <div class="contact-head">
@@ -93,8 +93,8 @@
           <!--<el-checkbox></el-checkbox>我已阅读<span><a href="#">《XXXXXXXXXXXXXXX》</a></span>协议-->
         </el-col>
         <el-col :span="24" style="text-align: center;margin-bottom: 20px;">
-        	<el-button style="padding: 1.5rem 5rem;" type="warning" @click="nexts" v-if="active < 3" id="dianjicishu">下一步</el-button>
-        	<el-button style="padding: 1.5rem 5rem;" type="warning" v-else @click="subMit('subXuqiu')">提交需求</el-button>
+        	<el-button style="padding: 1.5rem 5rem;" type="warning" @click="nexts" v-if="active < 3 && stepShow" id="dianjicishu">下一步</el-button>
+        	<el-button style="padding: 1.5rem 5rem;" type="warning" v-else @click="subMit('addForm')">提交需求</el-button>
         </el-col>
       </el-row>
     </div>
@@ -158,42 +158,38 @@ export default {
       },
     }
   },
-  mounted(){
-      window.onresize = () => {
-        let w = document.documentElement.offsetWidth || document.body.offsetWidth;
-         return (() => {
-           if(w <= 768){
-								this.subXuqiu = {}
-                this.active = 1
-                this.show = false
-                this.kemu = false
-                this.buttonShow = true
-                this.stepShow = true
-                this.subShow = false
-            } else if(w > 768) {
-            		this.subXuqiu = {}
-                this.contact = true
-                this.show = true
-                this.kemu = true
-                this.buttonShow = false
-                this.stepShow = false
-                this.subShow = true
-            }
-         })()
-       }
+  created(){
+    let w = document.documentElement.offsetWidth || document.body.offsetWidth;
+    if(w <= 768){
+      this.addForm = {}
+      this.active = 1
+      this.show = false
+      this.kemu = false
+      this.buttonShow = true
+      this.stepShow = true
+      this.subShow = false
+    } else if(w > 768) {
+      this.addForm = {}
+      this.contact = true
+      this.show = true
+      this.kemu = true
+      this.buttonShow = false
+      this.stepShow = false
+      this.subShow = true
+    }
   },
   methods:{
     swiperH() {
       let w = document.documentElement.offsetWidth || document.body.offsetWidth;
       if(w <= 768){
-      	this.subXuqiu = {}
+      	this.addForm = {}
           this.show = false
           this.kemu = false
           this.buttonShow = true
           this.stepShow = true
           this.subShow = false
       } else if(w > 768) {
-      	this.subXuqiu = {}
+      	this.addForm = {}
           this.show = true
           this.kemu = true
           this.buttonShow = false
@@ -202,7 +198,7 @@ export default {
       }
     },
 		nexts() {
-      if (!this.subXuqiu.teacherName || !this.subXuqiu.phone) {
+      if (!this.addForm.teacherName || !this.addForm.phone) {
         this.$message({
           message: '请填写您的信息',
           type: 'warning'
@@ -210,12 +206,11 @@ export default {
         return
       }
       this.active = this.active + 1
-      console.log(this.subXuqiu);
 		},
     subMit(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-        	teacherAdd(this.subXuqiu).then((res) => {
+        	teacherAdd(this.addForm).then((res) => {
         		if (res.data.httpCode === '200') {
               this.$message({
                 message: '已成功录入您的信息，我们的客服稍后会与您取得联系',
@@ -223,7 +218,8 @@ export default {
                 showClose: true,
                 delay: 10000
               });
-              this.subXuqiu = {
+              this.active = 1
+              this.addForm = {
               }
             } else {
               this.$message({

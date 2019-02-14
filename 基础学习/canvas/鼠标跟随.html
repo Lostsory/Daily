@@ -23,12 +23,11 @@
     if (canvas.getContext){
       var ctx = canvas.getContext('2d');
       var raf;
-      var running = false;
 
       var ball = {
         x: 100,
         y: 100,
-        vx: 5,
+        vx: 1,
         vy: 1,
         radius: 25,
         color: 'blue',
@@ -63,21 +62,19 @@
       }
 
       canvas.addEventListener('mousemove', function(e){
-        if (!running) {
-          clear();
-          ball.x = e.clientX;
-          ball.y = e.clientY;
-          this.style.cursor = 'none'
-          ball.draw();
-        }
+        clear();
+        ball.x = e.clientX;
+        ball.y = e.clientY;
+        this.style.cursor = 'none'
+        ball.draw();
       });
 
       canvas.addEventListener('mouseout', function(e){
-        ctx.fillStyle = 'rgba(255,255,255,0)';
-        running = false;
+        ctx.fillStyle = 'rgb(255,255,255)';
+        console.log(ball);
       });
 
-      ball.draw();
+      // ball.draw();
     }
   </script>
 </body>

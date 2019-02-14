@@ -117,11 +117,11 @@
       </el-row>
     </div>
     <div class="success">
-      <p class="title">改变从今天开始，你还等什么</p>
+      <p class="title">{{mainCon.userNum.h1}}</p>
       <el-row>
-        <el-col :sm="8" :xs="24">成功接洽：<span class="num">123123</span>对</el-col>
-        <el-col :sm="8" :xs="24">学员数：<span class="num">123123</span>名</el-col>
-        <el-col :sm="8" :xs="24">教师数：<span class="num">123123</span>名</el-col>
+        <el-col :sm="8" :xs="24">成功接洽：<span class="num">{{mainCon.userNum.successNum}}</span>对</el-col>
+        <el-col :sm="8" :xs="24">学员数：<span class="num">{{mainCon.userNum.studentNum}}</span>名</el-col>
+        <el-col :sm="8" :xs="24">教师数：<span class="num">{{mainCon.userNum.teacherNum}}</span>名</el-col>
       </el-row>
     </div>
     <!-- <div class="teachers">

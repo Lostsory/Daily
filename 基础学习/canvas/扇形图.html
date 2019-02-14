@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #pie{
+      border: 1px solid #ccc
+    }
+    #box{
+      width: 100px;height:100px;background:red;position: relative;left: 0;transform: translateX(0);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="pie" width="600" height="600"></canvas>
+  <button class="btn">点击移动</button>
+  <div id="box"></div>
+  <script>
+    const pieCanvas = document.getElementById('pie');
+    const context = pieCanvas.getContext('2d');
+    const cX = pieCanvas.width / 2;
+    const cY = pieCanvas.height / 2;
+    const sR = 100;
+    const bR = 200;
+
+    const setArr = [
+      {
+        scale: 0.2,
+        color: 'red'
+      }, {
+        scale: 0.25,
+        color: 'green'
+      }, {
+        scale: 0.35,
+        color: 'blue'
+      }, {
+        scale: 0.1,
+        color: 'orange'
+      }, {
+        scale: 0.1,
+        color: 'purple'
+      }, 
+    ]
+    var startAngle = 0
+    var endAngle = 0
+
+      
+    function drawPie(cX, cY, bR, startAngle, endAngle, color) {
+      context.beginPath();
+      context.moveTo(cX, cY);
+      context.arc(cX, cY, bR, startAngle, endAngle);
+      context.fillStyle = color;
+      context.fill();
+    }
+    for(let i = 0; i < setArr.length; i++) {
+      i > 0 ? startAngle = endAngle : ''
+      endAngle = startAngle + setArr[i].scale * 2 * Math.PI
+      let nowEndAngle = startAngle;
+      var timer = setInterval(() => {
+        if (nowEndAngle < endAngle) {
+          nowEndAngle += 0.01
+          console.log('11');
+          drawPie(cX, cY, bR, startAngle, nowEndAngle, setArr[i].color)
+        } else {
+          clearInterval(timer)
+        }
+      }, 30)
+    }
+    /* context.beginPath();
+    context.moveTo(cX, cY);
+    context.arc(cX, cY, bR, 0, 2 * Math.PI * setArr[0].scale);
+    context.fillStyle=setArr[0].color;
+    context.fill();
+
+    context.beginPath();
+    context.moveTo(cX, cY);
+    context.arc(cX, cY, bR, 2 * Math.PI * setArr[0].scale, 2 * Math.PI * (setArr[1].scale + setArr[0].scale));
+    context.fillStyle=setArr[1].color;
+    context.fill(); */
+    
+    context.beginPath();
+    context.arc(cX, cY, sR, 0, 2 * Math.PI);
+    context.fillStyle='#fff';
+    context.fill();
+    
+
+    var obtn = document.querySelector('.btn');
+    var obox = document.querySelector('#box');
+
+    obtn.onclick = function() {
+      const move = () => {
+        if (obox.offsetLeft < 300) {
+          obox.offsetLeft += 100
+          obox.style.left = obox.offsetLeft + 'px'
+          window.requestAnimationFrame(move)
+        }
+      }
+      move()
+    }
+    
+  </script>
+</body>
+</html>

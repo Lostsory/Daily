@@ -68,6 +68,23 @@
         </el-form-item>
       </am-article-lead>
       <am-article-lead custom-class="bgWhite">
+        <blockquote>
+          <p>{{homeSettingForm.userNum.h1}}</p>
+        </blockquote>
+        <el-form-item label="一级标题：">
+        <el-input  placeholder="请输入" v-model="homeSettingForm.userNum.h1"></el-input>
+        </el-form-item>
+        <el-form-item label="成功接洽：">
+          <el-input type="textarea" placeholder="请输入" v-model="homeSettingForm.userNum.successNum"></el-input>
+        </el-form-item>
+        <el-form-item label="学员数：">
+          <el-input type="textarea" placeholder="请输入" v-model="homeSettingForm.userNum.studentNum"></el-input>
+        </el-form-item>
+        <el-form-item label="教师数：">
+          <el-input type="textarea" placeholder="请输入" v-model="homeSettingForm.userNum.teacherNum"></el-input>
+        </el-form-item>
+      </am-article-lead>
+      <am-article-lead custom-class="bgWhite">
         <el-alert
           title="推荐教员请到教员管理页面进行操作"
           type="warning">
@@ -101,6 +118,7 @@ export default {
         banner: {},
         introduction: {},
         register: {},
+        userNum: {},
         teachers: {},
         students: {}
       }
@@ -115,6 +133,12 @@ export default {
     // 获取当前城市主页信息
     getHomeInfo() {
       homeDetail().then((res) => {
+        !res.data.data.homeSetting.userNum.h1 ? res.data.data.homeSetting.userNum = {
+          h1: '改变从今天开始，你还等什么',
+          successNum: '14452',
+          teacherNum: '17900',
+          studentNum: '15531'
+        } : ''
         this.homeSettingForm = res.data.data.homeSetting
       })
     }

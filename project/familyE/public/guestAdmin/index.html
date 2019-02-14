@@ -21,6 +21,15 @@
         var s = document.getElementsByTagName("script")[0]; 
         s.parentNode.insertBefore(hm, s);
       })();
+      var closeTel = function() {
+        var btnClose = document.querySelector('ins.lxb-hide-btn');
+        if (!btnClose) {
+          window.requestAnimationFrame(closeTel);
+        } else {
+          btnClose.click();
+        }
+      }
+      closeTel()
     </script>
   </body>
 </html>
