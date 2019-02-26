@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>前端常用算法</title>
+</head>
+<body>
+  <script>
+    /* var arr = [
+      [7],
+      [3,8],
+      [8,1,0],
+      [2,7,4,4],
+      [4,5,2,6,5]
+    ];
+    var row = arr.length;
+    var maxNum = arr[0][0];
+    for (var r = 1; r < row; r++) {
+        var base = 0
+        for (var c = 0; c < arr[r]; c++) {
+          base = arr[r][c]
+        }
+    } */
+
+    /* ----------------------斐波那契数列第n项---------------------------------*/
+    function dynFib(n) {  // 动态规划解法
+        let val = [];
+        for (let i = 0; i <= n; ++i) {
+          val[i] = 0;
+        }
+        if (n === 1 || n === 2) {
+          return 1;
+        }
+        else {
+          val[1] = 1;
+          val[2] = 2;
+          for (let i = 3; i <= n; ++i) {
+            val[i] = val[i - 1] + val[i - 2];
+          }
+        }
+        return val[n - 1]
+      }
+
+      function recurFib(n) {  // 递归解法
+        if (n < 2) {
+          return n;
+        } else {
+          return recurFib(n - 1) + recurFib(n - 2)
+        }
+      }  
+    
+  </script>
+</body>
+</html>
