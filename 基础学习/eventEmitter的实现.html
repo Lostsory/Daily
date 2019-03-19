@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class eventEmitter {
+      constructor() {
+        this.events = {}
+      }
+      on(n, fn, once=false) {
+        this.events[n] = {
+          fun: fn,
+          once
+        }
+      }
+      once(n, fn) {
+        this.on(n, fn, true)
+      }
+      fire(n, ...arg) {
+        try {
+          this.events[n].fun(...arg)
+          if (this.events[n].once) {
+            this.off(n)
+          }
+        } catch (error) {
+          console.error(`sorry, ${n} is a once type of events or is offed`)
+        }
+      }
+      off(n) {
+        delete this.events[n]
+      }
+      offAll() {
+        this.events = {}
+      }
+    }
+
+    var event = new eventEmitter()
+    function eat(...arg) {
+      console.log('我是on绑定的', ...arg)
+    }
+    function drink(...arg) {
+      console.log('我是once绑定的', ...arg)
+    }
+    event.on('eat', eat)
+    event.once('drink', drink)
+    event.fire('eat','apple, orange')
+    event.fire('drink','apple, orange')
+  </script>
+</body>
+</html>
