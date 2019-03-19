@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function WaterFall() {
+      
+    }
+    WaterFall.prototype.getFallData = function(data) {
+      let len = data.length;
+      let L = new Col(0, outerHeight)
+      let R = new Col(178.5, outerHeight)
+      for (let i = 0; i < data.length; i++ ) {
+        if (i == 0) {
+          L.pushItem(data[i])
+        } else if (i == 1) {
+          R.pushItem(data[i])
+        } else {
+          if (L.getHeight() < R.getHeight()) {
+            L.pushItem(data[i])
+          } else {
+            R.pushItem(data[i])
+          }
+        }
+      }
+      return [...L.arr, ...R.arr]
+    }
+
+    function Col(left, outerHeight) {
+      this.arr = []
+      this.left = left
+      this.outerHeight = outerHeight
+    }
+    Col.prototype.getHeight = function () {
+      let len = this.arr.length
+      return len ? this.arr[len - 1].top + this.arr[len - 1].imgHeight + this.outerHeight : 0
+    }
+    Col.prototype.pushItem = function (item) {
+      item.left = this.left
+      item.top = this.getHeight()
+      this.arr.push(item)
+    }
+  </script>
+</body>
+</html>
