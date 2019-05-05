@@ -5,10 +5,139 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <style>
+    #edit{
+      width: 300px;
+      height: 300px;
+      background: #ccc;
+      border: none;
+      outline: none;
+      padding: 20px;
+    }
+  
+  </style>
 </head>
 <body>
+  <div id="edit" contenteditable="true"></div>
   <script>
+    let edit = document.querySelector('#edit')
+    edit.oninput = function() {
+      console.log('change');
+    }
+    edit.onblur = function() {
+      console.log('blur');
+    }
+  </script>
+
+  <script>
+    /* async function async1() {
+      console.log('async1 start');
+      await async2();
+      console.log('async1 end');
+    }
+    async function async2() {
+      console.log('async2');
+    }
+    console.log('script start');
+    setTimeout(function() {
+      console.log('setTimeout');
+    }, 0);
+    async1();
+    new Promise(function(resolve) {
+      console.log('promise1');
+      resolve();
+    }).then(function() {
+      console.log('promise2');
+    });
+    console.log('script end'); */
+
+    /* 
+    script start
+    async1 start
+    async2
+    promise1
+    script end
+    async1 end
+    promise2
+    setTimeout
+     */
+
+     /* =================================================================== */
+    /* setTimeout(() => {
+      console.log('A');
+    }, 0);
+    var obj = {
+      func: function() {
+        setTimeout(function() {
+          console.log('B');
+        }, 0);
+        return new Promise(function(resolve) {
+          console.log('C');
+          resolve();
+        });
+      },
+    };
+    obj.func().then(function() {
+      console.log('D');
+    });
+    console.log('E'); */
+    /* 
+      C
+      E
+      D
+      A
+      B
+     */
+
+     /* ================================================================== */
+    /* let p = new Promise(resolve => {
+      resolve(1);
+      Promise.resolve().then(() => console.log(2));
+      console.log(4);
+    }).then(t => console.log(t));
+    console.log(3); */
+
+    /* 
+      4
+      3
+      2
+      1
+     */
+
+     /* ================================================================== */
+    /* const p1 = new Promise((resolve, reject) => {
+      console.log('promise1');
+      resolve();
+    }).then(() => {
+        console.log('then11');
+        new Promise((resolve, reject) => {
+          console.log('promise2');
+          resolve();
+        }).then(() => {
+            console.log('then21');
+            }).then(() => {
+            console.log('then23');
+          });
+      }).then(() => {
+        console.log('then12');
+      });
+
+    const p2 = new Promise((resolve, reject) => {
+      console.log('promise3');
+      resolve();
+    }).then(() => {
+      console.log('then31');
+    }); */
+    /* 
+      主任务：promise1， promise3
+      微任务：then11， promise2， then12， then21， then23， then31
+
+      promise1， promise3， then11， promise2， then12， then21， then23， then31
     
+     */
+
+
+
   </script>
 </body>
 </html>

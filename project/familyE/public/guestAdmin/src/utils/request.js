@@ -42,11 +42,6 @@ service.interceptors.response.use(res => {
   const RESPONSE_CODE = res.data.httpCode
   const RESPONSE_MSG = res.data.msg
   const SUCCESS_CODE = '200'
-  /* const token = getToken()
-  if (token) {
-  } else {
-    router.push('/login')
-  } */
   if (res.config.method === 'get' && RESPONSE_CODE === SUCCESS_CODE) return res
   if (/^\/frontEndLayout/.test(router.currentRoute.fullPath)) return res
   if (RESPONSE_CODE === SUCCESS_CODE) {
