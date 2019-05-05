@@ -1,5 +1,6 @@
 <template>
   <div id="frontEnd" v-if="homeInfo.banner" class="showBottom">
+    <!-- 顶部 -->
     <div class="top">
       <div class="brand"></div>
       <ul>
@@ -26,6 +27,7 @@
         </li>
       </ul>
     </div>
+    <!-- 导航 -->
     <div class="navCon">
       <am-topbar :inverse="true">
         <!-- <am-topbar-brand> -->
@@ -37,6 +39,7 @@
         </am-topbar-collapse>
       </am-topbar>
     </div>
+    <!-- 轮播 -->
     <div class="banner" :class="bannerImg">
       <div class="animated fadeInUp" v-if="activeRouter == '/frontEndLayout/home'">
         <h2>{{homeInfo.banner.h1}}</h2>
@@ -46,12 +49,9 @@
         <span class="btn" @click="$router.push('/frontEndLayout/pleaseTeach')">助 力 学 习</span>
       </div>
     </div>
+    <!-- 主要内容区 -->
     <router-view class="content"/>
-      <!-- am-button-group>
-        <am-button :round="true" color="primary"><a href="tel:13068035571">电话</a></am-button>
-        <am-button :round="true" color="success"><a href="sms:13068035571">短信</a></am-button>
-        <am-button :round="true" color="danger" @click="toTeacher">预约</am-button>
-      </am-button-group> -->
+    <!-- 底部联系我们 -->
     <el-row class="contact-us show">
       <el-col :span="8">
         <a :href="'sms:'+homeInfo.banner.phone">短信 <i class="iconfont icon-duanxin"></i></a>
@@ -183,7 +183,7 @@ export default {
     .brand{
       height: 6rem;
       width: 30rem;
-      background: url('../../assets/logo.png') no-repeat left center;
+      background: url('../../assets/school-logo.png') no-repeat left center;
       background-size: 80%;
       position: absolute;
       left: 1rem;

@@ -1,9 +1,9 @@
 import { EventEmitter } from 'events';
 import AppDispatcher from '../Dispather';
-import * as ActionTypes from './ActionTypes';
+import * as ActionTypes from '../ActionTypes';
 
 const counterVal = {
-  First: 0,
+  first: 1,
   second: 10,
   third: 20
 };
@@ -13,13 +13,13 @@ const CounterStore = Object.assign({}, EventEmitter.prototype, {
     return counterVal
   },
   emitChange() {
-    this.emitChange('CHANGE_EVENT')
+    this.emit('CHANGE_EVENT')
   },
   addChangeListener(callback) {
     this.on('CHANGE_EVENT', callback)
   },
   removeChangeListener(callback) {
-    this.removeChangeListener('CHANGE_EVENT', callback)
+    this.removeListener('CHANGE_EVENT', callback)
   }
 })
 CounterStore.dispatchToken = AppDispatcher.register((action) => {
@@ -31,3 +31,5 @@ CounterStore.dispatchToken = AppDispatcher.register((action) => {
     CounterStore.emitChange()
   }
 })
+
+export default CounterStore

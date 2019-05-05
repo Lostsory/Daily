@@ -1,33 +1,36 @@
 import { EventEmitter } from 'events';
+import CounterStore from './CounterStore';
 import AppDispatcher from '../Dispather';
-import * as ActionTypes from './ActionTypes';
+import * as ActionTypes from '../ActionTypes';
 
-const counterVal = {
-  First: 0,
-  second: 10,
-  third: 20
-};
+function computeSummary(counterValues) {
+  let summary = 0;
+  for (let i in counterValues) {
+    if (counterValues.hasOwnProperty(i)) {
+      summary += counterValues[i]
+    }
+  }
+  return summary
+}
 
 const SummaryrStore = Object.assign({}, EventEmitter.prototype, {
-  getCounterVals() {
-    return counterVal
+  getsummary() {
+    return computeSummary(CounterStore.getCounterVals())
   },
   emitChange() {
-    this.emitChange('CHANGE_EVENT')
+    this.emit('CHANGE_EVENT')
   },
   addChangeListener(callback) {
     this.on('CHANGE_EVENT', callback)
   },
   removeChangeListener(callback) {
-    this.removeChangeListener('CHANGE_EVENT', callback)
+    this.removeListener('CHANGE_EVENT', callback)
   }
 })
-/* SummaryrStore.dispatchToken = AppDispatcher.register((action) => {
-  if (action.type === ActionTypes.INCREMENT) {
-    counterVal[action.counterCaption] ++;
-    CounterStore.emitChange()
-  } else if (action.type === ActionTypes.DECREMENT) {
-    counterVal[action.counterCaption] --;
-    CounterStore.emitChange()
+SummaryrStore.dispatchToken = AppDispatcher.register((action) => {
+  if ((action.type === ActionTypes.INCREMENT) || (action.type === ActionTypes.DECREMENT)) {
+    AppDispatcher.waitFor([CounterStore.dispatchToken])
+    SummaryrStore.emitChange()
   }
-}) */
+})
+export default SummaryrStore
