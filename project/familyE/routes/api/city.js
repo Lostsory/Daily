@@ -69,8 +69,8 @@ router.delete('/delete', (req, res) => {
 */
 router.get('/list', (req, res) => {
   let {pageSize, pageNum} = req.query;
-  pageNum = parseInt(pageNum)
-  pageSize = parseInt(pageSize)
+  pageNum = parseInt(pageNum) || 0
+  pageSize = parseInt(pageSize) || 0
   City.find({}, {homeSetting: 0}).sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((city) => {
     City.count().then((total) => {
       res.send({
