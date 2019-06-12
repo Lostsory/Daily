@@ -56,6 +56,14 @@ export default [
         }
       },
       {
+        path: '/admin/subscribe',
+        name: 'subscribe',
+        component: () => import('@/admin/subscribe'),
+        meta: {
+          title: '预约管理'
+        }
+      },
+      {
         path: '/admin/partners',
         name: 'adminPartners',
         component: () => import('@/admin/partners'),

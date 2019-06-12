@@ -32,13 +32,17 @@ const user = {
   actions: {
     // 登录
     Login({ commit }, userInfo) {
+      const { isAdmin } = userInfo
       return login(userInfo).then(res => {
         const { token, userInfo } = res.data
         setToken(token)
         if (res.data.httpCode === '200') {
           commit('SET_TOKEN', token)
           commit('SET_USERINFO', userInfo)
-          router.push('/admin/homeSetting')
+          // 是否为后台管理页面
+          if (isAdmin) {
+            router.push('/admin/homeSetting')
+          }
         }
       })
     },

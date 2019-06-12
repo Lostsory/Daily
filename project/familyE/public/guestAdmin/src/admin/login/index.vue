@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
     <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
-      <h2 class="title">树人百分家教后台管理系统</h2>
+      <h2 class="title">优智家教后台管理系统</h2>
       <el-form-item prop="account">
         <span class="svg-container svg-container_login">
           <svg-icon icon-class="user" />
@@ -22,7 +22,7 @@
         </el-button>
       </el-form-item>
     </el-form>
-    <p class="bqxx">Copyright © 2018-2099 （HSJT）</p>
+    <!-- <p class="bqxx">Copyright © 2018-2099 （HSJT）</p> -->
   </div>
 </template>
 
@@ -72,7 +72,7 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          this.login(this.loginForm)
+          this.login({ ...this.loginForm, isAdmin: true })
         } else {
           console.log('error submit!!')
           return false

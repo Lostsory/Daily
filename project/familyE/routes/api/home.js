@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Student = require('../../models/Student.js');
 const Teacher = require('../../models/Teacher.js');
+const Subscribe = require('../../models/Subscribe.js');
 const City = require('../../models/City.js');
 
 /**
@@ -40,7 +41,7 @@ router.post('/homeInfoUpdata', (req, res) => {
 * @public
 */
 router.get('/student', (req, res) => {
-  let {cityCode, pageSize, pageNum} = req.query;
+  let {cityCode, pageSize, pageNum} = req.query
   pageNum = parseInt(pageNum) || 1
   pageSize = parseInt(pageSize) || 6
   Student.find({cityCode, checkStatus: 1}, {phone: 0, pwd: 0}).sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((students) => {
@@ -69,16 +70,142 @@ router.get('/student', (req, res) => {
 })
 
 /**
+* @api api/home/subscribe
+* @description 教员预约接口
+* @public
+*/
+router.post('/subscribe', (req, res) => {
+  const {teacherId, studentId} = req.body
+  Teacher.findById(teacherId).then((teacher) => {
+    Student.findById(studentId).then(student => {
+      const newSubscribe = new Subscribe({
+        ...req.body,
+        teacher,
+        student
+      })
+      newSubscribe.save().then(() => {
+        res.send({
+          httpCode: '200',
+          msg: '预约成功'
+        })
+      })
+    })
+  })
+})
+
+/**
+* @api api/home/subscribeUpdate
+* @description 教员预约列表
+* @public
+*/
+router.post('/subscribeUpdate', (req, res) => {
+  const {_id, check, cityCode} = req.body
+  console.log('================', req.body);
+  Subscribe.update({
+    _id, cityCode
+  }, {
+    $set: {
+      check 
+    }
+  }).then(() => {
+    res.send({
+      msg: '操作成功',
+      httpCode: '200'
+    })
+  })
+})
+
+
+/**
+* @api api/home/subscribeList
+* @description 教员预约列表
+* @public
+*/
+router.get('/subscribeList', (req, res) => {
+  const {teacherId, studentId, cityCode, check} = req.query
+  const query = {cityCode}
+  if (teacherId) {
+    query.teacherId = teacherId
+  } else if (studentId) {
+    query.studentId = studentId
+  } else if(check) {
+    query.check = check
+  }
+  Subscribe.find(query).sort({'createTime': -1}).then((list) => {
+    res.send({
+      msg: '请求成功',
+      httpCode: '200',
+      list
+    })
+  })
+})
+
+/**
+* @api api/home/comment
+* @description 教员预约列表
+* @public
+*/
+router.post('/commentAdd', (req, res) => {
+  const {teacherId, studentId, studentIdName, content, createTime} = req.body
+  Subscribe.find({
+    teacherId, studentId, check: '3'
+  }).then((subscribe) => {
+    if (subscribe.length == 1) {
+      Subscribe.updateOne({
+        teacherId, studentId
+      }, {
+        '$push': {
+          comment: {
+            studentIdName, content, createTime
+          }
+        }
+      }).then(() => {
+        res.send({
+          msg: '评价成功',
+          httpCode: '200'
+        })
+      })
+    } else {
+      res.send({
+        msg: '对不起，您尚未成功预约该老师',
+        httpCode: '-1'
+      })
+    }
+  })
+  
+})
+
+/**
 * @api api/home/teacher
 * @description 首页推荐教员列表接口
 * @public
 */
 router.get('/teacher', (req, res) => {
-  let {cityCode, pageSize, pageNum} = req.query;
+  let {cityCode, pageSize, pageNum, teachTime, typeId, sex, remark} = req.query;
   pageNum = parseInt(pageNum) || 1
   pageSize = parseInt(pageSize) || 8
+  const reg = new RegExp(remark, 'i')
   // let exists = req.query.pageNum?true:false
-  Teacher.find({cityCode, checkStatus: 1}, {phone: 0, pwd: 0}).sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((teachers) => {
+  const query = {
+    cityCode,
+    checkStatus: 1,
+    typeId: typeId || {$exists: true},
+    sex: sex || {$exists: true},
+    $or: [
+      {
+        remark: {$regex : reg}
+      },
+      {
+        teacherName: {$regex : reg}
+      }
+    ]
+  }
+  if (teachTime) {
+    query.teachTime = {
+      $gt: teachTime
+    }
+  }
+  Teacher.find(query, {phone: 0, pwd: 0}).sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((teachers) => {
     const newData = teachers.map((item) => {
       return {
         name: item.teacherName[0] + '老师',
@@ -88,7 +215,7 @@ router.get('/teacher', (req, res) => {
         _id: item._id
       }
     })
-    Teacher.countDocuments({cityCode, checkStatus: 1}).then((total) => {
+    Teacher.countDocuments(query).then((total) => {
       res.send({
         data: newData,
         total,

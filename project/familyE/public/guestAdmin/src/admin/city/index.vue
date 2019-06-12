@@ -2,10 +2,6 @@
 <div class="app-container">
   <div class="filter-container">
     <el-button size="medium" @click="handleAdd" type="primary" icon="el-icon-edit">添加</el-button>
-    <!-- <div class="search_btn_container" style="float:right">
-      <el-input size="medium" :clearable="true" v-model="listQuery.drinkName" placeholder="输入酒水名称进行搜索"></el-input>
-      <el-button @click="getData" class="search_btn" type="primary" size="small" icon="el-icon-search"></el-button>
-    </div> -->
   </div>
   <el-table
     size="medium"

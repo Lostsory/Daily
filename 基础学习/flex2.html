@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    body{
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+    .box{
+      width: 200px;
+      height: 200px;
+      background-color: red;
+      margin: 10px;
+    }
+  </style>
+</head>
+<body> 
+  <div class="box"></div> <div class="box"></div>  <div class="box"></div>  <div class="box"></div>
+  <div class="box"></div> <div class="box"></div>  <div class="box"></div>  <div class="box"></div>
+  <div class="box"></div> <div class="box"></div>  <div class="box"></div>  <div class="box"></div>
+  <div class="box"></div> <div class="box"></div>  <div class="box"></div>  <div class="box"></div>
+  <div class="box"></div> <div class="box"></div>  <div class="box"></div>  <div class="box"></div>
+  <div class="box"></div> <div class="box"></div>  <div class="box"></div>  <div class="box"></div>
+  <div class="box"></div> <div class="box"></div>  <div class="box"></div>  <div class="box"></div>
+  <div class="box"></div> <div class="box"></div>  <div class="box"></div>  <div class="box"></div>
+  <div class="box"></div> <div class="box"></div>  <div class="box"></div>  <div class="box"></div>
+  <div class="box"></div> <div class="box"></div>  <div class="box"></div>  <div class="box"></div> <div class="box"></div>
+
+  <script>
+    const chunk = (arr, len) => [arr.splice(0, len), arr]
+
+      var o = {
+        rows: [
+          ["Lisa", 16, "Female", "2000-12-01"],
+          ["Bob", 22, "Male", "1996-01-21"]
+        ],
+        metaData: [
+          { name: "name", note: '' },
+          { name: "age", note: '' },
+          { name: "gender", note: '' },
+          { name: "birthday", note: '' }
+        ]
+      }
+
+      const parseData = (o) => {
+        const { rows, metaData } = o
+        const keys = []
+        metaData.forEach(item => {
+          keys.push(item.name)
+        })
+        return rows.map((item) => {
+          const newItem  = {}
+          item.map((item2, index) => {
+            newItem[keys[index]] = item2
+          })
+          return newItem
+        })
+      }
+
+
+      class Person{
+        constructor(name) {
+          this.name = name
+          this.sleepTime = 0
+          this.isSleepFrist = false
+          setTimeout(() => {
+            if(!this.isSleepFrist) {
+              this.sayName()
+            }
+          })
+        }
+        sayName() {
+          console.log(`Hi! This is ${this.name}`)
+        }
+        sleepFirst(second) {
+          this.isSleepFrist = true
+          return this.sleep(second)
+        }
+        sleep(second) {
+          console.log(`等待${second}秒..`)
+          this.sleepTime = second
+          return this
+        }
+        eat(food) {
+          setTimeout(() => {
+            console.log(`Wake up after ${this.sleepTime}`);
+            if(this.isSleepFrist) {
+              this.sayName()
+            }
+            console.log(`Eat ${food}~`)
+            this.sleepTime = 0
+          }, this.sleepTime * 1000)
+        }
+      }
+  </script>
+</body>
+</html>

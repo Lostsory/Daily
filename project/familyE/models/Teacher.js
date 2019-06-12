@@ -13,6 +13,11 @@ var teacherSchema = new Schema({
     type: String,
     required: true
   },
+  students: {
+    type: Array,
+    required: false,
+    default: []
+  },
   //身份类型
   typeId: {
     type: String,

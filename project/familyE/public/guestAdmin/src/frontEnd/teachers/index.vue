@@ -2,6 +2,28 @@
   <div id="teachers">
     <div class="content">
       <Titlecomp :content="content" />
+      <div class="search-form">
+        教龄：大于 <el-input-number clearable class="search-item" size="small" style="width: 100px;"  v-model="searchForm.teachTime" :min="1" :max="10" label="" />
+        <el-select clearable style="width: 100px;" class="search-item" size="small" v-model="searchForm.sex" placeholder="性别">
+          <el-option
+            v-for="item in sexs"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        <el-select clearable style="width: 240px;" size="small" v-model="searchForm.typeId" placeholder="请选择教员的身份">
+          <el-option
+            v-for="item in teacherTypes"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+        <el-input  style="width: 160px;" size="small" v-model="searchForm.remark" placeholder="教授科目或教员姓名"></el-input>
+        <el-button  size="small" type="primary" @click="search">搜索</el-button>
+        <el-button  size="small" type="primary" @click="searchForm = {}">重置</el-button>
+      </div>
       <el-row v-if="teachersList">
         <el-col v-for="(item, index) in teachersList" :key="index" :sm="4" :xs="12">
           <div class="temp" @click="toDetail(item)">
@@ -11,21 +33,29 @@
               <p>教龄<span>{{item.teachTime}}</span>年 | {{item.finishSchool}}</p>
               <p>{{item.remark}}</p>
             </div>
+            <div class="mask" @click="toDetail(item)">
+              <div>查看详情</div>
+            </div>
           </div>
         </el-col>
       </el-row>
-      <pagination @getTableData="getTeacher" :total="total" :listQuery="listQuery" />
+      <pagination v-if="token" @getTableData="getTeacher" :total="total" :listQuery="listQuery" />
+      <loginModal v-else />
     </div>
-  </div>  
+  </div>
 </template>
 <script>
 import pagination from '@/components/Pagination'
 import Titlecomp from '@/components/Title'
 import { homeTeachers } from '@/api'
+import { mapGetters } from 'vuex'
+import loginModal from '@/components/loginModal';
+
 export default {
   components: {
     Titlecomp,
-    pagination
+    pagination,
+    loginModal
   },
   data() {
     return {
@@ -38,12 +68,52 @@ export default {
         pageSize: 20
       },
       total: 0,
-      teachersList: []
+      teachersList: [],
+      searchForm: {},
+      teacherTypes: [{
+        value: '1',
+        label: '在校大学生(研究生) ,不含留学生'
+      }, {
+        value: '2',
+        label: '教师(在职/进修/离职/退休)'
+      }, {
+        value: '3',
+        label: '外籍人士(留学生/外教/海归人员)'
+      }, {
+        value: '4',
+        label: '其他(已毕业离校的人员)'
+      }],
+      sexs: [
+        {
+          value: '0',
+          label: '未知'
+        },
+        {
+          value: '1',
+          label: '男'
+        },
+        {
+          value: '2',
+          label: '女'
+        }
+      ]
     }
   },
+  computed: {
+    ...mapGetters({
+      token: 'token'
+    })
+  },
   methods: {
+    search() {
+      this.listQuery = {
+        ...this.listQuery,
+        pageNum: 1,
+      }
+      this.getTeacher()
+    },
     getTeacher() {
-      homeTeachers(this.listQuery).then((res) => {
+      homeTeachers({...this.listQuery, ...this.searchForm}).then((res) => {
         this.teachersList = res.data.data
         this.total = parseInt(res.data.total)
       })
@@ -65,6 +135,14 @@ export default {
   .content{
     width: 1200px;
     margin: 0px auto;
+  }
+  .search-form{
+    margin-bottom: 20px;
+    text-align: right;
+    .search-item{
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
   @media only screen and (max-width: 768px) {
     .content{
@@ -88,8 +166,12 @@ export default {
       overflow: hidden;
       cursor: pointer;
       margin-bottom: 2rem;
+      position: relative;
       &:hover{
-        transform: scale(1.1)
+        transform: scale(1.1);
+        .mask{
+          display: block
+        }
       }
       img{
         width: 100%;
@@ -124,6 +206,23 @@ export default {
             line-height: 1.6rem;
             height: 6.4rem;
           }
+        }
+      }
+      .mask{
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .85);
+        div{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 16px;
+          color: #fff
         }
       }
     }

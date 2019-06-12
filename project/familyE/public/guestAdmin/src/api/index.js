@@ -90,6 +90,42 @@ export const homeTeachers = (params) => {
   })
 }
 
+// 首页预约列表接口
+export const subscribeList = (params) => {
+  return request({
+    url: 'home/subscribeList',
+    method: 'get',
+    params
+  })
+}
+
+// 修改预约状态
+export const subscribeUpdate = (data) => {
+  return request({
+    url: 'home/subscribeUpdate',
+    method: 'post',
+    data
+  })
+}
+
+// 新增评价
+export const commentAdd = (data) => {
+  return request({
+    url: 'home/commentAdd',
+    method: 'post',
+    data
+  })
+}
+
+// 教员预约
+export const subscribe = (data) => {
+  return request({
+    url: 'home/subscribe',
+    method: 'post',
+    data
+  })
+}
+
 /* ----------------------------------------------------------------------------------------------------------------------------- */
 
 // 年级查询

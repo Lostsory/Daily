@@ -48,6 +48,11 @@ export default [
         path: '/frontEndLayout/doTeach',
         name: 'doTeach',
         component: () => import(/* webpackChunkName: "doTeach" */ '@/frontEnd/doTeach')
+      },
+      {
+        path: '/frontEndLayout/usercenter',
+        name: 'usercenter',
+        component: () => import(/* webpackChunkName: "usercenter" */ '@/frontEnd/userCenter')
       }
     ]
   }

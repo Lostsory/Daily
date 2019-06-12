@@ -40,14 +40,27 @@
       </am-topbar>
     </div>
     <!-- 轮播 -->
-    <div class="banner" :class="bannerImg">
-      <div class="animated fadeInUp" v-if="activeRouter == '/frontEndLayout/home'">
+    <!-- <div class="banner" :class="bannerImg"> -->
+    <div class="banner">
+      <!-- <div class="animated fadeInUp" v-if="activeRouter == '/frontEndLayout/home'">
         <h2>{{homeInfo.banner.h1}}</h2>
         <h3>{{homeInfo.banner.h2}}</h3>
         <h4>{{homeInfo.banner.h3}}</h4>
         <p><span v-for="item in 3" :key="item"></span></p>
         <span class="btn" @click="$router.push('/frontEndLayout/pleaseTeach')">助 力 学 习</span>
-      </div>
+      </div> -->
+      <el-carousel :interval="3000" arrow="always">
+        <el-carousel-item v-for="(item, index) in swipers" :key="index">
+          <img :src="item" alt="">
+          <div class="animated fadeInUp" v-if="index == 0 ">
+            <h2>{{homeInfo.banner.h1}}</h2>
+            <h3>{{homeInfo.banner.h2}}</h3>
+            <h4>{{homeInfo.banner.h3}}</h4>
+            <p><span v-for="item in 3" :key="item"></span></p>
+            <span class="btn" @click="$router.push('/frontEndLayout/pleaseTeach')">助 力 学 习</span>
+          </div>
+        </el-carousel-item>
+      </el-carousel>
     </div>
     <!-- 主要内容区 -->
     <router-view class="content"/>
@@ -73,6 +86,9 @@
 <script>
 import { mapGetters } from 'vuex'
 import { homeDetail } from '@/api'
+import home from '../../assets/webImg/home-banner.jpg'
+import teacher from '../../assets/webImg/teacher-banner.jpg'
+import student from '../../assets/webImg/student-banner.jpg'
 export default {
   data() {
     return {
@@ -102,8 +118,13 @@ export default {
         {
           path: '/frontEndLayout/partners',
           name: '合作机构'
-        }
+        },
+        {
+          path: '/frontEndLayout/usercenter',
+          name: '个人中心'
+        },
       ],
+      swipers: [home, teacher, student],
       sections: [{
         value: 1,
         label: '在校大学生(研究生) ,不含留学生',
@@ -353,9 +374,21 @@ export default {
   }
   .banner{
     width: 100%;
-    padding: 0 1rem 5.6rem;
+    padding: 0 0 5.6rem;
     text-align: center;
     overflow: hidden;
+    height: 350px;
+    position: relative;
+    .el-carousel__container{
+      height: 350px;
+    }
+    img{
+      position: absolute;
+      height: 350px;
+      transform: translateX(-50%);
+      left: 50%;
+      top: 0;
+    }
     &.home{
       background: url('../../assets/webImg/home-banner.jpg') no-repeat center center;
       background-size: cover;

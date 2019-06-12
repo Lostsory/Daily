@@ -29,6 +29,11 @@ var studentSchema = new Schema({
     required: false,
     default: '未知'
   },
+  teachers: {
+    type: Array,
+    required: false,
+    default: []
+  },
   //性别 0：未知，1：:男，2：女
   sex: {
     type: String,
