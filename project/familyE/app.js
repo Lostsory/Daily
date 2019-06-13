@@ -11,12 +11,6 @@ var cookieParser = require('cookie-parser');
 
 var app = express();
 
-var config = require('./config');
-
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -25,9 +19,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 // DB config
 const db = require('./config/keys').mongodbUrl;
 
+const options = {  
+  server: {
+    auto_reconnect: true,
+    poolSize: 10
+  }
+}
 // connect to mongodb
 const mongo = require('mongoose');
-mongo.connect(db).then(() => {
+mongo.connect(db, options).then(() => {
   console.log('============================mongodb connected============================');
 }).catch((err) => {
   console.log(err);

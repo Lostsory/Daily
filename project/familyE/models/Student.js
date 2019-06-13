@@ -23,11 +23,21 @@ var studentSchema = new Schema({
     type: String,
     default: '123456'
   },
+  // 是否展示在首页推荐： 0，否；1，是
+  isHome: {
+    type: String,
+    default: '0'
+  },
   // 详细地址
   address: {
     type: String,
     required: false,
     default: '未知'
+  },
+  teachers: {
+    type: Array,
+    required: false,
+    default: []
   },
   //性别 0：未知，1：:男，2：女
   sex: {

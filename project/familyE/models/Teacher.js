@@ -13,6 +13,16 @@ var teacherSchema = new Schema({
     type: String,
     required: true
   },
+  students: {
+    type: Array,
+    required: false,
+    default: []
+  },
+  // 是否展示在首页推荐： 0，否；1，是
+  isHome: {
+    type: String,
+    default: '0'
+  },
   //身份类型
   typeId: {
     type: String,

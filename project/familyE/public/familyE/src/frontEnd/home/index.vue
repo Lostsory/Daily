@@ -104,7 +104,7 @@
     <div class="students" v-if="students">
       <Titlecomp :content='mainCon.students' />
       <el-row>
-        <el-col v-for="(item, index) in students" :key="index" :sm="4" :xs="12">
+        <el-col v-for="(item, index) in students" :key="index" :sm="6" :xs="12">
           <div class="temp" @click="studentDetail(item)">
             <img src="../../assets/webImg/default-student.jpg" alt="">
             <div class="con">
@@ -326,7 +326,7 @@ export default {
   .students{
     padding-bottom: 3rem;
     text-align: center;
-    width: 1200px;
+    width: 1000px;
     margin: 0px auto;
     .el-row{
       font-size: 1.2rem;

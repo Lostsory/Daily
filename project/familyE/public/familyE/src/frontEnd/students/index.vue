@@ -11,6 +11,9 @@
               <p>{{item.gradeName}} | {{item.subjects}}</p>
               <p>{{item.remark}}</p>
             </div>
+            <div class="mask" @click="toDetail(item)">
+              <div>查看详情</div>
+            </div>
           </div>
         </el-col>
       </el-row>
@@ -22,10 +25,13 @@
 import pagination from '@/components/Pagination'
 import Titlecomp from '@/components/Title'
 import { homeStudents } from '@/api'
+import { mapGetters } from 'vuex'
+import loginModal from '@/components/loginModal';
 export default {
   components: {
     Titlecomp,
-    pagination
+    pagination,
+    loginModal
   },
   data() {
     return {
@@ -38,8 +44,13 @@ export default {
         pageSize: 20
       },
       total: 0,
-      studentsList: []
+      studentsList: [],
     }
+  },
+  computed: {
+    ...mapGetters({
+      token: 'token'
+    })
   },
   methods: {
     getStudent() {
@@ -88,8 +99,12 @@ export default {
       overflow: hidden;
       cursor: pointer;
       margin-bottom: 2rem;
+      position: relative;
       &:hover{
-        transform: scale(1.1)
+        transform: scale(1.1);
+        .mask{
+          display: block
+        }
       }
       img{
         width: 100%;
@@ -124,6 +139,23 @@ export default {
             line-height: 1.6rem;
             height: 6.4rem;
           }
+        }
+      }
+      .mask{
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .85);
+        div{
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          font-size: 16px;
+          color: #fff
         }
       }
     }

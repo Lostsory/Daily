@@ -62,7 +62,8 @@ export default {
   methods: {
     getStudentDetail() {
       studentDetail({
-        _id: this.$route.query.d
+        _id: this.$route.query.d,
+        isweb: 1
       }).then((res) => {
         let subjectNames = ''
         const data = res.data.data

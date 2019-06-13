@@ -56,11 +56,15 @@ router.delete('/delete', (req, res) => {
 * @public
 */
 router.get('/list', (req, res) => {
-  let {cityCode, pageSize, pageNum} = req.query;
+  let {cityCode, pageSize, pageNum, isHome, checkStatus} = req.query
+  console.log(isHome, '================')
   pageNum = parseInt(pageNum)
   pageSize = parseInt(pageSize)
-  Student.find({cityCode}).sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((student) => {
-    Student.countDocuments({cityCode}).then((total) => {
+  const query = {cityCode}
+  isHome ? query.isHome = isHome : ''
+  checkStatus ? query.checkStatus = checkStatus : ''
+  Student.find(query).sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((student) => {
+    Student.countDocuments(query).then((total) => {
       res.send({
         data: student,
         total,
@@ -77,8 +81,9 @@ router.get('/list', (req, res) => {
 * @public
 */
 router.get('/detail', (req, res) => {
-  const {_id} = req.query;
+  const {_id, isweb} = req.query;
   Student.findById(_id).then((student) => {
+    isweb ? student.studentName = student.studentName[0] + '老师' : ''
     res.send({
       data: student,
       httpCode: '200',

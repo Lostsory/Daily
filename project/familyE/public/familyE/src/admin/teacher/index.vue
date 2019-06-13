@@ -2,10 +2,16 @@
 <div class="app-container">
   <div class="filter-container">
     <el-button size="medium" @click="handleAdd" type="primary" icon="el-icon-edit">添加</el-button>
-    <!-- <div class="search_btn_container" style="float:right">
-      <el-input size="medium" :clearable="true" v-model="listQuery.drinkName" placeholder="输入酒水名称进行搜索"></el-input>
-      <el-button @click="getData" class="search_btn" type="primary" size="small" icon="el-icon-search"></el-button>
-    </div> -->
+    <div>
+      <el-select clearable size="small" @change="filterChange" style="width: 170px" v-model="listQuery.isHome" placeholder="请选择展示首页状态">
+        <el-option label="是" value="1" />
+        <el-option label="否" value="0" />
+      </el-select>
+      <el-select clearable size="small" @change="filterChange" style="width: 150px" v-model="listQuery.checkStatus" placeholder="请选择审核状态">
+        <el-option label="未审核" value="0" />
+        <el-option label="已审核" value="1" />
+      </el-select>
+    </div>
   </div>
   <el-table
     size="medium"
@@ -57,18 +63,6 @@
       </template>
     </el-table-column>
     <el-table-column
-      prop="checkStatus"
-      align="center"
-      show-overflow-tooltip
-      width="100px"
-      label="审核状态">
-      <template slot-scope="scope">
-        <!-- 0：未审核，1：已审核 -->
-        <el-tag size="medium" type="danger" v-if="scope.row.checkStatus==0">未通过</el-tag>
-        <el-tag size="medium" type="success" v-else>已通过</el-tag>
-      </template>
-    </el-table-column>
-    <el-table-column
       prop="createTime"
       align="center"
       show-overflow-tooltip
@@ -83,6 +77,27 @@
       show-overflow-tooltip
       label="备注">
     </el-table-column>
+    <el-table-column
+      prop="isHome"
+      align="center"
+      label="是否首页展示">
+      <template slot-scope="scope">
+        <el-tag size="medium" type="danger" v-if="scope.row.isHome==0">否</el-tag>
+        <el-tag size="medium" type="success" v-else>是</el-tag>
+      </template>
+    </el-table-column>
+    <el-table-column
+      prop="checkStatus"
+      align="center"
+      show-overflow-tooltip
+      width="100px"
+      label="审核状态">
+      <template slot-scope="scope">
+        <!-- 0：未审核，1：已审核 -->
+        <el-tag size="medium" type="danger" v-if="scope.row.checkStatus==0">未通过</el-tag>
+        <el-tag size="medium" type="success" v-else>已通过</el-tag>
+      </template>
+    </el-table-column>
     <el-table-column align="center" label="操作" width="160" class-name="small-padding fixed-width">
       <template slot-scope="scope">
         <!-- <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">修改</el-button> -->
@@ -91,8 +106,8 @@
       </template>
     </el-table-column>
   </el-table>
-  <el-dialog :title="drinkDialog.title" :visible.sync="drinkDialog.show" width="500px">
-    <el-form size="medium" ref="teacherForm" :rules="teacherRules" :model="teacherForm" label-position="left" label-width="100px">
+  <el-dialog :title="drinkDialog.title" :visible.sync="drinkDialog.show" width="600px">
+    <el-form size="medium" ref="teacherForm" :rules="teacherRules" :model="teacherForm" label-position="right" label-width="120px">
       <el-row>
         <el-col :span="24">
           <el-form-item label="教员姓名：" prop="teacherName">
@@ -134,9 +149,17 @@
         <el-col :span="24">
           <el-form-item label="性别：" prop="sex">
             <el-radio-group v-model="teacherForm.sex">
-              <el-radio :label="0">未知</el-radio>
-              <el-radio :label="1">男</el-radio>
-              <el-radio :label="2">女</el-radio>
+              <el-radio label="0">未知</el-radio>
+              <el-radio label="1">男</el-radio>
+              <el-radio label="2">女</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
+          <el-form-item label="是否首页展示：" prop="isHome">
+            <el-radio-group v-model="teacherForm.isHome">
+              <el-radio label="0">否</el-radio>
+              <el-radio label="1">是</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -234,6 +257,9 @@ export default {
     }
   },
   methods: {
+    filterChange() {
+      this.getData()
+    },
     // 列表数据获取
     getData() {
       teacherList(this.listQuery).then((res) => {
@@ -317,3 +343,17 @@ export default {
   }
 }
 </script>
+<style lang="less">
+.app-container{
+  .el-dialog__body{
+    height: 420px;
+    overflow: auto
+  }
+}
+</style>
+<style lang="less" scoped>
+.filter-container{
+  display: flex;
+  justify-content: space-between
+}
+</style>

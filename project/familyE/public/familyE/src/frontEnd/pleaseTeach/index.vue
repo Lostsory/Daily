@@ -24,10 +24,10 @@
                 <el-form-item label="" prop="phone">
                   <el-input size="medium" placeholder="请输入您的电话" v-model="subXuqiu.phone"></el-input>
                 </el-form-item>
-                <el-form-item label="" prop="address">
+                <!-- <el-form-item label="">
                   <el-input size="medium" placeholder="请输入您的地址" v-model="subXuqiu.address"></el-input>
-                </el-form-item>
-                <el-form-item label="" prop="gradeId" v-if="stepShow">
+                </el-form-item> -->
+                <el-form-item label="" v-if="stepShow">
                   <el-select size="medium" v-model="subXuqiu.gradeId" clearable placeholder="请选择孩子的所在年级" @change="selectKemu">
                     <el-option
                       v-for="(item, index) in options"
@@ -37,7 +37,7 @@
                     </el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="" prop="subjectIds" v-if="stepShow">
+                <el-form-item label="" v-if="stepShow">
                   <el-select multiple size="medium" v-model="subXuqiu.subjectIds" clearable placeholder="请选择科目">
                     <el-option
                       v-for="(item, index) in kemuOptions"
@@ -56,10 +56,10 @@
           <el-col :xs="24" :span="8" v-show="show">
             <div class="contact">
               <div class="contact-head">
-                <p>*</p>请留下您孩子的学习情况
+                请留下您孩子的学习情况
               </div>
               <div class="contact-body">
-                <el-form-item label="" prop="gradeId">
+                <el-form-item label="">
                   <el-select size="medium" v-model="subXuqiu.gradeId" clearable placeholder="请选择孩子的所在年级" @change="selectKemu">
                     <el-option
                       v-for="(item, index) in options"
@@ -69,7 +69,7 @@
                     </el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="" prop="remark">
+                <el-form-item label="">
                   <el-input type="textarea" v-model="subXuqiu.remark" :rows="3" placeholder="请输入孩子的学习情况"></el-input>
                 </el-form-item>
               </div>
@@ -81,10 +81,10 @@
           <el-col :xs="24" :span="8" v-show="kemu">
             <div class="contact">
               <div class="contact-head">
-                <p>*</p>请留下您想要的家教情况
+                请留下您想要的家教情况
               </div>
               <div class="contact-body">
-                <el-form-item label="" prop="subjectIds">
+                <el-form-item label="">
                   <el-select multiple size="medium" v-model="subXuqiu.subjectIds" clearable placeholder="请选择科目">
                     <el-option
                       v-for="(item, index) in kemuOptions"
@@ -94,7 +94,7 @@
                     </el-option>
                   </el-select>
                 </el-form-item>
-                <el-form-item label="" prop="expectFee">
+                <el-form-item label="">
                   <el-input size="medium" placeholder="请输入期望的课费" v-model="subXuqiu.expectFee"></el-input>
                 </el-form-item>
               </div>
@@ -144,12 +144,8 @@ export default {
         phone: [
           {required: true, message: '不可为空', trigger: 'blur'},
           { max: 11, message: '最多11个字符', trigger: 'blur' }
-        ],
-        gradeId: [{required: true, message: '不可为空', trigger: 'change'}],
-        subjectIds: [
-          { required: true, message: '不可为空', trigger: ['change', 'blur'] }
         ]
-      },
+      }
     }
   },
   mounted(){

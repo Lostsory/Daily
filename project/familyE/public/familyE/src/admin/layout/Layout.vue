@@ -28,6 +28,10 @@
           <i class="iconfont icon-kemu"></i>
           <span slot="title">科目管理</span>
         </el-menu-item>
+        <!-- <el-menu-item index="/admin/subscribe">
+          <i class="iconfont icon-kemu"></i>
+          <span slot="title">预约管理</span>
+        </el-menu-item> -->
         <el-menu-item index="/admin/partners" v-if='admin'>
           <i class="iconfont icon-hezuojigou"></i>
           <span slot="title">合作机构</span>

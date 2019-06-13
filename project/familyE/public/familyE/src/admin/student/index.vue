@@ -2,6 +2,16 @@
 <div class="app-container">
   <div class="filter-container">
     <el-button size="medium" @click="handleAdd" type="primary" icon="el-icon-edit">添加</el-button>
+    <div>
+      <el-select clearable size="small" @change="filterChange" style="width: 170px" v-model="listQuery.isHome" placeholder="请选择展示首页状态">
+        <el-option label="是" value="1" />
+        <el-option label="否" value="0" />
+      </el-select>
+      <el-select clearable size="small" @change="filterChange" style="width: 150px" v-model="listQuery.checkStatus" placeholder="请选择审核状态">
+        <el-option label="未审核" value="0" />
+        <el-option label="已审核" value="1" />
+      </el-select>
+    </div>
   </div>
   <el-table
     size="medium"
@@ -44,9 +54,6 @@
       align="center"
       show-overflow-tooltip
       label="期望课费">
-      <!-- <template slot-scope="scope">
-        {{scope.row.expectFee}}￥
-      </template> -->
     </el-table-column>
     <el-table-column
       prop="school"
@@ -70,6 +77,15 @@
       label="子女情况">
     </el-table-column>
     <el-table-column
+      prop="isHome"
+      align="center"    
+      label="是否首页展示">
+      <template slot-scope="scope">
+        <el-tag size="medium" type="danger" v-if="scope.row.isHome==0">否</el-tag>
+        <el-tag size="medium" type="success" v-else>是</el-tag>
+      </template>
+    </el-table-column>
+    <el-table-column
       prop="checkStatus"
       align="center"
       show-overflow-tooltip
@@ -88,8 +104,8 @@
       </template>
     </el-table-column>
   </el-table>
-  <el-dialog :title="drinkDialog.title" :visible.sync="drinkDialog.show" width="500px">
-    <el-form ref="studentForm" size="medium" :rules="studentRules" :model="studentForm" label-position="left" label-width="100px">
+  <el-dialog :title="drinkDialog.title" :visible.sync="drinkDialog.show" width="600px">
+    <el-form ref="studentForm" size="medium" :rules="studentRules" :model="studentForm" label-position="right" label-width="120px">
       <el-row>
         <el-col :span="24">
           <el-form-item label="家长姓名：" prop="studentName">
@@ -102,7 +118,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="子女年级：" prop="gradeId">
+          <el-form-item label="子女年级：">
             <el-select v-model="studentForm.gradeId" @change="getSubjectList" placeholder="请选择">
               <el-option
                 v-for="item in gradeData"
@@ -114,7 +130,7 @@
           </el-form-item>
         </el-col>
         <el-col :span="24">
-          <el-form-item label="所补科目：" prop="subjectIds">
+          <el-form-item label="所补科目：">
             <el-select v-model="studentForm.subjectIds" :disabled="!studentForm.gradeId" multiple :placeholder="!studentForm.gradeId?'请先选择子女年级':'请选择'">
               <el-option
                 v-for="(item, index) in subjectList"
@@ -143,9 +159,17 @@
         <el-col :span="24">
           <el-form-item label="性别：" prop="sex">
             <el-radio-group v-model="studentForm.sex">
-              <el-radio :label="0">未知</el-radio>
-              <el-radio :label="1">男</el-radio>
-              <el-radio :label="2">女</el-radio>
+              <el-radio label="0">未知</el-radio>
+              <el-radio label="1">男</el-radio>
+              <el-radio label="2">女</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+        <el-col :span="24">
+          <el-form-item label="是否首页展示：" prop="isHome">
+            <el-radio-group v-model="studentForm.isHome">
+              <el-radio label="0">否</el-radio>
+              <el-radio label="1">是</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -199,13 +223,7 @@ export default {
         phone: [
           { required: true, message: '此项为必填项', trigger: 'blur' }
         ],
-        gradeId: [
-          { required: true, message: '此项为必填项', trigger: 'blur' }
-        ],
         typeId: [
-          { required: true, message: '此项为必填项', trigger: 'blur' }
-        ],
-        subjectIds: [
           { required: true, message: '此项为必填项', trigger: 'blur' }
         ]
       }
@@ -238,6 +256,9 @@ export default {
     }
   },
   methods: {
+    filterChange() {
+      this.getData()
+    },
     // 年级数据获取
     getGrade() {
       gradeList().then((res) => {
@@ -249,7 +270,9 @@ export default {
       let str = ''
       const L = v.length
       for (let i = 0; i < L; i++) {
-        str += v[i].subjectName + (i === v.length - 1 ? '' : '/')
+        if (v[i].subjectName) {
+          str += v[i].subjectName + (i === L - 1 ? '' : '/')
+        }
       }
       return str
     },
@@ -257,9 +280,9 @@ export default {
     getData() {
       studentList(this.listQuery).then((res) => {
         this.tableLoading = false
-        res.data.data.forEach((item) => {
-          item.subjectIds = this.formatSub(item.subjectIds)
-        })
+        /* res.data.data.forEach((item) => {
+          item.subjectIds.length > 0 ? item.subjectIds = this.formatSub(item.subjectIds) : 0
+        }) */
         this.tableData = res.data.data
         this.total = parseInt(res.data.total)
       })
@@ -355,3 +378,19 @@ export default {
   }
 }
 </script>
+
+<style lang="less">
+.app-container{
+  .el-dialog__body{
+    height: 420px;
+    overflow: auto
+  }
+}
+</style>
+<style lang="less" scoped>
+.filter-container{
+  display: flex;
+  justify-content: space-between
+}
+</style>
+

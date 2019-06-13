@@ -50,8 +50,9 @@ router.delete('/delete', (req, res) => {
 * @public
 */
 router.get('/detail', (req, res) => {
-  const {_id} = req.query;
+  const {_id, isweb} = req.query;
   Teacher.findById(_id).then((teacher) => {
+    isweb ? teacher.teacherName = teacher.teacherName[0] + '老师' : ''
     res.send({
       data: teacher,
       httpCode: '200',
@@ -81,11 +82,15 @@ router.post('/check', (req, res) => {
 * @public
 */
 router.get('/list', (req, res) => {
-  let {cityCode, pageSize, pageNum} = req.query;
+  let {cityCode, pageSize, pageNum, isHome, checkStatus} = req.query;
   pageNum = parseInt(pageNum)
   pageSize = parseInt(pageSize)
-  Teacher.find({cityCode}).sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((teacher) => {
-    Teacher.countDocuments({cityCode}).then((total) => {
+  console.log('==============', checkStatus);
+  const query = {cityCode}
+  isHome ? query.isHome = isHome : ''
+  checkStatus ? query.checkStatus = checkStatus : ''
+  Teacher.find(query).sort({'createTime': -1}).skip((pageNum-1)*pageSize).limit(pageSize).then((teacher) => {
+    Teacher.countDocuments(query).then((total) => {
       res.send({
         data: teacher,
         total,
