@@ -8,27 +8,46 @@
 </head>
 <body>
   <script>
-    function WaterFall() {
-      
+    /**
+        * 
+        * @param {Array} data 数据列表
+        * @param {Number} lL 左列瀑布流left值
+        * @param {Number} rL 右列瀑布流left值
+        * @param {Number} outerHeight 上下两个item的间距
+        * @param {Number} itemWidth item的宽度
+        * 瀑布流
+        * 主要功能是将所有item的位置算好
+        */
+        function WaterFall(data, lL, rL, outerHeight, itemWidth) {
+      this.lL = lL
+      this.rL = rL
+      this.itemWidth = itemWidth
+      this.WaterFallHeight = null // 瀑布流的高度
+      this.WaterFallList = null // 算好位置的itemList
+      this.outerHeight = outerHeight || 10
+      // this.init.apply(this, [data])
     }
-    WaterFall.prototype.getFallData = function(data) {
-      let len = data.length;
-      let L = new Col(0, outerHeight)
-      let R = new Col(178.5, outerHeight)
-      for (let i = 0; i < data.length; i++ ) {
+    WaterFall.prototype.init = function (data) {
+
+      // 实例化两列瀑布
+      let L = new Col(this.lL, this.outerHeight)
+      let R = new Col(this.rL, this.outerHeight)
+
+      // 循环计算每列元素的top,left
+      let len = data.length
+      for (let i = 0; i < len; i++) {
+        data[i].imgHeight = parseInt(data[i].height) * (this.itemWidth / parseInt(data[i].width))
         if (i == 0) {
           L.pushItem(data[i])
         } else if (i == 1) {
           R.pushItem(data[i])
         } else {
-          if (L.getHeight() < R.getHeight()) {
-            L.pushItem(data[i])
-          } else {
-            R.pushItem(data[i])
-          }
+          L.getHeight() < R.getHeight() ? L.pushItem(data[i]) : R.pushItem(data[i])
         }
       }
-      return [...L.arr, ...R.arr]
+
+      this.WaterFallHeight = Math.max(L.getHeight(), R.getHeight())
+      this.WaterFallList = [...L.arr, ...R.arr]
     }
 
     function Col(left, outerHeight) {
