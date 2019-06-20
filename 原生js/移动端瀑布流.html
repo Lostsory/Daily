@@ -9,45 +9,59 @@
 <body>
   <script>
     /**
-        * 
-        * @param {Array} data 数据列表
-        * @param {Number} lL 左列瀑布流left值
-        * @param {Number} rL 右列瀑布流left值
-        * @param {Number} outerHeight 上下两个item的间距
-        * @param {Number} itemWidth item的宽度
-        * 瀑布流
-        * 主要功能是将所有item的位置算好
-        */
-        function WaterFall(data, lL, rL, outerHeight, itemWidth) {
-      this.lL = lL
-      this.rL = rL
+    * 
+    * @param {Array} data 数据列表
+    * @param {Number} lL 左列瀑布流left值
+    * @param {Number} rL 右列瀑布流left值
+    * @param {Number} outerHeight 上下两个item的间距
+    * @param {Number} itemWidth item的宽度
+    * 瀑布流
+    * 主要功能是将所有item的位置算好
+    *
+    */
+    function WaterFall(data, lL, rL, outerHeight, itemWidth) {
       this.itemWidth = itemWidth
       this.WaterFallHeight = null // 瀑布流的高度
-      this.WaterFallList = null // 算好位置的itemList
-      this.outerHeight = outerHeight || 10
-      // this.init.apply(this, [data])
+      this.WaterFallList = [] // 算好位置的itemList
+      this.init.apply(this, [data, lL, rL, outerHeight])
     }
-    WaterFall.prototype.init = function (data) {
+    WaterFall.prototype.init = function (data, lL, rL, outerHeight) {
+      // 实例化两列瀑布流
+      this.L = new Col(lL, outerHeight)
+      this.R = new Col(rL, outerHeight)
+      this.compute(data)
+    }
 
-      // 实例化两列瀑布
-      let L = new Col(this.lL, this.outerHeight)
-      let R = new Col(this.rL, this.outerHeight)
-
+    WaterFall.prototype.compute = function(data) {
       // 循环计算每列元素的top,left
       let len = data.length
+      let L = this.L
+      let R = this.R
       for (let i = 0; i < len; i++) {
-        data[i].imgHeight = parseInt(data[i].height) * (this.itemWidth / parseInt(data[i].width))
-        if (i == 0) {
-          L.pushItem(data[i])
-        } else if (i == 1) {
-          R.pushItem(data[i])
+
+        // 计算item实际的宽度和高度
+        data[i].imgHeight = parseInt(data[i].design_height) * (this.itemWidth / parseInt(data[i].design_width))
+
+        if (L.getHeight() === R.getHeight()) {
+          data[i].left = L.left
+          data[i].top = 0
+          L.arr.push(data[i])
+        } else if (L.getHeight() < R.getHeight()) {
+          data[i].top = L.getHeight()
+          data[i].left = L.left
+          L.arr.push(data[i])
         } else {
-          L.getHeight() < R.getHeight() ? L.pushItem(data[i]) : R.pushItem(data[i])
+          data[i].top = R.getHeight()
+          data[i].left = R.left
+          R.arr.push(data[i])
         }
       }
-
       this.WaterFallHeight = Math.max(L.getHeight(), R.getHeight())
-      this.WaterFallList = [...L.arr, ...R.arr]
+      this.WaterFallList.push(...data)
+    }
+
+    WaterFall.prototype.add = function(data) {
+      this.compute(data)
     }
 
     function Col(left, outerHeight) {
@@ -57,12 +71,7 @@
     }
     Col.prototype.getHeight = function () {
       let len = this.arr.length
-      return len ? this.arr[len - 1].top + this.arr[len - 1].imgHeight + this.outerHeight : 0
-    }
-    Col.prototype.pushItem = function (item) {
-      item.left = this.left
-      item.top = this.getHeight()
-      this.arr.push(item)
+      return len > 0 ? this.arr[len - 1].top + this.arr[len - 1].imgHeight + this.outerHeight : 0
     }
   </script>
 </body>

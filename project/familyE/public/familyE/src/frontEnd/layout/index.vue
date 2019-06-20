@@ -49,7 +49,7 @@
         <p><span v-for="item in 3" :key="item"></span></p>
         <span class="btn" @click="$router.push('/frontEndLayout/pleaseTeach')">助 力 学 习</span>
       </div> -->
-      <el-carousel :interval="300000" arrow="always">
+      <el-carousel :interval="3000" arrow="always">
         <el-carousel-item v-for="(item, index) in swipers" :key="index">
           <img :src="item" alt="">
           <div class="animated fadeInUp" v-if="index == 0 ">
@@ -86,6 +86,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { homeDetail } from '@/api'
+import ResizeMixin from '../../mixin/ResizeHandler'
 import home from '../../assets/webImg/home-banner.jpg'
 import teacher from '../../assets/webImg/teacher-banner.jpg'
 import student from '../../assets/webImg/student-banner.jpg'
@@ -146,6 +147,7 @@ export default {
       loginModal: false
     }
   },
+  mixins: [ResizeMixin],
   computed: {
     ...mapGetters({
       activeRouter: 'activeRouter'

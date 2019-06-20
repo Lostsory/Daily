@@ -55,7 +55,7 @@
 
 <script>
 import { AppMain, Navbar } from './components'
-import ResizeMixin from './mixin/ResizeHandler'
+import ResizeMixin from '../../mixin/ResizeHandler'
 import { mapGetters } from 'vuex'
 export default {
   name: 'layout',

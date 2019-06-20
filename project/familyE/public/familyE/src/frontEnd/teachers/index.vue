@@ -3,10 +3,10 @@
     <div class="content">
       <Titlecomp :content="content" />
       <el-row class="search-form">
-        <el-col :xs="14" :sm="6" :md="5" :lg="5" style="text-align: left">
+        <el-col :xs="16" :sm="16" :md="5" :lg="5" style="text-align: left">
           教龄：大于 <el-input-number clearable class="search-item" size="small"  v-model="searchForm.teachTime" :min="1" :max="10" label="" />
         </el-col>
-        <el-col :xs="10" :sm="6" :md="5" :lg="5">
+        <el-col :xs="8" :sm="8" :md="5" :lg="5">
           <el-select clearable  class="search-item" size="small" v-model="searchForm.sex" placeholder="性别">
             <el-option
               v-for="item in sexs"
@@ -16,7 +16,7 @@
             </el-option>
           </el-select>
         </el-col>
-        <el-col :xs="24" :sm="6" :md="5" :lg="5">
+        <el-col :xs="24" :sm="24" :md="5" :lg="5">
           <el-select clearable  size="small" v-model="searchForm.typeId" placeholder="请选择教员的身份">
             <el-option
               v-for="item in teacherTypes"
@@ -26,10 +26,10 @@
             </el-option>
           </el-select>
         </el-col>
-        <el-col :xs="14" :sm="6" :md="5" :lg="5">
+        <el-col :xs="12" :sm="14" :md="5" :lg="5">
           <el-input  size="small" v-model="searchForm.remark" placeholder="教授科目或教员姓名"></el-input>
         </el-col>
-        <el-col :xs="10" :sm="6" :md="5" :lg="4">
+        <el-col :xs="12" :sm="10" :md="5" :lg="4">
           <el-button  size="small" type="primary" @click="search">搜索</el-button>
           <el-button  size="small" type="primary" @click="searchForm = {}">重置</el-button>
         </el-col>
@@ -49,7 +49,7 @@
           </div>
         </el-col>
       </el-row>
-      <pagination @getTableData="getTeacher" :total="total" :listQuery="listQuery" />
+      <pagination :isMobil="device == 'mobile'" @getTableData="getTeacher" :total="total" :listQuery="listQuery" />
     </div>
   </div>
 </template>
@@ -58,7 +58,7 @@ import pagination from '@/components/Pagination'
 import Titlecomp from '@/components/Title'
 import { homeTeachers } from '@/api'
 import { mapGetters } from 'vuex'
-import loginModal from '@/components/loginModal';
+import loginModal from '@/components/loginModal'
 
 export default {
   components: {
@@ -111,18 +111,21 @@ export default {
   computed: {
     ...mapGetters({
       token: 'token'
-    })
+    }),
+    device() {
+      return this.$store.state.app.device
+    }
   },
   methods: {
     search() {
       this.listQuery = {
         ...this.listQuery,
-        pageNum: 1,
+        pageNum: 1
       }
       this.getTeacher()
     },
     getTeacher() {
-      homeTeachers({...this.listQuery, ...this.searchForm}).then((res) => {
+      homeTeachers({ ...this.listQuery, ...this.searchForm }).then((res) => {
         this.teachersList = res.data.data
         this.total = parseInt(res.data.total)
       })

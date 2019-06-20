@@ -16,7 +16,7 @@
     "amaze-vue": "^1.1.16",
     "axios": "0.17.1",
     "css-loader": "^0.28.7",
-    "element-ui": "2.3.4",
+    "element-ui": "2.9.1",
     "js-cookie": "2.2.0",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",

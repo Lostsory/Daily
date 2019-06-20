@@ -8,7 +8,8 @@
             :current-page="listQuery.pageNum"
             :page-sizes="pageSizes"
             :page-size="listQuery.pageSize"
-            layout="sizes, prev, pager, next, total"
+            :pager-count="isMobil?4:7"
+            :layout="isMobil?'prev, pager, next, total':'sizes, prev, pager, next, total'"
             :total="total">
         </el-pagination>
     </div>
@@ -31,6 +32,10 @@ export default {
         pageSizes: {
             type: Array,
             default: () => [10, 20, 30, 50]
+        },
+        isMobil: {
+            type: Boolean,
+            default: true
         }
     },
     methods: {
@@ -55,4 +60,3 @@ export default {
     display: inline-block
 }
 </style>
-

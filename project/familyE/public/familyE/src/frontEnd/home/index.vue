@@ -1,9 +1,9 @@
 <template>
   <div id="home" cla>
-    <div class="register showMobile" v-if="mainCon.register">
+    <div class="register" v-if="mainCon.register ">
       <Titlecomp :content='mainCon.register' color="#fff" />
       <el-row>
-        <el-col :span="12">
+        <el-col :span="12"> 
           <div class="content" @click="$router.push('/frontEndLayout/pleaseTeach')">
             <p><i class="iconfont icon-jiaoshi"></i></p>
             <p>请家教</p>
@@ -17,6 +17,44 @@
             <p>做家教</p>
             <p>{{mainCon.register.teacherDesc}}</p>
             <p><a style="color: #fff">展现自我 ></a></p>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+    <div class="teachers students" v-if="teachers">
+      <Titlecomp :content='mainCon.teachers' />
+      <el-row>
+        <el-col v-for="(item, index) in teachers" :key="index" :sm="6" :xs="12">
+          <div class="temp" @click="teacherDetail(item)">
+            <img src="../../assets/webImg/default-teacher.jpg" alt="">
+            <div class="con">
+              <p>{{item.name}}</p>
+              <p>教龄<span>{{item.teachTime}}</span>年 | {{item.finishSchool}}</p>
+              <p>{{item.remark}}</p>
+            </div>
+          </div>
+        </el-col>
+      </el-row>
+    </div>
+    <div class="success">
+      <p class="title">{{mainCon.userNum.h1}}</p>
+      <el-row>
+        <el-col :sm="8" :xs="24">成功接洽：<span class="num">{{mainCon.userNum.successNum}}</span>对</el-col>
+        <el-col :sm="8" :xs="24">学员数：<span class="num">{{mainCon.userNum.studentNum}}</span>名</el-col>
+        <el-col :sm="8" :xs="24">教师数：<span class="num">{{mainCon.userNum.teacherNum}}</span>名</el-col>
+      </el-row>
+    </div>
+    <div class="students" v-if="students">
+      <Titlecomp :content='mainCon.students' />
+      <el-row>
+        <el-col v-for="(item, index) in students" :key="index" :sm="6" :xs="12">
+          <div class="temp" @click="studentDetail(item)">
+            <img src="../../assets/webImg/default-student.jpg" alt="">
+            <div class="con">
+              <p>{{item.name}}</p>
+              <p>{{item.gradeName}} | {{item.subjects}}</p>
+              <p>{{item.remark}}</p>
+            </div>
           </div>
         </el-col>
       </el-row>
@@ -76,68 +114,6 @@
             </span>
             <p>信息保密</p>
             <p>安全严格的保密系统,免除一切泄露</p>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
-    <div class="register hideMobile" v-if="mainCon.register ">
-      <Titlecomp :content='mainCon.register' color="#fff" />
-      <el-row>
-        <el-col :span="12"> 
-          <div class="content" @click="$router.push('/frontEndLayout/pleaseTeach')">
-            <p><i class="iconfont icon-jiaoshi"></i></p>
-            <p>请家教</p>
-            <p>{{mainCon.register.studentDesc}}</p>
-            <p><a style="color: #f7c864">精准匹配 ></a></p>
-          </div>
-        </el-col>
-        <el-col :span="12">
-          <div class="content" style="background: #f7c864" @click="$router.push('/frontEndLayout/doTeach')">
-            <p><i class="iconfont icon-jiaoshi1"></i></p>
-            <p>做家教</p>
-            <p>{{mainCon.register.teacherDesc}}</p>
-            <p><a style="color: #fff">展现自我 ></a></p>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
-    <div class="students" v-if="students">
-      <Titlecomp :content='mainCon.students' />
-      <el-row>
-        <el-col v-for="(item, index) in students" :key="index" :sm="6" :xs="12">
-          <div class="temp" @click="studentDetail(item)">
-            <img src="../../assets/webImg/default-student.jpg" alt="">
-            <div class="con">
-              <p>{{item.name}}</p>
-              <p>{{item.gradeName}} | {{item.subjects}}</p>
-              <p>{{item.remark}}</p>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
-    </div>
-    <div class="success">
-      <p class="title">{{mainCon.userNum.h1}}</p>
-      <el-row>
-        <el-col :sm="8" :xs="24">成功接洽：<span class="num">{{mainCon.userNum.successNum}}</span>对</el-col>
-        <el-col :sm="8" :xs="24">学员数：<span class="num">{{mainCon.userNum.studentNum}}</span>名</el-col>
-        <el-col :sm="8" :xs="24">教师数：<span class="num">{{mainCon.userNum.teacherNum}}</span>名</el-col>
-      </el-row>
-    </div>
-    <!-- <div class="teachers">
-      <Titlecomp :content='mainCon.teachers' />
-    </div> -->
-    <div class="teachers students" v-if="teachers">
-      <Titlecomp :content='mainCon.teachers' />
-      <el-row>
-        <el-col v-for="(item, index) in teachers" :key="index" :sm="6" :xs="12">
-          <div class="temp" @click="teacherDetail(item)">
-            <img src="../../assets/webImg/default-teacher.jpg" alt="">
-            <div class="con">
-              <p>{{item.name}}</p>
-              <p>教龄<span>{{item.teachTime}}</span>年 | {{item.finishSchool}}</p>
-              <p>{{item.remark}}</p>
-            </div>
           </div>
         </el-col>
       </el-row>

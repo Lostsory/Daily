@@ -17,7 +17,7 @@
           </div>
         </el-col>
       </el-row>
-      <pagination @getTableData="getStudent" :total="total" :listQuery="listQuery" />
+      <pagination :isMobil="device == 'mobile'" @getTableData="getStudent" :total="total" :listQuery="listQuery" />
     </div>
   </div>  
 </template>
@@ -26,7 +26,7 @@ import pagination from '@/components/Pagination'
 import Titlecomp from '@/components/Title'
 import { homeStudents } from '@/api'
 import { mapGetters } from 'vuex'
-import loginModal from '@/components/loginModal';
+import loginModal from '@/components/loginModal'
 export default {
   components: {
     Titlecomp,
@@ -50,7 +50,10 @@ export default {
   computed: {
     ...mapGetters({
       token: 'token'
-    })
+    }),
+    device() {
+      return this.$store.state.app.device
+    }
   },
   methods: {
     getStudent() {
