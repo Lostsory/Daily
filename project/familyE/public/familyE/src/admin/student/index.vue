@@ -348,7 +348,10 @@ export default {
         title: '新增'
       }
       if (this.$refs.studentForm) {
-        this.$refs.studentForm.resetFields()
+        this.studentForm = {
+          isHome: '0'
+        }
+        console.log(this.studentForm)
       }
     },
     // 保存新增

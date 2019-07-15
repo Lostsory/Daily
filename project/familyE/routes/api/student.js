@@ -16,9 +16,25 @@ router.post('/add', (req, res) => {
         msg: '该手机号码已存在'
       })
     } else {
-      Grade.findById(req.body.gradeId).then((grade) => {
+      if (req.body.gradeId) {
+        Grade.findById(req.body.gradeId).then((grade) => {
+          const newStudent = new Student({
+            ...req.body, gradeName: grade.gradeName
+          })
+          newStudent.save().then((student) => {
+            res.send({
+              httpCode: '200',
+              msg: '添加成功'
+            })
+            /* res.push({
+              msg: '新注册一个学员',
+              cityCode: student.cityCode
+            }) */
+          })
+        })
+      } else {
         const newStudent = new Student({
-          ...req.body, gradeName: grade.gradeName
+          ...req.body
         })
         newStudent.save().then((student) => {
           res.send({
@@ -30,7 +46,7 @@ router.post('/add', (req, res) => {
             cityCode: student.cityCode
           }) */
         })
-      })
+      }
     }
   })
 })
