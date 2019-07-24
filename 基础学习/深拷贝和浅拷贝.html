@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var source = {
+      name: 'qzx',
+      age: 17,
+      sayName() {
+        console.log(this.name)
+      },
+      child: {
+        name: 'lyd',
+        age: 8,
+        child: {
+          name: 'rzd',
+          age: 8,
+        }
+      },
+      arr: [
+        {
+          name: 'lyd',
+          age: 8
+        },
+        {
+          name: 'lyd',
+          age: 8
+        },
+        {
+          name: 'lyd',
+          age: 8
+        }
+      ]
+    }
+    /* -----------------浅拷贝----------------- */
+    // var target = {...source} // 拓展运算符
+    // var target = Object.assign({}, source)  // Object.assign
+
+    /* -----------------深拷贝----------------- */
+    /* const deepClone = (o) => {
+      const map = {
+        'Object': {},
+        'Array': []
+      }
+      const t = map[Object.prototype.toString.call(o).slice(8,-1)]
+      for (let key in o) {
+        if (typeof o[key] === 'object' || typeof o[key] === 'array') {
+          t[key] = deepClone(o[key])
+        } else {
+          t[key] = o[key]
+        }
+      }
+      return t
+    } */
+
+    /* const deepClone = (o) => {
+      const root = {}
+
+      // 创建一个栈
+      const loopList = [
+        {
+          parent: root,
+          key: undefined,
+          data: o
+        }
+      ]
+      const map = {
+        'Object': {},
+        'Array': []
+      }
+      while(loopList.length) {
+        // 深度优先
+        const node = loopList.pop()
+        const { parent, key, data } = node
+
+        let res = parent;
+        if (typeof key !== 'undefined') {
+          res = parent[key] = map[Object.prototype.toString.call(data).slice(8,-1)]
+        }
+
+        for(let k in data) {
+          if (typeof data[k] === 'object') {
+            loopList.push({
+              parent: res,
+              key: k,
+              data: data[k]
+            })
+          } else {
+            res[k] = data[k]
+          }
+        }
+      }
+      return root
+    } */
+
+    data =  [
+        {
+            name: 'a',
+            children: [
+                { name: 'b', children: [{ name: 'e' }] },
+                { name: 'c', children: [{ name: 'f' }] },
+                { name: 'd', children: [{ name: 'g' }] },
+            ],
+        },
+        {
+            name: 'a2',
+            children: [
+                { name: 'b2', children: [{ name: 'e2' }] },
+                { name: 'c2', children: [{ name: 'f2' }] },
+                { name: 'd2', children: [{ name: 'g2' }] },
+            ],
+        }
+    ]
+    const deepClone = (data) => {
+      let result = []
+      let queue = [data]
+      while (queue.length > 0) {
+        [...queue].forEach(child => {
+          queue.shift()
+          result.push(child.name)
+          child.children && (queue.push(...child.children))
+        })
+      }
+    }
+    
+  </script>
+</body>
+</html>

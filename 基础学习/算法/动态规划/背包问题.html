@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 01背包问题
+    let w = [2,3,4,5]
+    let v = [3,4,5,6]
+    console.log(fun(w,v,9))
+
+    function fun(w,v,capacity){
+        //初始化表格
+        let V = new Array(w.length)
+        for (let d= 0 ;d<w.length;d++){ V[d] = new Array(capacity)}
+    
+        for(let i = 0;i<w.length;i++){
+            for(let j = 0;j<capacity;j++){
+                V[i][j] = Math.max(P(i-1,j),P(i-1,j-w[i])+v[i] )
+            }
+        }
+    
+        //表格超出边界值为0
+        function P(i,j){return V[i] && V[i][j] || 0 }
+        return V[w.length-1][capacity-1]
+    }  
+
+    // 完全背包问题
+    let w = [2,3,4,5]
+    let v = [3,4,5,6]
+    console.log(fun(w,v,9))
+
+    function fun(w,v,capacity){
+        //初始化表格
+        let V = new Array(w.length)
+        for(let i = 0;i<w.length;i++){
+            for(let j = 0;j<capacity;j++){
+                V[j] = Math.max(P(j),P(j-w[i])+v[i] )
+            }
+        }
+    
+        //表格超出边界值为0
+        function P(i){return V[i] || 0 }
+        return V[capacity-1]
+    }
+  </script>
+</body>
+</html>
