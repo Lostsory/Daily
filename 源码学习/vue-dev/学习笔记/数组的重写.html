@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var methodsToPatch = [
+      'push',
+      'pop',
+      'shift',
+      'unshift',
+      'splice',
+      'sort',
+      'reverse'
+    ];
+    var arrayProto = Array.prototype
+    var arrayMethods = Object.create(arrayProto);
+    methodsToPatch.forEach(function (method) {
+      Object.defineProperty(arrayProto, method, {
+        value: function() {
+          var args = [], len = arguments.length;
+          while ( len-- ) args[ len ] = arguments[ len ];
+          var r = arrayMethods[method].apply(this, args);
+          console.log(`触发了数组${method}的方法`);
+          return r
+        },
+        writable: true,
+        configurable: true,
+        enumerable: false
+      })
+    })
+  </script>
+</body>
+</html>
