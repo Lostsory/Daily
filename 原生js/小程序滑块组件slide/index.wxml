@@ -1,0 +1,13 @@
+<movable-area class='slide-con' style="padding: 0 {{itemW / 2}}px">
+  <view class="slide-rang" style="{{rangStyle}}"></view>
+  <view class="slide-bar">
+    <movable-view
+      class="slide-item"
+      hover-class="hover"
+      animation="{{false}}"
+      wx:for="{{value}}" wx:key="index"
+      x="{{item}}" bindchange="move" data-index="{{index}}"
+      direction="horizontal"
+    />
+  </view>
+</movable-area>
