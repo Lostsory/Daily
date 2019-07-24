@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /* const flat = (a, r=[]) => {
+      a.forEach((item) => {
+        if (Object.prototype.toString.call(item).slice(8,-1) === 'Array' || Array.isArray(item)) {
+          r = r.concat(flat(item))
+        } else {
+          r.push(item)
+        }
+      })
+      return r
+    } */
+    const flat = (a, r = []) => {
+      var stack = []
+      stack.push(a)
+      while(stack.length) {
+        var item = stack.pop()
+        for(var i = 0; i < item.length; i++) {
+          if (Array.isArray(item[i])) {
+            stack.push(item[i])
+          } else {
+            r.push(item[i])
+          }
+        }
+      }
+      return r
+    }
+  </script>
+</body>
+</html>

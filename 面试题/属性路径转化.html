@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var entry = {
+      'a.b.c.dd': 'abcdd',
+      'a.d.xx': 'adxx',
+      'a.e': 'ae'
+    }
+    const tranfer = (o, r = {}) => {
+      for (let i in o) {
+        var a = i.split('.')
+        var j = 0
+        var stack = [{
+          parent: r,
+          key: a[j]
+        }]
+        while (stack.length) {
+          var item = stack.pop()
+          j ++
+          if (a[j]) {
+            if (!item.parent[item.key]) {
+              item.parent[item.key] = {}
+            }
+            stack.push({
+              parent: item.parent[item.key],
+              key: a[j]
+            })
+          } else {
+            item.parent[item.key] = o[i]
+          }
+        }
+      }
+      return r
+    }
+  </script>
+</body>
+</html>
