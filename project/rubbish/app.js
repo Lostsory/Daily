@@ -30,6 +30,8 @@ app.use(function (req, res, next) {
   next()
 })
 
+const api = require('./routes')
+app.use('/api', api);
 
 
 // error handler
