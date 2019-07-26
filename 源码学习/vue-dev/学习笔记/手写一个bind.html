@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function polyfillBind (fn, ctx) {
+      function boundFn (a) {
+        var l = arguments.length;
+        return l
+          ? l > 1
+            ? fn.apply(ctx, arguments)
+            : fn.call(ctx, a)
+          : fn.call(ctx)
+      }
+      // boundFn._length = fn.length;
+      return boundFn
+    }
+    Function.prototype.newBind = polyfillBind
+
+    function P(name) {
+      this.name = name
+    }
+    function demo() {
+      console.log(this.name)
+    }
+    demo.bind(P)('qzx')
+    // demo.newBind()
+    
+  </script>
+</body>
+</html>
