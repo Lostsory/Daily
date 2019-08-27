@@ -1,5 +1,6 @@
 <template>
-  <div id="home" cla>
+  <div id="home" >
+    <input type="" name="" id="zane-calendar">
     <div class="register" v-if="mainCon.register ">
       <Titlecomp :content='mainCon.register' color="#fff" />
       <el-row>
@@ -121,6 +122,7 @@
   </div>
 </template>
 <script>
+import zaneDate from 'zane-calendar'
 import Titlecomp from '@/components/Title'
 import { homeStudents, homeTeachers } from '@/api'
 import { mapGetters } from 'vuex'
@@ -160,8 +162,11 @@ export default {
   },
   created() {
     this.$store.commit('SET_ACTIVEROUTER', '/frontEndLayout/home')
-    this.getStudent()
-    this.getTeachers()
+    /* this.getStudent()
+    this.getTeachers() */
+    zaneDate({
+      elem:'#zane-calendar',
+    })
   }
 }
 </script>

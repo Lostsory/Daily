@@ -787,9 +787,11 @@ methodsToPatch.forEach((method) => {
         inserted = args.slice(2)
         break
     }
+    // 如果是数组的增加操作则给新赠的元素增加observe
     if (inserted) {
       ob.observeArray(inserted)
     }
+    // 通知发生改变
     ob.dep.notify()
     return result
   })
@@ -816,12 +818,12 @@ const toggleObserving = (val) => {
 * collect dependencies and dispatch updates.
 */
 
-var Observer = function(val) {
-  this.value = val
+var Observer = function(value) {
+  this.value = value
   this.dep = new Dep()
   this.vmCount = 0
   def(value, '__ob__', this)
-  if (Array.isArray(value)) {
+  if (Array.isArray(value))  {
     if (hasProto) {
       protoAugment(value, arrayMethods)
     } else {
@@ -956,4 +958,86 @@ function defineReactive$$1 (
       dep.notify()
     }
   })
+}
+
+/**
+* Set a property on an object. Adds the new property and
+* triggers change notification if the property doesn't
+* already exist.
+*/
+
+function set(target, key, val) {
+  if (process.env.NODE_ENV !== 'production' &&
+    (isUndef(target) || isPrimitive(target))
+  ) {
+    warn(("Cannot set reactive property on undefined, null, or primitive value: " + ((target))));
+  }
+  if (Array.isArray(target) && isValidArrayIndex(key)) {
+    target.length = Math.max(target.length, key)
+    target.splice(key, 1, val)
+  }
+  if (key in target && !(key in Object.prototype)) {
+    target[key] = val
+    return val
+  }
+  var ob = (target).__ob__
+  if (target._isVue || (ob && ob.vmCount)) {
+    process.env.NODE_ENV !== 'production' && warn(
+      'Avoid adding reactive properties to a Vue instance or its root $data ' +
+      'at runtime - declare it upfront in the data option.'
+    );
+    return val
+  }
+  if (!ob) {
+    target[key] = val
+    return val
+  }
+  defineReactive$$1(ob.value, key, val)
+  ob.dep.notify()
+  return val
+}
+
+/**
+* Delete a property and trigger change if necessary.
+*/
+function del(targrt, key) {
+  if (process.env.NODE_ENV !== 'production' &&
+    (isUndef(target) || isPrimitive(target))
+  ) {
+    warn(("Cannot delete reactive property on undefined, null, or primitive value: " + ((target))));
+  }
+  if (Array.isArray(target) && isValidArrayIndex(key)) {
+    target.splice(key, 1);
+    return
+  }
+  var ob = (target).__ob__;
+  if (target._isVue || (ob && ob.vmCount)) {
+    process.env.NODE_ENV !== 'production' && warn(
+      'Avoid deleting properties on a Vue instance or its root $data ' +
+      '- just set it to null.'
+    );
+    return
+  }
+  if (!hasOwn(target, key)) {
+    return
+  }
+  delete target[key];
+  if (!ob) {
+    return
+  }
+  ob.dep.notify()
+}
+
+/**
+* Collect dependencies on array elements when the array is touched, since
+* we cannot intercept array element access like property getters.
+*/
+function dependArray(value) {
+  for(var e = (void 0), i = 0, l = value.length; i < l;i++) {
+    e = value[i]
+    e && e.__ob__ && e.__ob__.dep.depend()
+    if (Array.isArray(e)) {
+      dependArray(e)
+    }
+  }
 }

@@ -18,15 +18,28 @@
       'reverse'
     ];
     var arrayProto = Array.prototype
-    var arrayMethods = Object.create(arrayProto);
     methodsToPatch.forEach(function (method) {
+      var original = arrayProto[method]
       Object.defineProperty(arrayProto, method, {
         value: function() {
           var args = [], len = arguments.length;
-          while ( len-- ) args[ len ] = arguments[ len ];
-          var r = arrayMethods[method].apply(this, args);
-          console.log(`触发了数组${method}的方法`);
-          return r
+          while(len--) {
+            args[len] = arguments[len]
+            args[len]._ob_ = 'ob'
+          }
+          var result = original.apply(this, args);
+          var inserted
+          switch (method) {
+            case 'push':
+            case 'unshift':
+              inserted = args
+              break;
+            case 'splice':
+              inserted = args.slice(2)
+              break
+          }
+          console.log(inserted, args)
+          return result
         },
         writable: true,
         configurable: true,
