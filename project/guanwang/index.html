@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>我的网站</title>
+    <link rel="stylesheet" type="text/css" href="./css/jquery.fullpage.css"/>
+    <link rel="stylesheet" href="./css/swiper.min.css">
+    <link rel="stylesheet" href="./css/animate.min.css">
+    <link rel="stylesheet" href="./css/common.css">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <div class="pre-load-con">
+        <!-- <div class="process-bar"></div> -->
+        <div class="hello">
+            <p class="cover"></p>
+            <p class="word">Hello</p>
+            <p class="cover"></p>
+        </div>
+        <sapn class="process-num">0%</span>
+    </div>
+    <img src="./img/logo.png" class="logo" alt="">
+    <div class="nav-btn hover hidden-xs"></div>
+    <div class="nav-btn-m visible-xs"></div>
+    <div class="nav-con" id="myMenu">
+        <ul class="my-font animated">
+            <li>
+                <p>首页</p>
+                <p><a href="/#Home">Home</a></p>
+            </li>
+            <li>
+                <p>我们的服务</p>
+                <p><a href="/#Services">Services</a></p>
+            </li>
+            <li>
+                <p>案例展示</p>
+                <p><a href="/#Work">Work</a></p>
+            </li>
+            <li>
+                <p>经验分享</p>
+                <p><a href="/#Experience">Experience</a></p>
+            </li>
+            <li>
+                <p>联系方式</p>
+                <p><a href="/#Contact">Contact</a></p>
+            </li>
+        </ul>
+        <div class="contact-us visible-xs">
+            <p style="margin-bottom: .16rem">PHONE：15001316528</p> 
+            <p>MAIL：wtongmy@163.com</p> 
+        </div>
+    </div>
+    <div id="fullPage">
+        <div class="section home">
+            <div class="swiper-container">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide row">
+                        <div class="left-content-con col-xs-12 col-sm-7">
+                            <div>
+                                <h1 class="typer-target">一站式互联网解决方案1</h1>
+                                <p class="attention">专注于创意设计和用户体验</p>
+                                <p class="more-p hidden-xs"><span>查看更多</span><span class="more"></span></p>
+                            </div>
+                        </div>
+                        <div class="right-content-con col-xs-12 col-sm-5 hidden-xs">
+                            <img src="./img/home-swiper-item.png" alt="">
+                        </div>
+                    </div>
+                    <div class="swiper-slide row">
+                        <div class="left-content-con col-xs-12 col-sm-7">
+                            <div>
+                                <h1 class="typer-target">一站式互联网解决方案2</h1>
+                                <p class="attention">专注于创意设计和用户体验</p>
+                                <p class="more-p hidden-xs"><span>查看更多</span><span class="more"></span></p>
+                            </div>
+                        </div>
+                        <div class="right-content-con col-xs-12 col-sm-5 hidden-xs">
+                            <img src="./img/home-swiper-item.png" alt="">
+                        </div>
+                    </div>
+                    <div class="swiper-slide row">
+                        <div class="left-content-con col-xs-12 col-sm-7">
+                            <div>
+                                <h1 class="typer-target">一站式互联网解决方案3</h1>
+                                <p class="attention">专注于创意设计和用户体验</p>
+                                <p class="more-p hidden-xs"><span>查看更多</span><span class="more"></span></p>
+                            </div>
+                        </div>
+                        <div class="right-content-con col-xs-12 col-sm-5 hidden-xs">
+                            <img src="./img/home-swiper-item.png" alt="">
+                        </div>
+                    </div>
+                </div>
+                <!-- 如果需要分页器 -->
+                <div class="swiper-pagination own-pagination hidden-xs"></div>
+                
+                <div class="btn-con hidden-xs">
+                    <div class="button-dir button-prev disabled"></div>
+                    <div class="button-dir button-next"></div>
+                </div>
+                <img class="mouse" src="./img/mouse.png" alt="">
+                <div class="home-nav-con my-font hidden-xs">
+                    
+                    <p class="active">Grace</p>
+                    <p>smile</p>
+                    <p>Pursue</p>
+                </div>
+                <div class="contact-us visible-xs">
+                    <p style="margin-bottom: .16rem">PHONE：15001316528</p> 
+                    <p>MAIL：wtongmy@163.com</p> 
+                </div>
+            </div>
+        </div>
+        <div class="section services">
+            <div class="services-con">
+                <div class="module-title my-font">
+                    <p>Our <span>我们的服务</span></p>
+                    <p>Services</p>
+                </div>
+                <!-- <div class="service-list-wrap row">
+                    <ul class="service-list-con "></ul>
+                </div> -->
+                <ul class="service-list-con hidden-xs"></ul>
+                <div class="service-list-con visible-xs">
+                    <div class="swiper-wrapper">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section work">
+            <div class="work-con">
+                <div class="module-title my-font">
+                    <p>Work <span>我们的作品</span></p>
+                    <p>Exhibition</p>
+                </div>
+                <div class="work-list-wrap hidden-xs">
+                    <ul class="work-list-con"></ul>
+                    <p class="more-p"><a href="./html/worklist.html">查看更多</a><span class="more"></span></p> 
+                </div>
+                <div class="work-list-wrap visible-xs">
+                    <div class="work-list-con">
+                        <div class="swiper-wrapper">
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="visible-xs more-p-m"><a href="./html/worklist.html">查看更多</a></div>
+        </div>
+        <div class="section news">
+            <div class="news-con">
+                <div class="module-title my-font visible-xs">
+                    <p>News <span>经验分享</span></p>
+                    <p>Experience</p>
+                </div>
+                <ul class="news-list-con row"></ul>
+                <div class="module-title my-font hidden-xs">
+                    <p>News <span>经验分享</span></p>
+                    <p>Experience</p>
+                </div>
+            </div>
+            <div class="visible-xs more-p-m"><a href="./html/newslist.html">查看更多</a></div>
+        </div>
+        <div class="section contact">
+            <div class="contact-con">
+                <div class="module-title my-font">
+                    <p>us <span>联系我们</span></p>
+                    <p>Contact</p>
+                </div>
+                <div class="bg-con visible-xs">
+                    <p style="margin-bottom: .16rem">PHONE：15001316528</p> 
+                    <p>MAIL：wtongmy@163.com</p> 
+                </div>
+                <div class="bg-con hidden-xs">
+                    <span>PHONE：15001316528</span> 
+                    <span style="margin-left: 40px">MAIL：wtongmy@163.com</span> 
+                </div>
+                <!-- <a href="mailto:2462393505@qq.com">反馈</a>   -->
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="./js/jquery.min.js"></script>
+<script type="text/javascript" src="./js/jquery.fullpage.js"></script>
+<script type="text/javascript" src="./js/swiper.min.js"></script>
+<script src="./js/autoplayer.js"></script>
+<script src="./js/jquery.transform2d.js"></script>
+<script src="./js/common.js"></script>
+<script>
+    $(function(){
+        // 预加载相关
+        let process = 0
+        const preLoad = () => {
+            process++
+            $('.pre-load-con .process-bar').css('width', process + '%')
+            $('.pre-load-con .process-num').html(process + '%')
+            if (process < 100) {
+                window.requestAnimationFrame(preLoad)
+            } else {
+                window.sessionStorage.setItem('isLoad', '1')
+                setTimeout(() => {
+                    // $('.pre-load-con .process-bar').hide()
+                    $('.pre-load-con .process-num').hide()
+                    $('.pre-load-con .hello').show().find('.word').addClass('animated slideInUp')
+                    setTimeout(() => {
+                        $('.pre-load-con .hello .word').removeClass('slideInUp').addClass('slideOutUp')
+                    }, 1000)
+                    setTimeout(() => {
+                        $('.pre-load-con').hide()
+                        $('#fullPage').addClass('animated fadeIn')
+                        var options = {
+                            selector: ".typer-target", // target element selector
+                            words: ["一站式互联网解决方案"], // words/sentences that will be auto typed
+                            charSpeed: 150, // letter typing animation speed
+                            delay: 4000, // word/sentence typing animation delay
+                            loop: false, // if loop is activated, autoTyper will start over
+                            flipflop: false // if flipflop is activated, letters which are typed animated will be removed ony by one animated
+                        };
+
+                        var typer = new autoTyper(options);
+                        typer.start();
+                    }, 1500)
+                }, 200)
+                
+            }
+        }
+        console.log(window.sessionStorage.getItem('isLoad'));
+        if (!!window.sessionStorage.getItem('isLoad')) {
+            $('.pre-load-con').hide()
+            $('#fullPage').addClass('animated fadeIn')
+            var options = {
+                selector: ".typer-target", // target element selector
+                words: ["一站式互联网解决方案"], // words/sentences that will be auto typed
+                charSpeed: 150, // letter typing animation speed
+                delay: 4000, // word/sentence typing animation delay
+                loop: false, // if loop is activated, autoTyper will start over
+                flipflop: false // if flipflop is activated, letters which are typed animated will be removed ony by one animated
+            };
+
+            var typer = new autoTyper(options);
+            typer.start();
+        } else {
+            window.requestAnimationFrame(preLoad)
+        }
+        // 团队介绍信息
+        $('#fullPage').fullpage({
+            verticalCentered: false,
+            anchors: ['Home', 'Services', 'Work', 'Experience', 'Contact'],
+            menu: '#myMenu',
+            css3: false,
+            easingcss3: 'cubic-bezier(0.25, 0.1, 0.34, 0.59)',
+            // navigationPosition: 'right',
+            // slidesNavigation: 'true',
+            // slidesNavPosition: 'bottom',
+            controlArrows: false,
+            recordHistory: false,
+            afterRender: function () {
+                
+            },
+            onLeave: function (index, nextIndex) {
+                switch (nextIndex) {
+                    case 4: 
+                    if ($('.news .news-list-con li').length === 0) {
+                        $.ajax({
+                            url: './json/news.json',
+                            success: function(res) {
+                                const news = windowWidth <= 750 ? res.news.slice(0, 1) : res.news.slice(0, 3)
+                                news.forEach(item => {
+                                    $('.news .news-list-con').append($(`
+                                        <li class="news-item col-xs-12 col-sm-4" data-id=${item.id}>
+                                            <img src='${item.img}' />
+                                            <p class="p1">${item.title}</p>
+                                            <p class="p2">${item.content}</p>
+                                        </li>
+                                    `))
+                                });
+                                $('.news .news-list-con').on('click', 'li', function () {
+                                    window.location.href = `./html/newsDetail.html?id=${$(this).attr('data-id')}`
+                                })
+                            }
+                        })
+                    }
+                }
+            },
+        });
+        const windowWidth = $(window).width()
+        let workConWidth
+        $.ajax({
+            url: './json/index.json',
+            success: function(res) {
+                const services = res.services
+                const works = res.works
+                if (windowWidth > 768) {
+                    services.forEach(item => {
+                        $('.services .service-list-con').append($(`
+                            <li class="service-item col-sm-3">
+                                <img src='${item.img}' />
+                                <p class="p1">${item.type}</p>
+                                <p class="p2">${item.des}</p>
+                            </li>
+                        `))
+                    });
+                    works.forEach((item) => {
+                        $('.work .work-list-con').append($(`
+                            <li class="work-item" data-id="${item.id}">
+                                <img src='${item.img}' />
+                                <p class="p1">${item.name}</p>
+                            </li>
+                        `))
+                    })
+                    setTimeout(() => {
+                        workConWidth = $('.work .work-list-con').width()
+                        $('.work .work-list-con').css({
+                            'transform': 'translateX(-'+ (workConWidth - windowWidth) / 2 +'px)'
+                        })
+                    }, 1000)
+                } else {
+
+                    services.forEach(item => {
+                        $('.services .service-list-con .swiper-wrapper').append($(`
+                            <div class="service-item col-sm-3 swiper-slide">
+                                <img src='${item.img}' />
+                                <p class="p1">${item.type}</p>
+                                <p class="p2">${item.des}</p>
+                            </div>
+                        `))
+                    });
+                    var swiper = new Swiper('.service-list-con', {
+                        slidesPerView: 'auto',
+                        spaceBetween: 0,
+                        freeMode: true,
+                    });
+
+                    works.forEach((item) => {
+                        $('.work .work-list-con .swiper-wrapper').append($(`
+                            <div class="work-item swiper-slide" data-id="${item.id}">
+                                <img src='${item.img}' />
+                                <p class="p1">${item.name}</p>
+                            </div>
+                        `))
+                    })
+                    var swiper = new Swiper('.work-list-con', {
+                        slidesPerView: 'auto',
+                        spaceBetween: 0,
+                        freeMode: true,
+                    });
+                }
+            }
+        })
+        $('.work-con .work-list-con').on('click', '.work-item', function () {
+            window.location.href = `./html/worksDetail.html?id=${$(this).attr('data-id')}`
+        })
+        let befClintX
+        if (windowWidth > 768) {
+            const workCon = $('.work .work-list-con')
+            function moveByMouse(ev) {
+                const nowClintX = ev.clientX
+                const newTranslateX = nowClintX - workConWidth / windowWidth * nowClintX
+                console.log(newTranslateX, $(this));
+                workCon.css({
+                    'transform': 'translateX(' + newTranslateX + 'px)'
+                })
+            }
+            $('.work .work-list-con').on({
+                // 'mouseover': function(ev) {
+                //     befClintX = ev.clientX
+                // },
+                'mousemove': moveByMouse
+            })
+        }
+        
+        $.fn.fullpage.setRecordHistory(false);
+        var mySwiper = new Swiper ('.home .swiper-container', {
+            // autoplay: true,
+            delay: 2000,
+            pagination: {
+                el: '.swiper-pagination',
+                modifierClass : 'own-pagination-',
+                bulletClass: 'bullet-item',
+                bulletActiveClass: 'active'
+            },
+            on: {
+                transitionStart: function(){
+                    const swiperLen = $('.home .swiper-slide').length
+                    if (this.activeIndex == 0) {
+                        $('.home .mouse').show()
+                        $('.home .button-prev').addClass('disabled') 
+                    } else if (this.activeIndex == swiperLen - 1) {
+                        $('.home .button-next').addClass('disabled')
+                        $('.home .mouse').hide()
+                    } else {
+                        $('.home .mouse').show()
+                        $('.home .button-prev').removeClass('disabled') 
+                        $('.home .button-next').removeClass('disabled') 
+                    }
+                },
+            },
+        });
+        $('.home .button-prev').on('click', function() {
+            mySwiper.slidePrev()
+        })
+        $('.home .button-next').on('click', function() {
+            mySwiper.slideNext()
+        })
+        $('.home .home-nav-con p').on({
+            'mouseover':  function() {
+                if (windowWidth <= 750) return
+                $('.home .home-nav-con p').removeClass('active')
+                $(this).addClass('active')
+            },
+            
+        })
+        // 底部鼠标
+        $('.home .mouse').on('click', function() {
+            mySwiper.slideNext()
+        });
+    });
+</script>
+</body>
+
+</html>

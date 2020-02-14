@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/animate.min.css">
+  <style>
+    .header-mask{
+      position: fixed;
+      height: 124px;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 99;
+      background: #fff;
+    }
+    .main-content{
+      position: relative;
+      width: 75%;
+      margin: 0 auto;
+      padding: 180px 0 0;
+    }
+    .work-type-con{
+      position: fixed;
+      left: 12.5vw;
+      top: 180px;
+    }
+    .work-type-con li{
+      font-size: 14px;
+      color: rgba(25,31,56,0.40);
+      line-height: 14px;
+      margin-bottom: 32px;
+      cursor: pointer;
+    }
+    .work-type-con li.active{
+      color: #191F38;
+    }
+    .work-list .work-item{
+      padding: 0 30px;
+      cursor: pointer;
+    }
+    .work-list .work-item img{
+      max-width: 100%;
+      height: auto;
+    }
+    .work-list .work-item p{
+      padding: 32px 0 64px;
+      font-size: 18px;
+      color: #191F38;
+      line-height: 18px;
+    }
+    .no-more{
+      font-size: 12px;
+      color: rgba(25,31,56,0.40);
+      line-height: 12px;
+      padding: 72px 0 136px 0;
+      text-align: center;
+    }
+    @media(max-width: 768px) {
+      .header-mask{
+        height: 2.12rem;
+      }
+      .main-content{
+        width: 6.7rem;
+        margin: 0 auto;
+        padding: 2.52rem 0 0;
+      }
+      .work-list .work-item{
+        padding: 0 .36rem;
+      }
+      .work-list .work-item img{
+        border-radius: .2rem;
+      }
+      .work-list .work-item p{
+        padding: .48rem 0 1.04rem;
+        font-size: .32rem;
+        color: #191F38;
+        line-height: .32rem;
+      }
+      .work-type-con{
+        top: 1rem;
+        left: .4rem;
+        display: flex;
+        z-index: 999;
+      }
+      .work-type-con li{
+        font-size: .32rem;
+        line-height: .32rem;
+        padding: .4rem .48rem .4rem 0;
+        margin-bottom: 0
+      }
+      .no-more{
+        font-size: .24rem;
+        line-height: .24rem;
+        padding: 0 0 1.04rem 0;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <img src="../../img/logo.png" class="logo" alt="">
+  <div class="nav-btn hover hidden-xs"></div>
+  <div class="nav-btn-m visible-xs"></div>
+  <div class="nav-con" id="myMenu">
+    <ul class="my-font animated">
+      <li>
+        <p>首页</p>
+        <p><a href="/#Home">Home</a></p>
+      </li>
+      <li>
+        <p>我们的服务</p>
+        <p><a href="/#Services">Services</a></p>
+      </li>
+      <li>
+        <p>案例展示</p>
+        <p><a href="/#Work">Work</a></p>
+      </li>
+      <li>
+        <p>经验分享</p>
+        <p><a href="/#Experience">Experience</a></p>
+      </li>
+      <li>
+        <p>联系方式</p>
+        <p><a href="#Contact">Contact</a></p>
+      </li>
+    </ul>
+    <div class="contact-us visible-xs">
+      <p style="margin-bottom: .16rem">PHONE：15001316528</p> 
+      <p>MAIL：wtongmy@163.com</p> 
+    </div>
+  </div>
+  <div class="header-mask"></div>
+  <div class="main-content">
+    <ul class="work-type-con">
+      <li class="active" type="0">全部</li>
+      <li type="1">网站</li>
+      <li type="2">移动端</li>
+      <li type="3">品牌VI</li>
+      <li type="4">插画</li>
+    </ul>
+    <div class="row">
+      <div class="col-sm-2">
+      
+      </div>
+      <div class="col-sm-10 work-list">
+        <div class="row"></div>
+        <p class="no-more">没有更多内容啦～</p>
+      </div>
+    </div>
+    
+  </div>
+  
+  <script type="text/javascript" src="../js/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/common.js"></script>
+  <script>
+    $(function() {
+      var allworks
+      $.ajax({
+        url: `../json/works.json?v=${Date.now()}`,
+        success: function(res) {
+          allworks = res.works
+          res.works.forEach(item => {
+            $('.work-list .row').append($(`
+              <div class="work-item col-sm-6" data-id="${item.id}">
+                <img src="${item.img}" />  
+                <p>${item.title}</p>
+              </div>
+            `))
+          });
+        }
+      })
+      $('.work-type-con li').on('click', function() {
+        $('.work-type-con li').removeClass('active')
+        $(this).addClass('active')
+        var curType = $(this).attr('type')
+        if (curType == 0) {
+          newWorks = allworks
+        } else {
+          newWorks = allworks.filter(item => item.type == curType)
+        }
+        $('.work-list .row').html('')
+        newWorks.forEach(item => {
+          $('.work-list .row').append($(`
+            <div class="work-item col-sm-6 animated fadeIn" data-id="${item.id}">
+              <img src="${item.img}" />  
+              <p>${item.title}</p>
+            </div>
+          `))
+        });
+
+      })
+      $('.work-list .row').on('click', '.work-item', function () {
+        window.location.href = `./worksDetail.html?id=${$(this).attr('data-id')}`
+        return
+      })
+    })
+    
+
+    // x + y = 10
+    // 10 - x + 9y = 70
+
+    // 10 + 10y = 80
+  </script>
+</body>
+</html>

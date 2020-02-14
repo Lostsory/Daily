@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="../css/common.css">
+  <style>
+    .header-mask{
+      position: fixed;
+      height: 124px;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 99;
+      background: #fff;
+    }
+    .p-content{
+      width: 1080px;
+      margin: 0 auto 74px;
+      padding: 180px 0 40px;
+      border-bottom:  .5px solid #EBEEF5;;
+    }
+    .p-content h1{
+      font-size: 40px;
+      color: #191F38;
+      letter-spacing: 0;
+      line-height: 40px;
+      margin-bottom: 9.6vh;
+    }
+    .p-content img{
+      width: 100%;
+      height: auto;
+      margin-bottom: 40px;
+    }
+    .p-content p{
+      font-size: 16px;
+      color: rgba(25,31,56,0.80);
+      letter-spacing: 0;
+      line-height: 36px;
+      margin-bottom: 40px;
+    }
+    .footer{
+      display: flex;
+      justify-content: space-between;
+      width: 1080px;
+      margin: 0 auto;
+      align-items: flex-end;
+      padding-bottom: 78px;
+    }
+    .footer .contact{
+      display: flex;
+      align-items: center;
+    }
+    .erweima{
+      width: 146px;
+      margin-right: 36px;
+    }
+    .footer .p1{
+      opacity: 0.6;
+      font-size: 14px;
+      color: rgba(25,31,56,0.80);
+      letter-spacing: 0;
+      line-height: 14px;
+      margin-bottom: 32px;
+    }
+    .footer .p2{
+      font-size: 20px;
+      color: rgba(25,31,56,0.80);
+      letter-spacing: 0;
+      line-height: 20px;
+    }
+    .footer .logo-bo{
+      width: 96px;
+      height: 28px;
+    }
+    .back-btn{
+      position: fixed;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 9vw;
+      height: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0B0D17;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .back-btn img{
+      height: 14px;
+      margin-right: 8px;
+    }
+    @media(max-width: 768px) {
+      .header-mask{
+        height: 1.24rem;
+      }
+      .p-content{
+        width: 6.7rem;
+        margin: 0 auto .8rem;
+        padding: 1.48rem 0 .4rem 0;
+      }
+      .p-content h1{
+        font-size: .48rem;
+        color: #191F38;
+        letter-spacing: 0;
+        line-height: .64rem;
+        margin-bottom: .8rem;
+      }
+      .p-content img{
+        width: 100%;
+        height: auto;
+        margin-bottom: .4rem;
+        border-radius: .2rem;
+      }
+      .p-content p{
+        font-size: .28rem;
+        color: rgba(25,31,56,0.80);
+        letter-spacing: 0;
+        line-height: .56rem;
+        margin-bottom: .4rem;
+      }
+      .footer{
+        width: 6.7rem;
+        margin: 0 auto;
+        padding-bottom: .78rem;
+      }
+      .erweima{
+        width: 1.46rem;
+        margin-right: .32rem;
+      }
+      .footer .contact{
+        align-items: flex-end;
+      }
+      .footer .p1{
+        opacity: 0.6;
+        font-size: .26rem;
+        color: rgba(25,31,56,0.80);
+        letter-spacing: 0;
+        line-height: .26rem;
+        margin-bottom: .32rem;
+      }
+      .footer .p2{
+        font-size: .28rem;
+        color: rgba(25,31,56,0.80);
+        letter-spacing: 0;
+        line-height: .28rem;
+      }
+      .footer .logo-bo{
+        width: .96rem;
+        height: .28rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <img src="../../img/logo.png" class="logo" alt="">
+  <div class="nav-btn hover hidden-xs"></div>
+  <div class="nav-btn-m visible-xs"></div>
+  <div class="nav-con" id="myMenu">
+    <ul class="my-font animated">
+      <li>
+        <p>首页</p>
+        <p><a href="/#Home">Home</a></p>
+      </li>
+      <li>
+        <p>我们的服务</p>
+        <p><a href="/#Services">Services</a></p>
+      </li>
+      <li>
+        <p>案例展示</p>
+        <p><a href="/#Work">Work</a></p>
+      </li>
+      <li>
+        <p>经验分享</p>
+        <p><a href="/#Experience">Experience</a></p>
+      </li>
+      <li>
+        <p>联系方式</p>
+        <p><a href="#Contact">Contact</a></p>
+      </li>
+    </ul>
+    <div class="contact-us visible-xs">
+      <p style="margin-bottom: .16rem">PHONE：15001316528</p> 
+      <p>MAIL：wtongmy@163.com</p> 
+    </div>
+  </div>
+  <div class="header-mask"></div>
+  <div class="p-content">
+
+  </div>
+  <div class="back-btn hidden-xs">
+    <img src="../img/arrow.png" alt="">
+    <span>返回</span>
+  </div>
+  <div class="footer">
+    
+    <div class="contact">
+      <img class="erweima" src="../img/erweima.png" alt="">
+      <div>
+        <p class="p1">联系方式</p>
+        <p class="p2" style="margin-bottom: 8px">PHONE：15001316528</p> 
+        <p class="p2">MAIL：wtongmy@163.com</p>
+      </div>
+    </div>
+    <img class="logo-bo" src="../img/logo.png" alt="">
+  </div>
+  <script type="text/javascript" src="../js/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/common.js"></script>
+  <script>
+    $(function() {
+      $.ajax({
+        url: `../json/news/${window.location.search.split('=')[1]}.json?v=${Date.now()}`,
+        success: function(res) {
+          console.log(res);
+          $('.p-content').append($(res.content))
+        }
+      })
+    })
+    
+  </script>
+</body>
+</html>
