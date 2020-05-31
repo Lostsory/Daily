@@ -1,0 +1,7 @@
+{
+  "extends": "./tsconfig.base.json",
+  // "compilerOptions": {
+  //   "incremental": true, // 增量编译，加快编译速度
+  //   "diagnostics": true, // 打印诊断信息
+  // }
+}

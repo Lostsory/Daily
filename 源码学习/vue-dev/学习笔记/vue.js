@@ -132,7 +132,7 @@ const camelize = cached(function (str) {
 })
 
 /**
-* Capitalize a string.
+* Capitalize a string. 首字母大写
 */
 const capitalize = cached(function(str) {
   return str.charAt(0).toUpperCase() + str.slice(1)
@@ -248,7 +248,7 @@ const looseEqual = (a, b) => {
         var keysA = Object.keys(a);
         var keysB = Object.keys(b);
         return keysA.length === keysB.length && keysA.every((e, ) => {
-          return looseEqual[a[e], b[e]]
+          return looseEqual(a[e], b[e])
         })
       } else {
         return false

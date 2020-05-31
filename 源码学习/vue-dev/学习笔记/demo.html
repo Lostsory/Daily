@@ -8,13 +8,222 @@
 </head>
 <body>
   <script>
-    function Observer(val) {
-      this.value = val
-      Object.defineProperty(val, '_ob_', this)
+    /**
+     * Dep 订阅者
+     */
+    let DepUid = 0
+    class Dep {
+      id = DepUid ++
+      subs = []
+      static target = null
+      /* 在subs中添加一个Watcher对象 */
+      addSub(sub) {
+        this.subs.push(sub)
+      }
+      /* 通知所有Watcher对象更新视图 */
+      notify() {
+        console.log('notify');
+        this.subs.forEach(sub => {
+          sub.update()
+        });
+      }
+      depend() {
+        if (Dep.target) {
+          Dep.target.addDep(this)
+        }
+      }
     }
 
-    const o = new Observer({name: 'qzx'})
+    const targetStack = []
+    const pushTarget = (target) => {
+      targetStack.push(target)
+      Dep.target = target
+    }
+    const popTarget = () => {
+      targetStack.pop()
+      Dep.target = targetStack[targetStack.length - 1]
+    }
 
+    /**
+     * Watcher
+     */
+    let WatcherUid = 0
+    class Watcher{
+      constructor(lazy) {
+        this.id = ++WatcherUid
+        this.deps = []
+        this.newDeps = []
+        this.depIds = new Set()
+        this.newDepIds = new Set()
+        this.lazy = !!lazy
+        this.dirty = this.lazy
+        this.value = this.lazy ? undefined : this.get()
+      }
+      get() {
+        pushTarget(this)
+      }
+      addDep(dep) {
+        const id = dep.id
+        if (!this.newDepIds.has(id)) {
+          this.newDepIds.add(id)
+          this.newDeps.push(dep)
+          if (!this.depIds.has(id)) {
+            dep.addSub(this)
+          }
+        }
+      }
+      /* 更新视图的方法 */
+      update() {
+        console.log('视图更新啦～');
+        if (this.lazy) {
+          this.dirty = true
+        } else {
+          // queueWatcher(this)
+        }
+      }
+    }
+
+    /**
+     * Observer
+     */
+    const defineReactive = function(obj, key, val) {
+      const dep = new Dep()
+      const property = Object.getOwnPropertyDescriptor(obj, key)
+      if (property && property.configurable === false) {
+        return
+      }
+      const getter = property && property.get
+      const setter = property && property.set
+      if ((!getter || setter) && arguments.length === 2) {
+        val = obj[key]
+      }
+      
+      Object.defineProperty(obj, key, {
+        enumerable: true,
+        configurable: true,
+        get: function() {
+          const value = getter ? getter.call(obj) : val
+          if (Dep.target) {
+            dep.depend()
+          }
+          return value
+        },
+        set: function(newVal) {
+          const value = getter ? getter.call(obj) : val
+          if (newVal === value) return
+          if (setter) {
+            setter.call(obj, newVal)
+          } else {
+            val = newVal
+          }
+          console.log('getter', key);
+          dep.notify()
+        }
+      })
+    }
+    class Observer{
+      constructor(value) {
+        this.value = value
+        // this.dep = new Dep()
+        // this.vmCount = 0
+        // Object.defineProperty(value, '__ob__', {
+        //   value: this,
+        //   enumerable: false,
+        //   writable: true,
+        //   configurable: true
+        // })
+        this.walk(value)
+      }
+      walk(obj) {
+        const keys = Object.keys(obj)
+        keys.forEach((key) => {
+          defineReactive(obj, key)
+        })
+      }
+    }
+
+    /**
+     * Vnode
+     */
+    class Vnode{
+      constructor(tag, data, children, text, elem) {
+        /*当前节点的标签名*/
+        this.tag = tag;
+        /*当前节点的一些数据信息，比如props、attrs等数据*/
+        this.data = data;
+        /*当前节点的子节点，是一个数组*/
+        this.children = children;
+        /*当前节点的文本*/
+        this.text = text;
+        /*当前虚拟节点对应的真实dom节点*/
+        this.elm = elm;
+      }
+    }
+    // 创建一个空节点
+    function createEmptyVNode () {
+      const node = new VNode();
+      node.text = '';
+      return node;
+    }
+    // 创建一个文本节点
+    function createTextVNode (val) {
+      return new VNode(undefined, undefined, undefined, String(val));
+    }
+    function cloneVNode (node) {
+      const cloneVnode = new VNode(
+        node.tag,
+        node.data,
+        node.children,
+        node.text,
+        node.elm
+      );
+      return cloneVnode;
+    }
+
+
+    /**
+     * Vue
+     */
+    class Vue {
+      constructor (options) {
+        this._data = options.data
+        this._method = options.method
+        new Watcher()
+        new Observer(this._data)
+        this._proxy(options.data, '_data')
+        this._proxy(options.method, '_method')
+      }
+      _proxy(data, key) {
+        Object.keys(data).forEach(k => {
+          Object.defineProperty(this, k, {
+            configurable: true,
+            enumerable: true,
+            get: function proxyGetter () {
+              console.log('_proxy get');
+              return this[key][k];
+            },
+            set: function proxySetter (val) {
+              this[key][k] = val;
+            }
+          })
+        })
+      }
+    }
+  
+    var demo = new Vue({
+      data: {
+        baseInfo: {
+          name: 'qzx',
+          age: '16'
+        },
+        name: 'lss'
+      },
+      method: {
+        sayName() {
+          alert(this.baseInfo.name)
+        }
+      }
+    })
   </script>
 </body>
 </html>
