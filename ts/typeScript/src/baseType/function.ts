@@ -3,8 +3,7 @@ function fn1(x: number, y: number) {
   return x + y
 }
 
-let fn2: (x: number, y: number) => number
-fn2 = (x, y) => x + y
+let fn2: (x: number, y: number) => number = (x, y) => x + y
 
 interface fn3{
   (x: number, y: number): number

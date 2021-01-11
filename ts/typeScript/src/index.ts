@@ -4,8 +4,9 @@
 // import './baseType/interface_function'
 // import './baseType/function'
 // import './baseType/class'
-// import './baseType/class1'
-// import './baseType/generics'
+import './baseType/class1'
+// import './baseType/generics1'
+// import './baseType/generics2'
 // import './baseType/advances'
 
 // require('./module/node')
@@ -14,6 +15,5 @@
 
 // import './libs/index'
 
-let hello: string = 'hello Typescript'
-// @ts-ignore
+const hello = 'hello Typescript'
 window.document.querySelector('#app').innerHTML = hello

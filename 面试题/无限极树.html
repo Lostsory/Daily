@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var tree = [
+      {
+        id: '1'
+      },
+      {
+        id: '1-1',
+        parentId: '1'
+      },
+      {
+        id: '1-1-1',
+        parentId: '1-1'
+      },
+      {
+        id: '1-1-2',
+        parentId: '1-1'
+      },
+      {
+        id: '1-1-2-1',
+        parentId: '1-1-2'
+      },
+      {
+        id: '1-2',
+        parentId: '1'
+      },
+      {
+        id: '1-3',
+        parentId: '1'
+      },
+      {
+        id: '2'
+      },
+      {
+        id: '2-1',
+        parentId: '2'
+      },
+      {
+        id: '2-2',
+        parentId: '2'
+      },
+      {
+        id: '2-3',
+        parentId: '2'
+      },
+    ];
+    function changeToTree(arr) {
+      arr.forEach(element => {
+        delete element.chidList;
+      });
+      // console.log(arr);
+      var map = {};
+      arr.forEach((item) => {
+        map[item.id] = item
+      })
+      // console.log(map);
+      var val = [];
+      arr.forEach((item, index) => {
+        var parent = map[item.parentId]
+        // console.log(parent);
+        if (index == 1) {
+          console.log(parent);
+          if (parent) {
+            (parent.chidList || (parent.chidList = [])).push(item);
+          } else {
+            val.push(item)
+          }
+          console.log(val);
+        }
+      })
+      return val
+    }
+  </script>
+</body>
+</html>

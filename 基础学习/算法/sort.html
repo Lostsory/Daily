@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var arr = [3, 44, 38, 5, 47, 15, 36, 26, 27, 2, 46, 4, 19, 50, 48];
+    
+    /**
+    * 1.冒泡排序
+    * 复杂度 O(n*n)
+    */
+    // function sortBybubble(arr) {
+    //   for (let i = 0; i < arr.length; i++) {
+    //     for(let j = 0; j < arr.length - 1; j++) {
+    //       if (arr[j] > arr[j + 1]) {
+    //         [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]]
+    //       }
+    //     }
+    //   }
+    //   return arr
+    // }
+    // console.log(sortBybubble(arr1));
+
+    /**
+    * 2.选择排序
+    * 复杂度 O(n*n)
+    */    
+    // function sortBySelect(arr) {
+    //   let minIndex
+    //   for (let i = 0; i < arr.length; i++) {
+    //     minIndex = i
+    //     for (let j = i + 1; j < arr.length; j++) {
+    //       if (arr[j] < arr[minIndex]) {
+    //         minIndex = j
+    //       }
+    //     }
+    //     [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]]
+    //   }
+    //   return arr
+    // }
+    // console.log(sortBySelect(arr));
+
+    /**
+    * 3.插入排序
+    * 复杂度 O(n*n)
+    */ 
+    // function sortByInsert(arr) {
+    //   for (let i = 0; i < arr.length; i++) {
+    //     for (let j = i; j > 0; j--) {
+    //       if (arr[j] < arr[j - 1]) {
+    //         [arr[j], arr[j - 1]] = [arr[j - 1], arr[j]]
+    //       }
+    //     }
+    //   }
+    //   return arr
+    // }
+    // console.log(sortByInsert(arr));
+
+     /**
+    * 4.归并排序
+    * 复杂度 O(n * logn)
+    */ 
+    // function merge(left, right) {
+    //   const arr = []
+    //   while(left.length && right.length) {
+    //     if (left[0] <= right[0]) {
+    //       arr.push(left.shift())
+    //     } else {
+    //       arr.push(right.shift())
+    //     }
+    //   }
+    //   while(left.length) {
+    //     arr.push(left.shift())
+    //   }
+    //   while(right.length) {
+    //     arr.push(right.shift())
+    //   }
+    //   return arr
+    // }
+    // function sortByMerge(arr) {
+    //   if (arr.length < 2) return arr
+    //   const middle = Math.floor(arr.length / 2)
+    //   let left = arr.slice(0, middle)
+    //   let right = arr.slice(middle, arr.length)
+    //   return merge(sortByMerge(left), sortByMerge(right))
+    // }
+    // console.log(sortByMerge(arr));
+
+    /**
+    * 5.快速排序
+    * 复杂度 O(n * logn)
+    */ 
+    // function sortQu(arr) {
+    //   if (arr.length < 2) return arr
+    //   const left = []
+    //   const right = []
+    //   const middle = Math.floor(arr.length / 2)
+    //   const pivot = arr.splice(middle, 1)[0];
+    //   for (let i = 0; i < arr.length; i++) {
+    //     if (arr[i] < pivot) {
+    //       left.push(arr[i])
+    //     } else {
+    //       right.push(arr[i])
+    //     }
+    //   }
+    //   return sortQu(left).concat([pivot], sortQu(right))
+    // }
+    // console.log(sortQu(arr));
+
+    /**
+    * 6.堆排序
+    * 复杂度 O(n * logn)
+    */ 
+    function Head(arr) {
+      
+    }
+    function sortByHeap(arr) {
+      
+      return arr
+    }
+    console.log(sortByHeap(arr));
+
+    /**
+    * 8.基数排序
+    * 复杂度 O(k * n)
+    */ 
+    // function sortByBaseNum(arr) {
+
+    //   return arr
+    // }
+    // console.log(sortByBaseNum(arr));
+
+  </script>
+</body>
+</html>

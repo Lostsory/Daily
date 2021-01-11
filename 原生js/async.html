@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const getApiInfo = () => new Promise((resolve) => {
+      setTimeout(() => {
+        console.log('1')
+        resolve('success')
+      }, 1000)
+    })
+
+    const login = async() => {
+      await getApiInfo()
+    }
+    
+    const init = async() => {
+      await login()
+      console.log('2');
+    }
+    init()
+    
+  </script>
+</body>
+</html>
