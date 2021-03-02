@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    class Event{
+      constructor() {
+        this.eventMap = {}
+      }
+      on(event, fn) {
+        (this.eventMap[event] || (this.eventMap[event] = [])).push(fn)
+        return this
+      }
+      once(event, fn) {
+        const newFn = (...arg) => {
+          fn(...arg)
+          this.off(event, newFn)
+        }
+        this.on(event, newFn)
+        return this
+      }
+      off(event, fn) {
+        if (this.eventMap[event]) {
+          this.eventMap[event] = this.eventMap[event].filter(v => v != fn)
+        }
+        return this
+      }
+      emit(event, ...args) {
+        if (Array.isArray(this.eventMap[event])) {
+          if (this.eventMap[event].length > 0) {
+            this.eventMap[event].forEach(fn => fn(...args))
+            return this
+          }
+          return console.error(event + '暂无监听函数')
+        }
+        return console.error(event + '不存在')
+      }
+    }
+
+    var event1 = new Event()
+    var saySomething = function(v1, v2, v3){
+      console.log(v1, v2, v3);
+    }
+    // event1.on('say', saySomething).emit('say', '1233', '4567', '1232')
+    event1.once('say', saySomething).emit('say', '1233', '4567', '1232')
+  </script>
+</body>
+</html>

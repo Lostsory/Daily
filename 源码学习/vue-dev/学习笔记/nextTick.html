@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>nextTick</title>
+</head>
+<body>
+  <script>
+    const callbacks = [];
+    const pending = false;
+
+    const flushCallback = () => {
+      pending = false;
+      callbacks.forEach(fn => fn());
+      callbacks = []
+    };
+    const timerFunc = () => {
+      Promise.resolve().then(() => {
+        flushCallback()
+      })
+    }
+
+    const nextTick = (fn, ctx) => {
+      callbacks.push(() => {
+        if (fn) {
+          fn.call(ctx);
+        }
+      })
+      if (!pending) {
+        pending = true
+        timerFunc()
+      }
+    }
+
+    
+    // const nextTick = (fn) => Promise.resolve().then(() => {
+    //   fn()
+    // })
+
+    // console.log('tableData赋值');
+    // console.log('setter')
+    // console.log('diff生成新的dom')
+    // nextTick(() => console.log('获取高度'))
+    // console.log('dom挂载')
+
+    // console.log('tableData赋值');
+    // console.log('setter')
+    // console.log('diff生成新的dom')
+    // console.log('获取高度')
+    // console.log('dom挂载')
+  </script>
+</body>
+</html>
