@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0
+    }
+    body{
+      padding-bottom: 200px;
+    }
+    h2, h3, h4, h5{
+      margin: 20px 0 20px 20px;
+    }
+    .kong{
+      height: 10px;
+    }
+    /* =========粘连布局========== */
+    .mock-body{
+      width: 80%;
+      height: 600px;
+      margin: 0 auto;
+      overflow-y: scroll;
+    }
+    #wrap {
+      min-height: 100%;
+      background: pink;
+      text-align: center;
+      overflow: hidden;
+    }
+    #wrap .main {
+      padding-bottom: 50px;
+    }
+    .content-item{
+      height: 100px;
+      margin-top: 10px;
+      background: red;
+    }
+    #footer {
+      height: 50px;
+      line-height: 50px;
+      background: deeppink;
+      text-align: center;
+      margin-top: -50px;
+    }
+  </style>
+</head>
+<body>
+  <h2>1.两列布局，一列宽度固定另外一列自适应布局</h2>
+  <div style="width: 100px;height: 300px;float: left;background: red">left</div>
+  <div style="height: 300px;overflow: hidden;background: blue">right</div>
+  <h3>1-2.flex版本</h3> 
+  <!-- 多加一层 dom 树节点，增加渲染树生成的计算量。 -->
+  <div style="display: flex">
+    <div style="width: 100px;height: 300px;float: left;background: red">left</div>
+    <div style="height: 300px;flex-grow:1;background: blue">right</div>
+  </div>
+  
+  <h2>2.三列布局，两侧宽度固定中间自适应布局</h2>
+  <div style="position: relative">
+      <div style="height: 300px;padding: 0 100px;background: blue">medium</div>
+    <div style="position: absolute;top: 0;left: 0;width: 100px;height: 300px;background: red">left</div>
+    <div style="position: absolute;top: 0;right: 0;width:100px;height: 300px;background: yellow">right</div>    
+  </div>
+  <h3>2-3.flex版本</h3>
+  <div style="display: flex">
+    <div style="width: 100px;height: 300px;background: red">left</div>
+    <div style="height: 300px;flex-grow:1;background: blue">medium</div>
+    <div style="width:100px;height: 300px;background: yellow">right</div>    
+  </div>
+
+  <h2>3.粘连布局</h2>
+  <div class="mock-body">
+    <div id="wrap">
+      <div class="main">
+        <p class="content-item">我是p标签</p>
+        <p class="content-item">我是p标签</p>
+        <p class="content-item">我是p标签</p>
+        <p class="content-item">我是p标签</p>
+      </div>
+    </div>
+    <div id="footer">footer</div>
+  </div>
+
+  <h2>4.平均分</h2>
+  <div style="width: 860px;overflow: hidden;background: #ccc;margin-left: -20px">
+    <div style="width: 25%;padding-left: 20px;float: left;box-sizing: border-box;margin-bottom: 20px">
+      <div style="background: red">item</div>
+    </div>
+    <div style="width: 25%;padding-left: 20px;float: left;box-sizing: border-box;margin-bottom: 20px">
+      <div style="background: red">item</div>
+    </div>
+    <div style="width: 25%;padding-left: 20px;float: left;box-sizing: border-box;margin-bottom: 20px">
+      <div style="background: red">item</div>
+    </div>
+    <div style="width: 25%;padding-left: 20px;float: left;box-sizing: border-box;margin-bottom: 20px">
+      <div style="background: red">item</div>
+    </div>
+    <div style="width: 25%;padding-left: 20px;float: left;box-sizing: border-box;margin-bottom: 20px">
+      <div style="background: red">item</div>
+    </div>
+    <div style="width: 25%;padding-left: 20px;float: left;box-sizing: border-box;margin-bottom: 20px">
+      <div style="background: red">item</div>
+    </div>
+    <div style="width: 25%;padding-left: 20px;float: left;box-sizing: border-box;margin-bottom: 20px">
+      <div style="background: red">item</div>
+    </div>
+    <div style="width: 25%;padding-left: 20px;float: left;box-sizing: border-box;margin-bottom: 20px">
+      <div style="background: red">item</div>
+    </div>
+  </div>
+
+  <h2>5.icon</h2>
+  <p style="width: 116px;padding-left: 68px;margin-left: 10px;border-radius: 8px;line-height: 86px;background: url('./imgs/icon.png') #f9f9fc 16px center no-repeat;font-size: 14px;font-weight: bold;">全部设计</p>
+  <div class="kong"></div>
+  <div style="position: relative;width: 116px;padding-left: 68px;margin-left: 10px;border-radius: 8px;line-height: 86px;background: #f9f9fc 16px center;font-size: 14px;font-weight: bold;">
+    <div style="position: absolute;top: 0;left: 0;width: 68px;height: 100%;background: url('./imgs/icon.png') #f9f9fc 16px center no-repeat;"></div>
+    <span>全部设计</span>
+  </div>
+
+  <h2>6.demo-后台管理系统</h2>
+  <div style="position: relative;;height: 600px;background: pink;">
+    <div style="position: absolute;top: 0;left: 0;width: 100%;height: 50px;background: red">header</div>
+    <div style="height: 100%;box-sizing: border-box;padding-top: 50px;">
+      <div style="width: 100px;height: 100%;background: yellow;float: left;">left</div>
+      <div style="height: 100%;box-sizing: border-box;padding: 20px;overflow: hidden;">
+        <div style="height: 100%;background: blue">main</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
