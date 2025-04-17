@@ -1,0 +1,26 @@
+{
+  "name": "mcp-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && chmod 755 build/index.js",
+    "sql": "npm run build && node build/index.js mysql-mcp-server"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.39.0",
+    "@modelcontextprotocol/sdk": "^1.9.0",
+    "dotenv": "^16.5.0",
+    "mysql-mcp-server": "^0.1.1",
+    "openai": "^4.94.0",
+    "resolve-bin": "^1.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.1",
+    "@types/resolve-bin": "^0.4.3",
+    "typescript": "^5.8.3"
+  }
+}
