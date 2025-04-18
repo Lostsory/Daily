@@ -1,0 +1,22 @@
+{
+  "name": "ts-code-understanding-ai",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "parse": "ts-node scripts/parse.ts",
+    "embed": "ts-node scripts/embed.ts",
+    "query": "ts-node scripts/query.ts",
+    "summarize": "ts-node scripts/summarize.ts"
+  },
+  "dependencies": {
+    "chromadb": "^2.2.1",
+    "dotenv": "^16.0.3",
+    "globby": "^13.2.2",
+    "openai": "^4.0.0",
+    "ts-morph": "^22.0.0"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.1",
+    "typescript": "^5.2.2"
+  }
+}
