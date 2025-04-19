@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  - push
+  - pull_request
+
+permissions:
+  contents: read # to fetch code (actions/checkout)
+
+jobs:
+  ci:
+    name: ${{ matrix.command }}
+    # Pin the version to avoid dependency installation issues
+    runs-on: ubuntu-22.04
+    strategy:
+      matrix:
+        command:
+          - 'test'
+          - 'test:integration'
+          - 'lint:eslint'
+          - 'lint:prettier'
+          - 'lint:typescript'
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: yarn
+
+      - name: Run ${{ matrix.command }}
+        run: yarn && yarn build && yarn ${{ matrix.command }}
+        env:
+          CI: true

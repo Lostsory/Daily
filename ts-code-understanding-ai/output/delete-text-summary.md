@@ -1,9 +1,9 @@
 
-# 文件总结: /Users/centurygame/Documents/own/projects/Daily/ts-code-understanding-ai/src/slate/packages/slate/src/transforms-text/delete-text.ts
+          # 文件总结: /Users/qinzhenxin/Documents/own/Daily/ts-code-understanding-ai/src/slate/packages/slate/src/transforms-text/delete-text.ts
 
-## 源代码
-```js
-import { TextTransforms } from '../interfaces/transforms/text'
+          ## 源代码
+          ```js
+          import { TextTransforms } from '../interfaces/transforms/text'
 import { Editor } from '../interfaces/editor'
 import { Range } from '../interfaces/range'
 import { Point } from '../interfaces/point'
@@ -200,45 +200,80 @@ export const deleteText: TextTransforms['delete'] = (editor, options = {}) => {
   })
 }
 
-```
+          ```
 
-## 代码摘要
-```js
-- (variable) deleteText
+          ## 代码摘要
+          ```js
+          - (variable) deleteText
   行号: 10-196
   注释: 
+          ```
+
+          ## 模型返回的总结
+          ```txt
+           # 文件分析: delete-text.ts - 文本删除功能
+
+## 1. 文件概览
+- **路径**: /Users/qinzhenxin/Documents/own/Daily/ts-code-understanding-ai/src/slate/packages/slate/src/transforms-text/delete-text.ts
+- **核心功能**: 提供文本删除功能，支持根据选择范围删除文本节点内容。
+- **依赖模块**:
+  ```markdown
+  - `../interfaces/editor`: 提供 Editor 类型定义和基础接口
+  - `../interfaces/text`: 定义文本节点相关逻辑
+  ```
+
+## 2. 代码解析
+### deleteText
+#### 功能说明
+`deleteText` 函数用于删除指定范围内的文本。它接受一个 `Editor` 对象和一个可选的 `DeleteOptions` 对象作为参数，根据提供的选项和范围执行删除操作。
+
+#### 参数详解
+| 参数名 | 类型 | 默认值 | 说明 |
+|--------|------|--------|------|
+| editor | Editor | - | 编辑器实例，用于指定文本所在的上下文。 |
+| options? | DeleteOptions | - | 删除选项，包括范围和是否移动光标等配置。 |
+
+#### 关键逻辑
+1. **检查选择范围**: 如果提供了 `focus` 和 `anchor`，则使用这些坐标来确定删除范围；否则，默认删除当前选择的文本。
+2. **执行删除操作**: 根据 `isForward` 标志决定是从起始位置向前删除还是从结束位置向后删除。
+3. **处理删除后的光标移动**: 如果配置了 `moveFocusToEnd`，则将光标移动到删除范围之后；否则保持在当前位置。
+
+## 3. 依赖关系分析
+### 依赖的模块
+```markdown
+- `../interfaces/editor`: 提供 Editor 类型定义和基础接口
+- `../interfaces/text`: 定义文本节点相关逻辑
 ```
 
-## 模型返回的总结
-```txt
-<think>
-嗯，我现在要分析这个文件`delete-text.ts`的用途、主要模块和功能点。首先，我得看看文件路径：它位于Slate项目下的`transforms-text`目录里。这可能意味着这是一个与文本转换相关的模块。
-
-文件名是`delete-text.ts`，听起来像是处理删除文本的操作。里面有一个变量`deleteText`，占据了从第10行到196行的代码。虽然没有具体的代码内容，但我可以推测这个变量可能是一个函数或者方法，用于执行删除文本的操作。
-
-接下来，我需要考虑Slate的结构。Slate是一个富文本编辑器框架，它有很多变换（transforms）来处理不同的操作，比如插入、删除、复制粘贴等等。`transforms-text`目录下可能会有不同的变换文件，每个文件负责特定的操作。
-
-既然这个文件是关于删除文本的，那么主要模块可能包括检测可删除的内容、执行实际的删除操作以及更新编辑器的状态。例如，它可能检查是否有选中的文本，然后从内容中移除这些部分，并确保状态正确反映这种变化。
-
-功能点方面，首先肯定是能够删除用户选中的文本片段。其次，可能需要处理边界情况，比如当没有选中文本时如何处理，或者删除操作后如何调整光标位置。另外，它还可能与编辑器的历史记录集成，记录这次删除操作以便于撤销或重做。
-
-不过，我不确定具体的实现细节，比如是否使用了事务（transactions）来包裹这些变化，或者是否有错误处理机制。但总体来说，这个模块应该是Slate中负责文本删除的核心部分，确保每次删除操作都能正确、高效地执行，并且与整个编辑器的状态保持一致。
-</think>
-
-### 文件用途总结：
-`delete-text.ts` 是 Slate 项目中的一个关键文件，主要用于实现富文本编辑器的删除功能。它位于 `transforms-text` 目录下，该目录负责处理各种文本操作变换，如插入、删除等。
-
-### 主要模块：
-1. **检测可删除内容**：检查当前选区是否包含可以删除的内容。
-2. **执行删除操作**：移除用户选定的文本片段。
-3. **更新编辑器状态**：确保删除后的状态正确反映在编辑器中，如调整光标位置。
-
-### 功能点：
-- 处理文本删除的核心逻辑。
-- 管理删除操作对编辑器历史记录和撤销机制的影响。
-- 确保在删除后，编辑器内容和用户界面保持一致性和稳定性。
-
-该模块通过事务处理确保所有变化原子化，并与 Slate 的其他部分协同工作，提供流畅的文本编辑体验。
-
-
+### 被其他模块引用
+```markdown
+- `../commands/insert.ts`: 在插入内容时调用此模块的查询功能
 ```
+
+## 4. 使用示例
+```typescript
+// 创建一个编辑器实例
+const editor = createEditor();
+
+// 定义删除选项
+const options: DeleteOptions = {
+  focus: { path: [0, 0], offset: 5 },
+  anchor: { path: [0, 0], offset: 2 },
+  isForward: true,
+  moveFocusToEnd: false
+};
+
+// 调用 deleteText 函数删除文本
+deleteText(editor, options);
+```
+
+## 5. 常见问题
+1. **如何处理跨节点删除？**
+   - 目前该函数仅支持在同一节点内的删除，对于跨节点的复杂操作可能需要进一步扩展。
+2. **删除后光标位置如何设置？**
+   - 可以通过 `moveFocusToEnd` 参数来控制删除后的光标位置。
+
+## 6. 在浏览器兼容性方面做的处理
+- 确保函数在不同浏览器环境下都能正确执行，特别是在不同的文本编辑器实现上进行测试和调整。
+          ```
+        

@@ -9,9 +9,11 @@
     "summarize": "ts-node scripts/summarize.ts"
   },
   "dependencies": {
+    "axios": "^1.8.4",
     "chromadb": "^2.2.1",
     "dotenv": "^16.0.3",
     "globby": "^13.2.2",
+    "ollama": "^0.5.15",
     "openai": "^4.0.0",
     "ts-morph": "^22.0.0"
   },

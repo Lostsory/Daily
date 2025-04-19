@@ -1,9 +1,9 @@
 
-# 文件总结: /Users/centurygame/Documents/own/projects/Daily/ts-code-understanding-ai/src/slate/packages/slate/src/transforms-node/split-nodes.ts
+          # 文件总结: /Users/qinzhenxin/Documents/own/Daily/ts-code-understanding-ai/src/slate/packages/slate/src/transforms-node/split-nodes.ts
 
-## 源代码
-```js
-import { NodeTransforms } from '../interfaces/transforms/node'
+          ## 源代码
+          ```js
+          import { NodeTransforms } from '../interfaces/transforms/node'
 import { Editor } from '../interfaces/editor'
 import { Element } from '../interfaces/element'
 import { Range } from '../interfaces/range'
@@ -144,51 +144,82 @@ export const splitNodes: NodeTransforms['splitNodes'] = (
   })
 }
 
-```
+          ```
 
-## 代码摘要
-```js
-- (variable) deleteRange
+          ## 代码摘要
+          ```js
+          - (variable) deleteRange
   行号: 14-23
   注释: Convert a range into a point by deleting it's content.
 
 - (variable) splitNodes
   行号: 25-140
   注释: 
+          ```
+
+          ## 模型返回的总结
+          ```txt
+           # 文件分析: split-nodes.ts - 分割节点
+
+## 1. 文件概览
+- **路径**: /Users/qinzhenxin/Documents/own/Daily/ts-code-understanding-ai/src/slate/packages/slate/src/transforms-node/split-nodes.ts
+- **核心功能**: 将一个节点分割成两个节点，删除中间的内容。
+- **依赖模块**:
+  ```markdown
+  - `../interfaces/editor`: 提供 Editor 类型定义和基础接口
+  - `../interfaces/text`: 定义文本节点相关逻辑
+  ```
+
+## 2. 代码解析
+### splitNodes
+#### 功能说明
+将一个节点分割成两个节点，删除中间的内容。该函数接受一个编辑器实例和一个范围对象作为参数，通过调用 deleteRange 方法来实现节点的分割。
+
+#### 参数详解
+| 参数名 | 类型 | 默认值 | 说明 |
+|--------|------|--------|------|
+| editor | Editor | - | 编辑器实例 |
+| options | { at: Point } | - | 包含分割位置的点对象 |
+
+#### 关键逻辑
+1. 获取当前选中的节点。
+2. 使用 `deleteRange` 方法删除指定范围内的内容。
+3. 创建新的文本节点并插入到编辑器中，替换被删除内容的原始位置。
+4. 更新编辑器的节点列表。
+
+## 3. 依赖关系分析
+### 依赖的模块
+```markdown
+- `../interfaces/editor`: 提供 Editor 类型定义和基础接口
+- `../interfaces/text`: 定义文本节点相关逻辑
 ```
 
-## 模型返回的总结
-```txt
-<think>
-好，我来分析一下这个文件的内容。首先，文件路径是`/Users/centurygame/Documents/own/projects/Daily/ts-code-understanding-ai/src/slate/packages/slate/src/transforms-node/split-nodes.ts`，看起来这是一个使用TypeScript编写的Slate项目中的一个变换模块。
-
-文件中有两个主要变量：`deleteRange`和`splitNodes`。先看`deleteRange`，它位于行14到23之间，注释说它的作用是将范围转换为点，通过删除其内容来实现。这可能意味着这个函数用于在编辑器中删除某个特定的文本区域，并返回一个新的点位置。
-
-接下来看`splitNodes`，这一部分从行25延伸到140，注释为空，但根据名字推测它是一个用于分割节点的函数。Slate通常处理富文本编辑，分割节点可能涉及将一个节点分成两个或多个部分，这样可以更灵活地管理内容结构。
-
-综合来看，这个文件主要处理编辑器中的节点操作，包括删除特定范围的内容和分割节点。这些功能对于实现复杂的文本编辑操作非常必要。
-</think>
-
-### 文件总结
-
-该文件位于 `src/slate/src/transforms-node/split-nodes.ts`，是Slate项目的一部分，专注于处理节点的变换操作。
-
-#### 主要模块
-
-1. **deleteRange**：
-   - **用途**：用于删除特定范围的内容，并将其转换为一个点。
-   - **功能点**：通过删除指定范围内的内容，返回一个新的位置点。这在编辑器中常用于实现剪切、删除等功能。
-
-2. **splitNodes**：
-   - **用途**：处理节点的分割操作。
-   - **功能点**：将一个或多个节点分割成新的节点，允许更细粒度的内容管理。这对于复杂的文本结构和编辑操作至关重要，例如插入新内容或调整现有内容布局。
-
-#### 功能总结
-
-- **deleteRange**：删除指定范围并返回位置点，支持编辑器的基本操作。
-- **splitNodes**：分割节点以实现灵活的内容结构调整，增强编辑功能。
-
-这两个模块共同为Slate编辑器提供了强大的文本处理能力。
-
-
+### 被其他模块引用
+```markdown
+- `../commands/insert.ts`: 在插入内容时调用此模块的查询功能
 ```
+
+## 4. 使用示例
+```typescript
+// 创建一个编辑器实例
+const editor = new Editor();
+
+// 定义分割位置
+const options = { at: { path: [0, 0], offset: 5 } };
+
+// 调用 splitNodes 函数
+splitNodes(editor, options);
+```
+
+## 5. 常见问题
+1. **如何处理多个节点同时被删除的情况？**  
+   如果范围包含多个节点，代码会逐个删除这些节点。
+2. **参数 `options` 中的 `at` 字段是什么意思？**  
+   `at` 字段表示分割的位置，是一个包含 `path` 和 `offset` 的对象。`path` 是路径数组，`offset` 是偏移量。
+3. **返回值是什么？**  
+   该函数没有显式的返回值，主要是对编辑器实例进行修改。
+
+## 6. 在浏览器兼容性方面做的处理
+- 确保代码在所有现代浏览器中都能正常运行，未针对特定浏览器做特殊处理。
+          ```
+        
