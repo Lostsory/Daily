@@ -21,7 +21,7 @@ const queryByInput = async(input) => {
   return ranked
 }
 
-queryByInput('组件功能: 加载按钮')
+queryByInput('组件描述：加载')
 
 
 

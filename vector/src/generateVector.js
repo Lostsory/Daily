@@ -8,6 +8,10 @@ const ollamaApiUrl = 'http://localhost:11434/api/embed';  // 根据你的 Ollama
 function generateComponentText(component) {
   const { name, description, props } = component;
   const propsText = props.map(p => `${p.name}: ${p.description}`).join(', ');
+  return `
+    组件名：${name}
+    组件描述：${description}
+  `
   return `${name} ${description} Props: ${propsText}`;
 }
 
